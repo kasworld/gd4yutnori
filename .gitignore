@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+addons/godot-git-plugin/
+/android/
+.vscode/
+*.exe
+*.apk
+*.apk.idsig
+*.pck
+*.err
+*.tmp
