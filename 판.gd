@@ -24,26 +24,27 @@ func init(r: float, co :Color) -> void:
 		var pos = make_pos_by_rad_r(rd,r)
 		눈추가(r,pos,co)
 
-	for i in [-0.33,-0.66,0.33,0.66]:
+	for i in [0.66,0.33,0,-0.33,-0.66]:
 		눈추가(r,Vector2(r*i,0),co)
+
+	for i in [-0.66,-0.33,0.33,0.66]:
 		눈추가(r,Vector2(0,r*i),co)
 
-	눈추가(r,Vector2(0,0),co)
+	# 말 이동 순서 연결하기
+	바깥길 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+	첫지름길 = [4,20,21,22,23,24,14]
+	둘째지름길 = [9,25,26,22,27,28,19]
+	세째지름길 = [22,27,28,19]
 
 	# 눈 연결선 그리기
 	for i in range(0,360,눈각도):
 		var rd1 = deg_to_rad(i)
 		var rd2 = deg_to_rad(i+눈각도)
 		화살표선들.append_array([make_pos_by_rad_r(rd1,r),make_pos_by_rad_r(rd2,r)])
-	for i in [-1.0,-0.33,-0.66,0,0.33,0.66]:
+	for i in [-1.0,-0.66,-0.33,0,0.33,0.66]:
 		화살표선들.append_array([Vector2(r*i,0),Vector2(r*(i+0.33),0)])
 		화살표선들.append_array([Vector2(0,r*i),Vector2(0,r*(i+0.33))])
 
-	# 말 이동 순서 연결하기
-	바깥길 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
-	첫지름길 = [4,26,24,28,20,22,14]
-	둘째지름길 = [9,23,21,28,25,27,19]
-	세째지름길 = [28,25,27,19]
 
 func 눈추가(r: float, pos:Vector2,co:Color):
 	var 눈1 = 눈_scene.instantiate()
