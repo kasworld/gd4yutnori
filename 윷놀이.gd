@@ -9,9 +9,9 @@ func _ready() -> void:
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	var sh = r/20
 	판추가(r,Color.RED,Vector2(-sh,-sh))
-	판추가(r,Color.BLUE,Vector2(-sh,sh))
-	판추가(r,Color.GREEN,Vector2(sh,-sh))
-	판추가(r,Color.YELLOW,Vector2(sh,sh))
+	#판추가(r,Color.BLUE,Vector2(-sh,sh))
+	#판추가(r,Color.GREEN,Vector2(sh,-sh))
+	#판추가(r,Color.YELLOW,Vector2(sh,sh))
 
 func 판추가(r:float, co :Color,shift :Vector2):
 	var 이번판 = 판_scene.instantiate()
