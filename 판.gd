@@ -1,4 +1,5 @@
 extends Node2D
+class_name 판
 
 var 눈_scene = preload("res://눈.tscn")
 
@@ -7,6 +8,10 @@ var co :Color
 var 화살표선들 :PackedVector2Array =[]
 
 var 눈들 :Array[눈]
+var 바깥길 :Array[int]
+var 첫지름길 :Array[int]
+var 둘째지름길 :Array[int]
+var 세째지름길 :Array[int]
 
 func init(r: float, co :Color) -> void:
 	self.r = r
@@ -35,23 +40,10 @@ func init(r: float, co :Color) -> void:
 		화살표선들.append_array([Vector2(0,r*i),Vector2(0,r*(i+0.33))])
 
 	# 말 이동 순서 연결하기
-	for i in range(0,19):
-		눈들[i].다음눈 = 눈들[i+1]
-
-	눈들[26].다음눈 = 눈들[24]
-	눈들[24].다음눈 = 눈들[28]
-	눈들[28].다음눈 = 눈들[20]
-	눈들[20].다음눈 = 눈들[22]
-	눈들[22].다음눈 = 눈들[14]
-	눈들[23].다음눈 = 눈들[21]
-	눈들[21].다음눈 = 눈들[28]
-	눈들[25].다음눈 = 눈들[27]
-	눈들[27].다음눈 = 눈들[19]
-
-	눈들[4].지름길눈 = 눈들[26]
-	눈들[9].지름길눈 = 눈들[23]
-	눈들[28].지름길눈 = 눈들[25]
-
+	바깥길 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+	첫지름길 = [4,26,24,28,20,22,14]
+	둘째지름길 = [9,23,21,28,25,27,19]
+	세째지름길 = [28,25,27,19]
 
 func 눈추가(r: float, pos:Vector2,co:Color):
 	var 눈1 = 눈_scene.instantiate()
