@@ -41,7 +41,8 @@ func init(r: float, co :Color) -> void:
 		var rd1 = deg_to_rad(i)
 		var rd2 = deg_to_rad(i+눈각도)
 		화살표선들.append_array([make_pos_by_rad_r(rd1,r),make_pos_by_rad_r(rd2,r)])
-	for i in [-1.0,-0.66,-0.33,0,0.33,0.66]:
+	var th = 1.0/3.0
+	for i in [-1.0,-th*2,-th,0,th,th*2]:
 		화살표선들.append_array([Vector2(r*i,0),Vector2(r*(i+0.33),0)])
 		화살표선들.append_array([Vector2(0,r*i),Vector2(0,r*(i+0.33))])
 
