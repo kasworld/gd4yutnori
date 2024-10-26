@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://demui2phc3ik1"]
+
+[ext_resource type="Script" path="res://편.gd" id="1_5j0h1"]
+
+[node name="편" type="Node2D"]
+script = ExtResource("1_5j0h1")

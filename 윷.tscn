@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://iyiufihtt1ke"]
+
+[ext_resource type="Script" path="res://윷.gd" id="1_vbil8"]
+
+[node name="윷" type="Node2D"]
+script = ExtResource("1_vbil8")

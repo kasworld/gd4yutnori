@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5pheg86xy3d8"]
+
+[ext_resource type="Script" path="res://눈.gd" id="1_ayhlg"]
+
+[node name="눈" type="Node2D"]
+script = ExtResource("1_ayhlg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2

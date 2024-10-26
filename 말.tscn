@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mf024os55tl3"]
+
+[ext_resource type="Script" path="res://말.gd" id="1_edvhi"]
+
+[node name="말" type="Node2D"]
+script = ExtResource("1_edvhi")
