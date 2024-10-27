@@ -10,8 +10,8 @@ var 판들 : Array[판]
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	var sh = r/40
-	판추가(r,Color.WHITE,Vector2(-sh,-sh))
+	var sh = 0
+	판추가(r,Color.RED,Vector2(-sh,-sh))
 	#판추가(r,Color.SKY_BLUE,Vector2(-sh,sh))
 	#판추가(r,Color.GREEN,Vector2(sh,-sh))
 	#판추가(r,Color.YELLOW,Vector2(sh,sh))

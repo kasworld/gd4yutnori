@@ -40,12 +40,24 @@ func init(r: float, co :Color) -> void:
 	for i in range(0,360,눈각도):
 		var rd1 = deg_to_rad(i)
 		var rd2 = deg_to_rad(i+눈각도)
-		화살표선들.append_array([make_pos_by_rad_r(rd1,r),make_pos_by_rad_r(rd2,r)])
+		화살표추가(make_pos_by_rad_r(rd1,r),make_pos_by_rad_r(rd2,r))
 	var th = 1.0/3.0
 	for i in [-1.0,-th*2,-th,0,th,th*2]:
-		화살표선들.append_array([Vector2(r*i,0),Vector2(r*(i+0.33),0)])
-		화살표선들.append_array([Vector2(0,r*i),Vector2(0,r*(i+0.33))])
+		# 세로 화살표
+		화살표추가(Vector2(0,r*i),Vector2(0,r*(i+0.33)))
+		# 가로 화살표
+		화살표추가(Vector2(r*(i+0.33),0),Vector2(r*i,0))
 
+func 화살표추가(p1 :Vector2, p2 :Vector2):
+	var t1 = (p2-p1)*0.8+p1
+	var t2 = (p1-p2)*0.8+p2
+	p1 = t2
+	p2 = t1
+	화살표선들.append_array([p1,p2])
+	var p3 = ((p1-p2)*0.2).rotated(PI/6) + p2
+	var p4 = ((p1-p2)*0.2).rotated(-PI/6) + p2
+	화살표선들.append_array([p3,p2])
+	화살표선들.append_array([p4,p2])
 
 func 눈추가(r: float, pos:Vector2,co:Color):
 	var 눈1 = 눈_scene.instantiate()
