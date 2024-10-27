@@ -54,6 +54,9 @@ func 눈추가(r: float, pos:Vector2,co:Color):
 	add_child(눈1)
 	눈들.append(눈1)
 
+func 눈얻기(눈번호 :int)->눈:
+	return 눈들[눈번호]
+
 func _draw() -> void:
 	draw_multiline(화살표선들,co, 1)
 
