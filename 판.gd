@@ -45,6 +45,7 @@ func init(r: float, co :Color) -> void:
 
 	var th = 1.0/3.0
 	화살표추가( Vector2(0,r), Vector2(-th*r,r*(1-th)) )
+	화살표추가( Vector2(th*r,r*(1-th)), make_pos_by_rad_r(deg_to_rad(눈각도),r) )
 
 	for i in [-1.0,-th*2,-th,0,th,th*2]:
 		# 세로 화살표
