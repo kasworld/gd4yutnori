@@ -37,16 +37,20 @@ func init(r: float, co :Color) -> void:
 	세째지름길 = [22,27,28,19]
 
 	# 눈 연결선 그리기
-	for i in range(0,360,눈각도):
+	for i in range(눈각도,360,눈각도):
 		var rd1 = deg_to_rad(i)
 		var rd2 = deg_to_rad(i+눈각도)
 		화살표추가(make_pos_by_rad_r(rd1,r),make_pos_by_rad_r(rd2,r))
+	#화살표추가(make_pos_by_rad_r(0,r),make_pos_by_rad_r(0,r*2))
+
 	var th = 1.0/3.0
+	화살표추가( Vector2(0,r), Vector2(-th*r,r*(1-th)) )
+
 	for i in [-1.0,-th*2,-th,0,th,th*2]:
 		# 세로 화살표
-		화살표추가(Vector2(0,r*i),Vector2(0,r*(i+0.33)))
+		화살표추가(Vector2(0,r*i),Vector2(0,r*(i+th)))
 		# 가로 화살표
-		화살표추가(Vector2(r*(i+0.33),0),Vector2(r*i,0))
+		화살표추가(Vector2(r*(i+th),0),Vector2(r*i,0))
 
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var t1 = (p2-p1)*0.8+p1
