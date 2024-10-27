@@ -16,3 +16,7 @@ columns = 4
 offset_right = 40.0
 offset_bottom = 40.0
 columns = 4
+
+[node name="윷통" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0

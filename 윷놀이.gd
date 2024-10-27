@@ -2,14 +2,21 @@ extends Node2D
 
 var 판_scene = preload("res://판.tscn")
 var 말_scene = preload("res://말.tscn")
+var 윷_scene = preload("res://윷.tscn")
+
 
 var vp_size :Vector2
 var 판들 : Array[판]
-
+var 윷들 : Array[윷]
 
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
+
+	for i in range(0,4):
+		$"윷통".add_child(윷_scene.instantiate().init())
+	$"윷통".position = Vector2( 5* r /30, 5 * r /30)
+
 
 	$"달말들".position = Vector2( 5* r /30,vp_size.y - 15 * r /30)
 	$"난말들".position = Vector2(vp_size.x - 15 * r /30 ,vp_size.y - 15 * r /30)
