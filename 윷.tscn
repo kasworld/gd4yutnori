@@ -10,7 +10,9 @@ anchors_preset = 0
 script = ExtResource("1_vbil8")
 
 [node name="배면" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("2_nwg8k")
 
 [node name="등면" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("3_lxkps")

@@ -15,13 +15,11 @@ func _ready() -> void:
 
 	for i in range(0,4):
 		$"윷통".add_child(윷_scene.instantiate().init())
-	$"윷통".position = Vector2( 5* r /30, 5 * r /30)
-
-
-	$"달말들".position = Vector2( 5* r /30,vp_size.y - 15 * r /30)
-	$"난말들".position = Vector2(vp_size.x - 15 * r /30 ,vp_size.y - 15 * r /30)
+	$"윷통".position = vp_size/2 + Vector2(-r/3,-r/3)
+	$"달말들".position = vp_size/2 + Vector2(r/3,r/3)
+	$"난말들".position = vp_size/2 + Vector2(-r/3,r/3)
 	for c in [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]:
-		for i in range(0,4):
+		for i in range(1,5):
 			$"달말들".add_child(말_scene.instantiate().init(r/30,c,i))
 			$"난말들".add_child(말_scene.instantiate().init(r/30,c,i))
 

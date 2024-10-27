@@ -2,7 +2,7 @@ extends Control
 class_name 윷
 
 func init() -> 윷:
-	custom_minimum_size = Vector2(36,64)
+	custom_minimum_size = Vector2(36,64)*2
 	return self
 
 func 던지기() -> int:
