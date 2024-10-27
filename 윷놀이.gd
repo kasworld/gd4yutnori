@@ -15,7 +15,7 @@ func _ready() -> void:
 
 	for i in range(0,4):
 		$"윷통".add_child(윷_scene.instantiate().init())
-	$"윷통".position = vp_size/2 + Vector2(-r/3,-r/3)
+	$"윷통".position = vp_size/2 + Vector2(-r/2.5,-r/3)
 	$"달말들".position = vp_size/2 + Vector2(r/3,r/3)
 	$"난말들".position = vp_size/2 + Vector2(-r/3,r/3)
 	for c in [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]:
