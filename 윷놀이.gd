@@ -18,7 +18,7 @@ func _ready() -> void:
 
 	var 놓을말 = 말_scene.instantiate()
 	놓을말.init(r/30,Color.RED,0)
-	#판들[0].눈얻기(3).말놓기(놓을말)
+	판들[0].눈얻기(3).말놓기(놓을말)
 
 func 판추가(r:float, co :Color,shift :Vector2):
 	var 이번판 = 판_scene.instantiate()

@@ -4,6 +4,7 @@ class_name 판
 var 눈_scene = preload("res://눈.tscn")
 
 var r :float
+var w :float
 var co :Color
 var 화살표선들 :PackedVector2Array =[]
 
@@ -16,6 +17,7 @@ var 세째지름길 :Array[int]
 func init(r: float, co :Color) -> void:
 	self.r = r
 	self.co = co
+	self.w = max(1.0, r/300)
 
 	# 눈 추가하기
 	var 눈각도 = 360/20
@@ -75,7 +77,7 @@ func 눈얻기(눈번호 :int)->눈:
 	return 눈들[눈번호]
 
 func _draw() -> void:
-	draw_multiline(화살표선들,co, 1)
+	draw_multiline(화살표선들,co, self.w)
 
 
 func _ready() -> void:

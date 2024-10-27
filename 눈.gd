@@ -2,11 +2,13 @@ extends Node2D
 class_name 눈
 
 var 번호 :int
+var w :float
 func init(r :float, co: Color, 번호:int) -> void:
 	self.번호 = 번호
-	var 원 = new_circle(Vector2(0,0),r,co,1)
+	self.w = max(1,r/8)
+	var 원 = new_circle(Vector2(0,0),r,co,self.w)
 	add_child(원)
-	$"말들".position = Vector2(-r,-r)
+	$"말들".position = Vector2(-r/2,-r/2)
 	var lb = Label.new()
 	lb.theme = preload("res://label.tres")
 	lb.text = "%d" % 번호
