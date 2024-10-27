@@ -8,6 +8,7 @@ func init(r :float, co: Color, 번호:int) -> void:
 	add_child(원)
 	$"말들".position = Vector2(-r,-r)
 	var lb = Label.new()
+	lb.theme = preload("res://label.tres")
 	lb.text = "%d" % 번호
 	add_child(lb)
 

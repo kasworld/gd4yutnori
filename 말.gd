@@ -7,6 +7,7 @@ func init(r :float, co: Color, 번호:int) -> void:
 	var 원 = new_circle_fill(Vector2(0,0),r,co)
 	add_child(원)
 	var lb = Label.new()
+	lb.theme = preload("res://label.tres")
 	lb.text = "%d" % 번호
 	add_child(lb)
 
