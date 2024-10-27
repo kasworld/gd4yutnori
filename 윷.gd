@@ -11,6 +11,5 @@ func 던지기() -> int:
 	$"등면".visible = rtn == 1
 	return rtn
 
-
 func _ready() -> void:
 	pass
