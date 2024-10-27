@@ -2,14 +2,16 @@ extends Node2D
 class_name 말
 
 var 번호 :int
-func init(r :float, co: Color, 번호:int) -> void:
+func init(r :float, co: Color, 번호:int) -> 말:
 	self.번호 = 번호
 	var 원 = new_circle_fill(Vector2(0,0),r,co)
 	add_child(원)
 	var lb = Label.new()
-	lb.theme = preload("res://label.tres")
+	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
+	lb.position = Vector2(-r/2,-r)
 	add_child(lb)
+	return self
 
 func _ready() -> void:
 	pass

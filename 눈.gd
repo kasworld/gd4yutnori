@@ -8,11 +8,11 @@ func init(r :float, co: Color, 번호:int) -> void:
 	self.w = max(1,r/8)
 	var 원 = new_circle(Vector2(0,0),r,co,self.w)
 	add_child(원)
-	$"말들".position = Vector2(-r/2,-r/2)
 	var lb = Label.new()
-	lb.theme = preload("res://label.tres")
+	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
 	add_child(lb)
+	$"말들".position = Vector2(-r/2,-r/2)
 
 func _ready() -> void:
 	pass

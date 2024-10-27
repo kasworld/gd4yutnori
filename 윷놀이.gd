@@ -16,9 +16,16 @@ func _ready() -> void:
 	#판추가(r,Color.GREEN,Vector2(sh,-sh))
 	#판추가(r,Color.YELLOW,Vector2(sh,sh))
 
-	var 놓을말 = 말_scene.instantiate()
-	놓을말.init(r/30,Color.RED,0)
-	판들[0].눈얻기(3).말놓기(놓을말)
+	판들[0].눈얻기(3).말놓기(말_scene.instantiate().init(r/30,Color.RED,0))
+	판들[0].눈얻기(26).말놓기(말_scene.instantiate().init(r/30,Color.RED,0))
+	판들[0].눈얻기(7).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,0))
+	판들[0].눈얻기(17).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,0))
+	판들[0].눈얻기(12).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,0))
+	판들[0].눈얻기(21).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,0))
+	판들[0].눈얻기(22).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,0))
+	판들[0].눈얻기(27).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,0))
+
+
 
 func 판추가(r:float, co :Color,shift :Vector2):
 	var 이번판 = 판_scene.instantiate()
