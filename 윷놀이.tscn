@@ -4,3 +4,15 @@
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
+
+[node name="달말들" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="난말들" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 4

@@ -1,9 +1,10 @@
-extends Node2D
+extends Control
 class_name 말
 
 var 번호 :int
 func init(r :float, co: Color, 번호:int) -> 말:
 	self.번호 = 번호
+	custom_minimum_size = Vector2(r*3,r*3)
 	var 원 = new_circle_fill(Vector2(0,0),r,co)
 	add_child(원)
 	var lb = Label.new()

@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://말.gd" id="1_edvhi"]
 
-[node name="말" type="Node2D"]
+[node name="말" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_edvhi")

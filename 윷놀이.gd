@@ -10,20 +10,28 @@ var 판들 : Array[판]
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
+
+	$"달말들".position = Vector2( 5* r /30,vp_size.y - 15 * r /30)
+	$"난말들".position = Vector2(vp_size.x - 15 * r /30 ,vp_size.y - 15 * r /30)
+	for c in [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]:
+		for i in range(0,4):
+			$"달말들".add_child(말_scene.instantiate().init(r/30,c,i))
+			$"난말들".add_child(말_scene.instantiate().init(r/30,c,i))
+
 	var sh = 10
 	판추가(r,Color.WHITE,Vector2(-sh,-sh))
 	#판추가(r,Color.SKY_BLUE,Vector2(-sh,sh))
 	#판추가(r,Color.GREEN,Vector2(sh,-sh))
 	#판추가(r,Color.YELLOW,Vector2(sh,sh))
 
-	판들[0].눈얻기(3).말놓기(말_scene.instantiate().init(r/30,Color.RED,0))
-	판들[0].눈얻기(26).말놓기(말_scene.instantiate().init(r/30,Color.RED,0))
-	판들[0].눈얻기(7).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,0))
-	판들[0].눈얻기(17).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,0))
-	판들[0].눈얻기(12).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,0))
-	판들[0].눈얻기(21).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,0))
-	판들[0].눈얻기(22).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,0))
-	판들[0].눈얻기(27).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,0))
+	판들[0].눈얻기(3).말놓기(말_scene.instantiate().init(r/30,Color.RED,1))
+	판들[0].눈얻기(26).말놓기(말_scene.instantiate().init(r/30,Color.RED,3))
+	판들[0].눈얻기(7).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,2))
+	판들[0].눈얻기(17).말놓기(말_scene.instantiate().init(r/30,Color.GREEN,2))
+	판들[0].눈얻기(12).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,1))
+	판들[0].눈얻기(21).말놓기(말_scene.instantiate().init(r/30,Color.SKY_BLUE,2))
+	판들[0].눈얻기(22).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,3))
+	판들[0].눈얻기(27).말놓기(말_scene.instantiate().init(r/30,Color.YELLOW,1))
 
 
 
