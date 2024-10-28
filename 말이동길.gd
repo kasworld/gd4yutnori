@@ -12,7 +12,7 @@ var 첫지름길 :Array[int]
 var 둘째지름길 :Array[int]
 var 세째지름길 :Array[int]
 
-func init(r: float, co :Color, 시작눈 :int, 눈들 :Array[눈]) -> void:
+func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool = false) -> void:
 	self.r = r
 	self.co = co
 	self.w = max(1.0, r/300)
@@ -24,23 +24,30 @@ func init(r: float, co :Color, 시작눈 :int, 눈들 :Array[눈]) -> void:
 		var v = 바깥길.pop_front()
 		바깥길.push_back(v)
 
+
 	var 지름길1 :Array[int] = [4,20,21,22,23,24,14]
 	var 지름길2 :Array[int] = [9,25,26,22,27,28,19]
+	if mirror:
+		var v = 바깥길.pop_front()
+		바깥길.push_back(v)
+		바깥길.reverse()
+		지름길1.reverse()
+		지름길2.reverse()
 
 	match 시작눈:
-		0,2,3,4:
+		0,1,2,3:
 			첫지름길 = 지름길1
 			둘째지름길 = 지름길2
-		5,6,7,8,9:
+		5,6,7,8:
 			첫지름길 = 지름길2
 			지름길1.reverse()
 			둘째지름길 = 지름길1
-		10,11,12,13,14:
+		10,11,12,13:
 			지름길1.reverse()
 			첫지름길 = 지름길1
 			지름길2.reverse()
 			둘째지름길 = 지름길2
-		15,16,17,18,19:
+		15,16,17,18:
 			지름길2.reverse()
 			첫지름길 = 지름길2
 			둘째지름길 = 지름길1
