@@ -13,7 +13,7 @@ func _ready() -> void:
 	$"말눈들".init(r,Color.WHITE)
 	$"말눈들".position = vp_size/2
 
-	$"말이동길".init(r,Color.WHITE, 10, $"말눈들".눈들)
+	$"말이동길".init(r,Color.WHITE, 3, $"말눈들".눈들)
 	$"말이동길".position = vp_size/2
 
 	$"윷짝".init()
