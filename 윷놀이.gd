@@ -2,7 +2,6 @@ extends Node2D
 
 var 판_scene = preload("res://판.tscn")
 var 말_scene = preload("res://말.tscn")
-var 윷_scene = preload("res://윷.tscn")
 
 var vp_size :Vector2
 var 판들 : Array[판]
@@ -13,10 +12,8 @@ func _ready() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
-	for i in range(0,4):
-		$"윷통".add_child(윷_scene.instantiate().init())
-
-	$"윷통".position = vp_size/2 + Vector2(-r/2.5,-r/3)
+	$"윷짝".init()
+	$"윷짝".position = vp_size/2 + Vector2(-r/2.5,-r/3)
 	$"달말들".position = vp_size/2 + Vector2(r/3,r/3)
 	$"난말들".position = vp_size/2 + Vector2(-r/3,r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
@@ -36,9 +33,6 @@ func _ready() -> void:
 			판들[0].눈얻기(randi_range(0,28)).말놓기(말_scene.instantiate().init(r/30, c, randi_range(1,4) ))
 
 
-func 윷던지기():
-	for n in $"윷통".get_children():
-		n.던지기()
 
 func 판추가(r:float, co :Color,shift :Vector2):
 	var 이번판 = 판_scene.instantiate()
@@ -50,4 +44,4 @@ func 판추가(r:float, co :Color,shift :Vector2):
 
 
 func _on_윷던지기_pressed() -> void:
-	윷던지기()
+	$"윷짝".윷던지기()

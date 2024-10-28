@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=4 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
+[ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 60
@@ -54,17 +55,6 @@ theme = SubResource("Theme_y2end")
 text = "윷던지기"
 flat = true
 
-[node name="윷통" type="HBoxContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="윷짝" parent="." instance=ExtResource("2_lq234")]
 
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]

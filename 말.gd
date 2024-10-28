@@ -4,9 +4,11 @@ class_name 말
 var 번호 :int
 func init(r :float, co: Color, 번호:int) -> 말:
 	self.번호 = 번호
-	custom_minimum_size = Vector2(r*3,r*3)
+	custom_minimum_size = Vector2(r*2,r*2)
 	var 원 = new_circle_fill(Vector2(0,0),r,co)
 	add_child(원)
+	var 테두리 = new_circle(Vector2(0,0),r,Color.BLACK,max(1,r/10))
+	add_child(테두리)
 	var lb = Label.new()
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
