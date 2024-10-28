@@ -13,7 +13,7 @@ func _ready() -> void:
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
 	$"윷짝".init()
-	$"윷짝".position = vp_size/2 + Vector2(-r/2.5,-r/2.5)
+	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"달말들".position = vp_size/2 + Vector2(r/3,r/3)
 	$"난말들".position = vp_size/2 + Vector2(-r/3,r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)

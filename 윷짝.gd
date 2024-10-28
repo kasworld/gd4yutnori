@@ -3,6 +3,20 @@ class_name 윷짝
 
 var 윷_scene = preload("res://윷.tscn")
 var 윷들 :Array[윷]
+var 결과label :Label
+var 결과문자변환 = {
+	-3:"뒷걸",
+	-2:"뒷개",
+	-1:"뒷도",
+	1:"도",
+	2:"개",
+	3:"걸",
+	4:"윷",
+	5:"모",
+}
+
+var 결과수치 :int
+
 func init()->윷짝:
 	for i in ["뒷도","뒷개","뒷걸","도","결과"]:
 		var lb = Label.new()
@@ -19,15 +33,16 @@ func init()->윷짝:
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "모"
 	$"윷통".add_child(lb)
+	결과label = lb
 
 	return self
 
-func 윷던지기()->Array[int]:
+func 윷던지기():
 	var 결과 :Array[int]
 	for n in 윷들:
 		결과.append( n.던지기() )
-	print(결과, 결과해석(결과))
-	return 결과
+	결과수치 = 결과해석(결과)
+	결과label.text = 결과문자변환[결과수치]
 
 func 결과해석(결과 :Array[int])->int:
 	if 결과 == [1,0,0,0]:
