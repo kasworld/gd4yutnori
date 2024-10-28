@@ -7,8 +7,8 @@ func init() -> 윷:
 
 func 던지기() -> int:
 	var rtn = randi_range(0,1)
-	$"배면".visible = rtn == 0
-	$"등면".visible = rtn == 1
+	$"배면".visible = rtn == 1
+	$"등면".visible = rtn == 0
 	return rtn
 
 func _ready() -> void:
