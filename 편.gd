@@ -9,12 +9,14 @@ var 놓을말 :Array[말]
 var 난말 :Array[말]
 var 놓을말통 :HBoxContainer
 var 난말통 :HBoxContainer
+var 길 :말이동길
 
-func init(이름:String, 말수 :int, r:float, co:Color, 달통 :HBoxContainer, 날통:HBoxContainer) -> void:
+func init(이름:String, 말수 :int, r:float, co:Color, 달통 :HBoxContainer, 날통:HBoxContainer, mw :말이동길) -> void:
 	편이름 = 이름
 	편색 = co
 	놓을말통 = 달통
 	난말통 = 날통
+	길 = mw
 	for i in range(0,말수):
 		var m = 말_scene.instantiate().init(self, r, co, i+1)
 		놓을말.append(m)

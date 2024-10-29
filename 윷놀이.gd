@@ -24,42 +24,55 @@ func _ready() -> void:
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
 	$"판밖말들".position = vp_size/2 + Vector2(-r/1.5,r/4)
 
-	for co in 편색들:
-		말이동길추가(r,co)
-
+	# 편 가르기
 	for c in 편색들:
+		var mw = 말이동길추가(r,c)
 		var t = 편_scene.instantiate()
 		var n1 = HBoxContainer.new()
 		달말통.add_child(n1)
 		var n2 = HBoxContainer.new()
 		난말통.add_child(n2)
-		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c,n1,n2)
+		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c,n1,n2,mw)
 		편들.append(t)
 
-	for t in 편들:
-		while true:
-			var m = t.놓을말얻기()
-			if m == null:
-				break
-			var n = $"말눈들".눈얻기(randi_range(0,28))
-			var oldms = n.말놓기([m])
-			for om in oldms:
-				om.편얻기().놓을말되돌려넣기(om)
+	#for t in 편들:
+		#while true:
+			#var m = t.놓을말얻기()
+			#if m == null:
+				#break
+			#var n = $"말눈들".눈얻기(randi_range(0,28))
+			#var oldms = n.말놓기([m])
+			#for om in oldms:
+				#om.편얻기().놓을말되돌려넣기(om)
+
 
 	말이동길보이기변경()
+
+func 새로말달기(t :편, 이동거리 :int)->눈:
+	var m = t.놓을말얻기()
+	if m == null:
+		return null
+	var 목적눈번호 = t.길.말이동위치찾기(-1,이동거리)
+	var n = $"말눈들".눈얻기(목적눈번호)
+	var oldms = n.말놓기([m])
+	for om in oldms:
+		om.편얻기().놓을말되돌려넣기(om)
+	return null
 
 func _on_윷던지기_pressed() -> void:
 	$"윷짝".윷던지기()
 	var 결과 = $"윷짝".결과얻기()
+	새로말달기(편들[지금보이는말이동길번호],결과)
 	말이동길보이기변경()
 
-func 말이동길추가(r :float, co :Color):
+func 말이동길추가(r :float, co :Color)->말이동길:
 	var o = 말이동길_scene.instantiate()
 	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
 	o.init(r, co, $"말눈들".눈들, v, randi_range(0,1)==0)
 	o.position = vp_size/2
 	add_child(o)
 	말이동길들.append(o)
+	return o
 
 var 지금보이는말이동길번호 =0
 func 말이동길보이기변경():
