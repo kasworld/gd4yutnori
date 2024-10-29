@@ -2,10 +2,12 @@ extends Control
 class_name 말
 
 var 속한편 :편
-var 번호 :int
-func init(t :편, r :float, co: Color, 번호:int) -> 말:
+var 말번호 :int
+var 위치한눈 :눈
+
+func init(t :편, r :float, co: Color, 말번호:int) -> 말:
 	속한편 = t
-	self.번호 = 번호
+	self.말번호 = 말번호
 	custom_minimum_size = Vector2(r*2,r*2)
 	var 원 = new_circle_fill(Vector2(r,r),r,co)
 	add_child(원)
@@ -13,7 +15,7 @@ func init(t :편, r :float, co: Color, 번호:int) -> 말:
 	add_child(테두리)
 	var lb = Label.new()
 	lb.label_settings = preload("res://label_settings.tres")
-	lb.text = "%d" % 번호
+	lb.text = "%d" % 말번호
 	lb.position = Vector2(r/2,0)
 	add_child(lb)
 	return self
