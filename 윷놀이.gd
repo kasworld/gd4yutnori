@@ -20,15 +20,8 @@ func _ready() -> void:
 	$"난말들".position = vp_size/2 + Vector2(-r/3,r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
 
-	for i in range(0,10):
-		var o = 말이동길_scene.instantiate()
-		var v = randi_range(0,19)
-		if not o.시작눈검수(v):
-			continue
-		o.init(r,편색들.pick_random(), $"말눈들".눈들, v, randi_range(0,1)==0)
-		o.position = vp_size/2
-		add_child(o)
-		말이동길들.append(o)
+	for co in 편색들:
+		말이동길추가(r,co)
 
 	for c in 편색들:
 		for i in range(1,5):
@@ -44,7 +37,18 @@ func _on_윷던지기_pressed() -> void:
 	$"윷짝".윷던지기()
 
 
+func 말이동길추가(r :float, co :Color):
+	var o = 말이동길_scene.instantiate()
+	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
+	o.init(r, co, $"말눈들".눈들, v, randi_range(0,1)==0)
+	o.position = vp_size/2
+	add_child(o)
+	말이동길들.append(o)
+
+var i길 =0
 func _on_timer_timeout() -> void:
 	for i in 말이동길들:
 		i.visible = false
-	말이동길들.pick_random().visible = true
+	i길 +=1
+	i길 %= 말이동길들.size()
+	말이동길들[i길].visible = true
