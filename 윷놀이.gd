@@ -22,7 +22,7 @@ func _ready() -> void:
 	$"윷짝".init()
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
-	$"판밖말들".position = vp_size/2 + Vector2(-r/2,r/4)
+	$"판밖말들".position = vp_size/2 + Vector2(-r/1.5,r/4)
 
 	for co in 편색들:
 		말이동길추가(r,co)

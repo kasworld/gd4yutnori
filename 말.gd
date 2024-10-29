@@ -7,14 +7,14 @@ func init(t :편, r :float, co: Color, 번호:int) -> 말:
 	속한편 = t
 	self.번호 = 번호
 	custom_minimum_size = Vector2(r*2,r*2)
-	var 원 = new_circle_fill(Vector2(0,0),r,co)
+	var 원 = new_circle_fill(Vector2(r,r),r,co)
 	add_child(원)
-	var 테두리 = new_circle(Vector2(0,0),r,Color.BLACK,max(1,r/10))
+	var 테두리 = new_circle(Vector2(r,r),r,Color.BLACK,max(1,r/10))
 	add_child(테두리)
 	var lb = Label.new()
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
-	lb.position = Vector2(-r/2,-r)
+	lb.position = Vector2(r/2,0)
 	add_child(lb)
 	return self
 
