@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name 눈
 
 var 번호 :int
@@ -12,10 +12,7 @@ func init(r :float, co: Color, 번호:int) -> void:
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
 	add_child(lb)
-	$"말들".position = Vector2(-r/2,-r/2)
-
-func _ready() -> void:
-	pass
+	#$"말들".position = Vector2(-r/2,-r/2)
 
 func 말놓기(놓을말 :말):
 	$"말들".add_child(놓을말)

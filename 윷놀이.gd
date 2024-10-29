@@ -29,7 +29,7 @@ func _ready() -> void:
 			$"난말들".add_child(말_scene.instantiate().init(r/30,c,i))
 
 	for c in 편색들:
-		for i in range(0,2):
+		for i in range(0,20):
 			$"말눈들".눈얻기(randi_range(0,28)).말놓기(말_scene.instantiate().init(r/30, c, randi_range(1,4) ))
 
 
