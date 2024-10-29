@@ -35,7 +35,8 @@ func _ready() -> void:
 
 func _on_윷던지기_pressed() -> void:
 	$"윷짝".윷던지기()
-
+	var 결과 = $"윷짝".결과얻기()
+	말이동길보이기변경()
 
 func 말이동길추가(r :float, co :Color):
 	var o = 말이동길_scene.instantiate()
@@ -45,10 +46,14 @@ func 말이동길추가(r :float, co :Color):
 	add_child(o)
 	말이동길들.append(o)
 
-var i길 =0
-func _on_timer_timeout() -> void:
+var 지금보이는말이동길번호 =0
+func 말이동길보이기변경():
 	for i in 말이동길들:
 		i.visible = false
-	i길 +=1
-	i길 %= 말이동길들.size()
-	말이동길들[i길].visible = true
+	지금보이는말이동길번호 +=1
+	지금보이는말이동길번호 %= 말이동길들.size()
+	말이동길들[지금보이는말이동길번호].visible = true
+
+func _on_timer_timeout() -> void:
+	return
+	말이동길보이기변경()

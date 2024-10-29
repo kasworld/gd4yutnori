@@ -44,6 +44,9 @@ func 윷던지기():
 	결과수치 = 결과해석(결과)
 	결과label.text = 결과문자변환[결과수치]
 
+func 결과얻기()->int:
+	return 결과수치
+
 func 결과해석(결과 :Array[int])->int:
 	if 결과 == [1,0,0,0]:
 		return -1
