@@ -1,8 +1,10 @@
 extends Control
 class_name 말
 
+var 속한편 :편
 var 번호 :int
-func init(r :float, co: Color, 번호:int) -> 말:
+func init(t :편, r :float, co: Color, 번호:int) -> 말:
+	속한편 = t
 	self.번호 = 번호
 	custom_minimum_size = Vector2(r*2,r*2)
 	var 원 = new_circle_fill(Vector2(0,0),r,co)
@@ -16,8 +18,8 @@ func init(r :float, co: Color, 번호:int) -> 말:
 	add_child(lb)
 	return self
 
-func _ready() -> void:
-	pass
+func 편얻기()->편:
+	return 속한편
 
 func new_circle_fill(p :Vector2, r :float, co:Color) -> Polygon2D :
 	var rtn = Polygon2D.new()

@@ -15,6 +15,10 @@ run/main_scene="res://윷놀이.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+NamedColorList="*res://global/named_color_list.gd"
+
 [display]
 
 window/size/viewport_width=1920

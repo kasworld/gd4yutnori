@@ -1,5 +1,6 @@
 extends Node2D
 
+var 편_scene = preload("res://편.tscn")
 var 말_scene = preload("res://말.tscn")
 var 말이동길_scene = preload("res://말이동길.tscn")
 
@@ -7,6 +8,8 @@ var vp_size :Vector2
 
 var 편색들 = [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]
 var 말이동길들 :Array[말이동길]
+
+var 편들 :Array[편]
 
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
@@ -24,13 +27,26 @@ func _ready() -> void:
 		말이동길추가(r,co)
 
 	for c in 편색들:
-		for i in range(1,5):
-			$"달말들".add_child(말_scene.instantiate().init(r/30,c,i))
-			$"난말들".add_child(말_scene.instantiate().init(r/30,c,i))
+		var t = 편_scene.instantiate()
+		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c)
+		편들.append(t)
+		#add_child(t)
 
-	for c in 편색들:
-		for i in range(0,20):
-			$"말눈들".눈얻기(randi_range(0,28)).말놓기(말_scene.instantiate().init(r/30, c, randi_range(1,4) ))
+	for t in 편들:
+		while true:
+			var m = t.놓을말얻기()
+			if m == null:
+				break
+			var n = $"말눈들".눈얻기(randi_range(0,28))
+			print("놓을눈 ",n)
+			var oldms = n.말놓기([m])
+			for om in oldms:
+				print("잡힌말 ", om)
+				om.편얻기().놓을말되돌려넣기(om)
+
+	#for t in 편들:
+		#for i in range(0,20):
+			#$"말눈들".눈얻기(randi_range(0,28)).말놓기([말_scene.instantiate().init(t, r/30, t.편색, randi_range(1,4) )])
 
 
 func _on_윷던지기_pressed() -> void:
