@@ -7,16 +7,13 @@
 [node name="윷" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("1_vbil8")
 
 [node name="배면" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("2_nwg8k")
-centered = false
 
 [node name="등면" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("3_lxkps")
-centered = false

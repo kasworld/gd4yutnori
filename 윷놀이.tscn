@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=5 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
-[ext_resource type="PackedScene" uid="uid://fjwbrd2wj0kq" path="res://말이동길.tscn" id="4_yghut"]
 
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 60
@@ -61,6 +60,8 @@ flat = true
 
 [node name="말눈들" parent="." instance=ExtResource("3_of73k")]
 
-[node name="말이동길" parent="." instance=ExtResource("4_yghut")]
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

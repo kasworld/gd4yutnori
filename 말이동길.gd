@@ -83,6 +83,14 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 	var 끝점0 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
 	화살표추가(끝점,끝점0)
 
+func 시작눈검수(시작눈 :int)->bool:
+	match 시작눈:
+		0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18:
+			return true
+		_:
+			return false
+
+
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var t1 = (p2-p1)*0.8+p1
 	var t2 = (p1-p2)*0.8+p2
