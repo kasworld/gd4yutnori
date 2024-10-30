@@ -8,9 +8,7 @@ var vp_size :Vector2
 var 편색들 = [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]
 var 편들 :Array[편]
 
-@onready var 달말통 = $"판밖말들/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"
-@onready var 난말통 = $"판밖말들/HBoxContainer/PanelContainer2/VBoxContainer2/VBoxContainer"
-@onready var 길단추들 = $"판밖말들/HBoxContainer/PanelContainer3/VBoxContainer"
+@onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
 
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
@@ -27,20 +25,13 @@ func _ready() -> void:
 	for c in 편색들:
 		var mw = 새말이동길(r,c)
 		var t = 편_scene.instantiate()
-		var n1 = HBoxContainer.new()
-		달말통.add_child(n1)
-		var n2 = HBoxContainer.new()
-		난말통.add_child(n2)
-		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c,n1,n2,mw)
+		편통.add_child(t)
+		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c, mw)
 		편들.append(t)
-		var btn = Button.new()
-		btn.text = NamedColorList.get_colorname_by_color(c)
-		btn.modulate = c
-		btn.pressed.connect(
+		t.길버튼.pressed.connect(
 			func():
 				self.말이동길보이기.call(t)
 				)
-		길단추들.add_child(btn)
 
 	#for t in 편들:
 		#while true:

@@ -2,5 +2,20 @@
 
 [ext_resource type="Script" path="res://편.gd" id="1_5j0h1"]
 
-[node name="편" type="Node2D"]
+[node name="편" type="PanelContainer"]
+offset_right = 16.0
+offset_bottom = 8.0
 script = ExtResource("1_5j0h1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
