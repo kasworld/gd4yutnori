@@ -28,7 +28,7 @@ func _ready() -> void:
 		편통.add_child(t)
 		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c, mw)
 		편들.append(t)
-		t.길버튼.pressed.connect(
+		t.길단추.pressed.connect(
 			func():
 				self.말이동길보이기.call(t)
 				)

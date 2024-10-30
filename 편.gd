@@ -10,7 +10,7 @@ var 놓을말 :Array[말]
 var 난말 :Array[말]
 @onready var 놓을말통 = $HBoxContainer/HBoxContainer
 @onready var 난말통 = $HBoxContainer/HBoxContainer2
-@onready var 길버튼 = $HBoxContainer/Button
+@onready var 길단추 = $HBoxContainer/Button
 
 var 길 :말이동길
 
@@ -21,8 +21,8 @@ func init(이름:String, 말수 :int, r:float, co:Color, mw :말이동길) -> vo
 	custom_minimum_size = Vector2(r*2*10,r*2)
 	놓을말통.custom_minimum_size = Vector2(r*2*4,r*2)
 	난말통.custom_minimum_size = Vector2(r*2*4,r*2)
-	$HBoxContainer/Button.text = 이름
-	$HBoxContainer/Button.modulate = co
+	길단추.text = 이름
+	길단추.modulate = co
 	for i in range(0,말수):
 		var m = 말_scene.instantiate().init(self, r, co, i+1)
 		놓을말.append(m)
