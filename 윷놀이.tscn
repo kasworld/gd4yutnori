@@ -3,10 +3,12 @@
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
-[ext_resource type="LabelSettings" uid="uid://khmgi88kghkr" path="res://label_settings.tres" id="4_yakeo"]
 
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_gvy41"]
+font_size = 24
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
@@ -44,7 +46,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "달말들"
-label_settings = ExtResource("4_yakeo")
+label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -52,7 +54,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "길보기"
-label_settings = ExtResource("4_yakeo")
+label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -60,7 +62,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "난말들"
-label_settings = ExtResource("4_yakeo")
+label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
