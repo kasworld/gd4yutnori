@@ -25,7 +25,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_y2end")
 text = "윷던지기"
-flat = true
 
 [node name="윷짝" parent="." instance=ExtResource("2_lq234")]
 
