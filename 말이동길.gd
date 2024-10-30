@@ -2,11 +2,13 @@ extends Node2D
 class_name 말이동길
 
 const 난말눈번호 = 100
+const 가능한시작눈목록 = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18]
 
 var r :float
 var w :float
 var co :Color
 var 화살표선들 :PackedVector2Array =[]
+var 눈들 :Array[눈]
 
 # 눈번호
 var 바깥길 :Array[int]
@@ -18,6 +20,7 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 	self.r = r
 	self.co = co
 	self.w = max(1.0, r/300)
+	self.눈들 = 눈들
 
 	# 말 이동 순서 연결하기
 	바깥길 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
@@ -52,7 +55,7 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 			첫지름길 = 지름길2
 			둘째지름길 = 지름길1
 		_:
-			print("잘못된 시작점입니다.0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18만 가능")
+			print("잘못된 시작점입니다.", 가능한시작눈목록,"만 가능")
 			get_tree().quit()
 
 	세째지름길 = 둘째지름길.slice(3)
@@ -82,13 +85,6 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 	var 끝점 = 눈들[바깥길[-1]].position
 	var 끝점0 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
 	화살표추가(끝점,끝점0)
-
-func 시작눈검수(시작눈 :int)->bool:
-	match 시작눈:
-		0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18:
-			return true
-		_:
-			return false
 
 # 도착 말눈번호를 돌려준다.
 # 말을 새로 다는 경우 현재말눈번호를 -1

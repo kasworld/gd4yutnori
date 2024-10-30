@@ -6,13 +6,13 @@ const 편인자들 = [
 	["하늘색", Color.SKY_BLUE],
 	["노랑색", Color.YELLOW],
 ]
+const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
 var 편_scene = preload("res://편.tscn")
-var vp_size :Vector2
 var 편들 :Array[편]
 
 func _ready() -> void:
-	vp_size = get_viewport_rect().size
+	var vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
 	$"말눈들".init(r,Color.WHITE)
@@ -26,7 +26,7 @@ func _ready() -> void:
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
 		편통.add_child(t)
-		t.init(ti[0], 4, r, ti[1], $"말눈들")
+		t.init(ti[0], 편당말수, r, ti[1], $"말눈들")
 		편들.append(t)
 		t.길.position = vp_size/2
 		add_child(t.길)

@@ -22,7 +22,7 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) ->
 	편색 = co
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
-	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
+	var v = 말이동길.가능한시작눈목록.pick_random()
 	길.init(크기, co, es.눈들, v, randi_range(0,1)==0)
 
 	var r = 크기/30
