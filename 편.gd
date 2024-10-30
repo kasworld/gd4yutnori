@@ -12,10 +12,7 @@ var 편이름 :String
 var 편색 :Color
 var 눈들 :말눈들
 var 길 :말이동길
-
 var 말들 :Array[말]
-var 놓을말 :Array[말]
-var 난말 :Array[말]
 
 func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) -> void:
 	편이름 = 이름
@@ -33,25 +30,15 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) ->
 	길단추.modulate = co
 	for i in range(0,말수):
 		var m = 말_scene.instantiate().init(self, r, co, i+1)
-		놓을말.append(m)
 		놓을말통.add_child(m)
-	말들 = 놓을말.duplicate()
-
-func 놓을말얻기()->말:
-	if 놓을말.size() == 0:
-		print("놓을말이 없습니다.", 편이름)
-		return null
-	var m = 놓을말.pop_front()
-	놓을말통.remove_child(m)
-	return m
+		말들.append(m)
 
 func 놓을말되돌려넣기(m :말):
-	놓을말.push_back(m)
 	놓을말통.add_child(m)
 
 func 난말넣기(m :말):
-	난말.push_back(m)
 	난말통.add_child(m)
+
 
 func 새로말달기(이동거리 :int)->눈:
 	var m = 놓을말얻기()
@@ -63,3 +50,39 @@ func 새로말달기(이동거리 :int)->눈:
 	for om in oldms:
 		om.편얻기().놓을말되돌려넣기(om)
 	return n
+
+func 이동할말고르기()->말:
+	for m in 말들:
+		if 난말통.find_child(m.name,false) == null :
+			return m
+	return null
+
+func 놓을말얻기()->말:
+	if 놓을말통.get_child_count() == 0:
+		print("놓을말이 없습니다.", 편이름)
+		return null
+	var m = 놓을말통.get_child(0)
+	놓을말통.remove_child(m)
+	return m
+
+#func 말이동하기(이동거리 :int)->눈:
+	#var m = 이동할말고르기()
+	#if m == null:
+		#return null
+	#var 목적눈번호 :int
+	#if m.위치한눈 == null:
+		#목적눈번호 = 길.말이동위치찾기(-1,이동거리)
+	#else :
+		#목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
+	#if 목적눈번호 == -1:
+		#return null
+	#if m.위치한눈 == null:
+		#목적눈번호 = 길.말이동위치찾기(-1,이동거리)
+	#else :
+		#목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
+#
+	#var n = 눈들.눈얻기(목적눈번호)
+	#var oldms = n.말놓기([m])
+	#for om in oldms:
+		#om.편얻기().놓을말되돌려넣기(om)
+	#return n
