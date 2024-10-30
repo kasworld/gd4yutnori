@@ -12,7 +12,6 @@ func init(r :float, co: Color, 번호:int) -> void:
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "%d" % 번호
 	add_child(lb)
-	#$"말들".position = Vector2(-r/2,-r/2)
 
 func 말놓기(놓을말들 :Array)->Array[말]:
 	var 있던말들 :Array[말]

@@ -122,7 +122,6 @@ func 말이동위치찾기(현재말눈번호:int, 이동거리:int)->int:
 		return 난말눈번호
 	return 갈길[i+이동거리]
 
-
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var t1 = (p2-p1)*0.8+p1
 	var t2 = (p1-p2)*0.8+p2
@@ -136,9 +135,6 @@ func 화살표추가(p1 :Vector2, p2 :Vector2):
 
 func _draw() -> void:
 	draw_multiline(화살표선들,co, self.w)
-
-func _ready() -> void:
-	pass
 
 func make_pos_by_rad_r(rad:float, r :float)->Vector2:
 	return Vector2(sin(rad)*r, cos(rad)*r)

@@ -2,9 +2,8 @@ extends Node2D
 class_name 윷짝
 
 var 윷_scene = preload("res://윷.tscn")
-var 윷들 :Array[윷]
-var 결과label :Label
-var 결과문자변환 = {
+
+const 결과문자변환 = {
 	-3:"뒷걸",
 	-2:"뒷개",
 	-1:"뒷도",
@@ -15,6 +14,8 @@ var 결과문자변환 = {
 	5:"모",
 }
 
+var 윷들 :Array[윷]
+var 결과label :Label
 var 결과수치 :int
 
 func init()->윷짝:
