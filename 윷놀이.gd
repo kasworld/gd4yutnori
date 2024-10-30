@@ -1,14 +1,12 @@
 extends Node2D
 
+@onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
+
 var 편_scene = preload("res://편.tscn")
-var 말이동길_scene = preload("res://말이동길.tscn")
 
 var vp_size :Vector2
-
 var 편색들 = [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]
 var 편들 :Array[편]
-
-@onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
 
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
@@ -23,25 +21,17 @@ func _ready() -> void:
 
 	# 편 가르기
 	for c in 편색들:
-		var mw = 새말이동길(r,c)
 		var t = 편_scene.instantiate()
 		편통.add_child(t)
-		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c, mw)
+		t.init(NamedColorList.get_colorname_by_color(c), 4, r, c, $"말눈들")
 		편들.append(t)
+		t.길.position = vp_size/2
+		add_child(t.길)
+
 		t.길단추.pressed.connect(
 			func():
-				self.말이동길보이기.call(t)
+				self.말이동길보이기(t)
 				)
-
-	#for t in 편들:
-		#while true:
-			#var m = t.놓을말얻기()
-			#if m == null:
-				#break
-			#var n = $"말눈들".눈얻기(randi_range(0,28))
-			#var oldms = n.말놓기([m])
-			#for om in oldms:
-				#om.편얻기().놓을말되돌려넣기(om)
 
 	말이동길보이기(편들[0])
 	$"윷던지기".modulate = 편들[0].편색
@@ -74,11 +64,3 @@ func _on_윷던지기_pressed() -> void:
 	var 결과 = $"윷짝".결과얻기()
 	새로말달기(편들[이번윷던질편번호],결과)
 	다음말이동길보이기()
-
-func 새말이동길(r :float, co :Color)->말이동길:
-	var o = 말이동길_scene.instantiate()
-	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
-	o.init(r, co, $"말눈들".눈들, v, randi_range(0,1)==0)
-	o.position = vp_size/2
-	add_child(o)
-	return o

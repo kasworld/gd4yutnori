@@ -1,23 +1,29 @@
 extends PanelContainer
 class_name 편
 
+@onready var 놓을말통 = $HBoxContainer/HBoxContainer
+@onready var 난말통 = $HBoxContainer/HBoxContainer2
+@onready var 길단추 = $HBoxContainer/Button
+
 var 말_scene = preload("res://말.tscn")
+var 말이동길_scene = preload("res://말이동길.tscn")
 
 var 편이름 :String
 var 편색 :Color
 var 말들 :Array[말]
 var 놓을말 :Array[말]
 var 난말 :Array[말]
-@onready var 놓을말통 = $HBoxContainer/HBoxContainer
-@onready var 난말통 = $HBoxContainer/HBoxContainer2
-@onready var 길단추 = $HBoxContainer/Button
-
+var 눈들 : 말눈들
 var 길 :말이동길
 
-func init(이름:String, 말수 :int, r:float, co:Color, mw :말이동길) -> void:
+func init(이름:String, 말수 :int, 크기:float, co:Color,  es :말눈들) -> void:
 	편이름 = 이름
 	편색 = co
-	길 = mw
+	길 = 말이동길_scene.instantiate()
+	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
+	길.init(크기, co, es.눈들, v, randi_range(0,1)==0)
+
+	var r = 크기/30
 	custom_minimum_size = Vector2(r*2*10,r*2)
 	놓을말통.custom_minimum_size = Vector2(r*2*4,r*2)
 	난말통.custom_minimum_size = Vector2(r*2*4,r*2)
