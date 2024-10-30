@@ -52,3 +52,14 @@ func 놓을말되돌려넣기(m :말):
 func 난말넣기(m :말):
 	난말.push_back(m)
 	난말통.add_child(m)
+
+func 새로말달기(이동거리 :int)->눈:
+	var m = 놓을말얻기()
+	if m == null:
+		return null
+	var 목적눈번호 = 길.말이동위치찾기(-1,이동거리)
+	var n = 눈들.눈얻기(목적눈번호)
+	var oldms = n.말놓기([m])
+	for om in oldms:
+		om.편얻기().놓을말되돌려넣기(om)
+	return n

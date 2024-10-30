@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://demui2phc3ik1"]
+[gd_scene load_steps=3 format=3 uid="uid://demui2phc3ik1"]
 
 [ext_resource type="Script" path="res://편.gd" id="1_5j0h1"]
+
+[sub_resource type="Theme" id="Theme_msews"]
+default_font_size = 24
 
 [node name="편" type="PanelContainer"]
 offset_right = 16.0
@@ -16,6 +19,7 @@ layout_mode = 2
 [node name="Button" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = SubResource("Theme_msews")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
