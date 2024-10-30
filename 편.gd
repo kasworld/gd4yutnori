@@ -5,13 +5,14 @@ var 말_scene = preload("res://말.tscn")
 
 var 편이름 :String
 var 편색 :Color
+var 말들 :Array[말]
 var 놓을말 :Array[말]
 var 난말 :Array[말]
-var 놓을말통 :HBoxContainer
-var 난말통 :HBoxContainer
+var 놓을말통 :Container
+var 난말통 :Container
 var 길 :말이동길
 
-func init(이름:String, 말수 :int, r:float, co:Color, 달통 :HBoxContainer, 날통:HBoxContainer, mw :말이동길) -> void:
+func init(이름:String, 말수 :int, r:float, co:Color, 달통 :Container, 날통:Container, mw :말이동길) -> void:
 	편이름 = 이름
 	편색 = co
 	놓을말통 = 달통
@@ -21,6 +22,7 @@ func init(이름:String, 말수 :int, r:float, co:Color, 달통 :HBoxContainer, 
 		var m = 말_scene.instantiate().init(self, r, co, i+1)
 		놓을말.append(m)
 		놓을말통.add_child(m)
+	말들 = 놓을말.duplicate()
 
 func 놓을말얻기()->말:
 	if 놓을말.size() == 0:

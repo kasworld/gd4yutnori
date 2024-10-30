@@ -6,12 +6,11 @@ var 말이동길_scene = preload("res://말이동길.tscn")
 var vp_size :Vector2
 
 var 편색들 = [Color.RED, Color.GREEN, Color.SKY_BLUE, Color.YELLOW]
-var 말이동길들 :Array[말이동길]
-
 var 편들 :Array[편]
 
 @onready var 달말통 = $"판밖말들/HBoxContainer/PanelContainer/VBoxContainer/VBoxContainer"
 @onready var 난말통 = $"판밖말들/HBoxContainer/PanelContainer2/VBoxContainer2/VBoxContainer"
+@onready var 길단추들 = $"판밖말들/HBoxContainer/PanelContainer3/VBoxContainer"
 
 func _ready() -> void:
 	vp_size = get_viewport_rect().size
@@ -22,11 +21,11 @@ func _ready() -> void:
 	$"윷짝".init()
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
-	$"판밖말들".position = vp_size/2 + Vector2(-r/1.5,r/4)
+	$"판밖말들".position = vp_size/2 + Vector2(-r*0.8,r*0.1)
 
 	# 편 가르기
 	for c in 편색들:
-		var mw = 말이동길추가(r,c)
+		var mw = 새말이동길(r,c)
 		var t = 편_scene.instantiate()
 		var n1 = HBoxContainer.new()
 		달말통.add_child(n1)
@@ -34,6 +33,14 @@ func _ready() -> void:
 		난말통.add_child(n2)
 		t.init(NamedColorList.get_colorname_by_color(c), 4, r/30, c,n1,n2,mw)
 		편들.append(t)
+		var btn = Button.new()
+		btn.text = NamedColorList.get_colorname_by_color(c)
+		btn.modulate = c
+		btn.pressed.connect(
+			func():
+				self.말이동길보이기.call(t)
+				)
+		길단추들.add_child(btn)
 
 	#for t in 편들:
 		#while true:
@@ -45,8 +52,18 @@ func _ready() -> void:
 			#for om in oldms:
 				#om.편얻기().놓을말되돌려넣기(om)
 
+	말이동길보이기(편들[0])
 
-	말이동길보이기변경()
+func 말이동길보이기(t:편) ->void:
+	for i in 편들:
+		i.길.visible = false
+	t.길.visible = true
+
+var 지금보이는말이동길번호 =0
+func 말이동길보이기변경():
+	지금보이는말이동길번호 +=1
+	지금보이는말이동길번호 %= 편들.size()
+	말이동길보이기(편들[지금보이는말이동길번호])
 
 func 새로말달기(t :편, 이동거리 :int)->눈:
 	var m = t.놓을말얻기()
@@ -65,19 +82,10 @@ func _on_윷던지기_pressed() -> void:
 	새로말달기(편들[지금보이는말이동길번호],결과)
 	말이동길보이기변경()
 
-func 말이동길추가(r :float, co :Color)->말이동길:
+func 새말이동길(r :float, co :Color)->말이동길:
 	var o = 말이동길_scene.instantiate()
 	var v = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18].pick_random()
 	o.init(r, co, $"말눈들".눈들, v, randi_range(0,1)==0)
 	o.position = vp_size/2
 	add_child(o)
-	말이동길들.append(o)
 	return o
-
-var 지금보이는말이동길번호 =0
-func 말이동길보이기변경():
-	for i in 말이동길들:
-		i.visible = false
-	지금보이는말이동길번호 +=1
-	지금보이는말이동길번호 %= 말이동길들.size()
-	말이동길들[지금보이는말이동길번호].visible = true
