@@ -1,9 +1,7 @@
 extends Node2D
 class_name 말이동길
 
-const 난말눈번호 = 100
 const 가능한시작눈목록 = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18]
-
 var r :float
 var w :float
 var co :Color
@@ -28,7 +26,7 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 		var v = 바깥길.pop_front()
 		바깥길.push_back(v)
 
-	var 지름길1 :Array[int] = [4,20,21,22,23,24,14]
+	var 지름길1 :Array[int] = [4,20,21,22,23,24,14] # 할일. 종점눈까지 추가해둘것.
 	var 지름길2 :Array[int] = [9,25,26,22,27,28,19]
 	if mirror:
 		var v = 바깥길.pop_front()
@@ -117,6 +115,9 @@ func 말이동과정찾기(현재말눈번호:int, 이동거리:int)->Array[int]
 	if i+이동거리 >= 갈길.size(): # 말이 나는 경우
 		return 갈길.slice(i+1)
 	return 갈길.slice(i+1,i+이동거리+1)
+
+func 종점눈번호()->int:
+	return 바깥길[-1]
 
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var t1 = (p2-p1)*0.8+p1
