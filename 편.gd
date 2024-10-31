@@ -33,13 +33,22 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) ->
 		놓을말통.add_child(m)
 		말들.append(m)
 
-func 놓을말되돌려넣기(m :말):
-	m.지나온눈들.clear()
-	놓을말통.add_child(m)
+func 놓을말로되돌리기(ms :Array[말]):
+	for m in ms:
+		m.지나온눈들.clear()
+		m.편얻기().놓을말통.add_child(m)
 
-func 난말넣기(m :말):
-	난말통.add_child(m)
+func 난말로넣기(ms :Array[말]):
+	for m in ms:
+		m.편얻기().난말통.add_child(m)
 
+func 놓을말얻기()->말:
+	if 놓을말통.get_child_count() == 0:
+		print("놓을말이 없습니다.", 편이름)
+		return null
+	var m = 놓을말통.get_child(0)
+	놓을말통.remove_child(m)
+	return m
 
 func 새로말달기(이동거리 :int)->눈:
 	var m = 놓을말얻기()
@@ -50,8 +59,7 @@ func 새로말달기(이동거리 :int)->눈:
 		m.지나온눈들.append(눈들.눈얻기(i))
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
 	var 있던말들 = 도착눈.말놓기([m])
-	for om in 있던말들:
-		om.편얻기().놓을말되돌려넣기(om)
+	놓을말로되돌리기(있던말들)
 	return 도착눈
 
 func 이동할말고르기()->말:
@@ -60,18 +68,19 @@ func 이동할말고르기()->말:
 			return m
 	return null
 
-func 놓을말얻기()->말:
-	if 놓을말통.get_child_count() == 0:
-		print("놓을말이 없습니다.", 편이름)
-		return null
-	var m = 놓을말통.get_child(0)
-	놓을말통.remove_child(m)
-	return m
-
-func 말이동하기(이동거리 :int)->눈:
+func 판위의말이동하기(이동거리 :int)->눈:
 	var m = 이동할말고르기()
 	if m == null:
 		return null
+	if 이동거리 == 0:
+		print("잘못된이동거리 ", 이동거리)
+		return null
+	if 이동거리 < 0: # 뒷도개걸 처리
+		if m.지나온눈들.size() <= -이동거리: #판에서 빼서 놓을 말로 돌아간다.
+			# 눈에서 제거한다.
+			# 놓을말로 돌린다.
+			pass
+
 	var 목적눈번호 :int
 	if m.위치한눈 == null:
 		목적눈번호 = 길.말이동위치찾기(-1,이동거리)
@@ -85,7 +94,6 @@ func 말이동하기(이동거리 :int)->눈:
 		목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
 
 	var n = 눈들.눈얻기(목적눈번호)
-	var oldms = n.말놓기([m])
-	for om in oldms:
-		om.편얻기().놓을말되돌려넣기(om)
+	var 있던말들 = n.말놓기([m])
+	놓을말로되돌리기(있던말들)
 	return n
