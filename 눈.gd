@@ -23,7 +23,6 @@ func 말놓기(놓을말들 :Array)->Array[말]:
 
 	for m in 놓을말들:
 		$"말들".add_child(m)
-		m.위치한눈 = self
 	return 있던말들
 
 func 말빼기()->Array[말]:
@@ -31,7 +30,7 @@ func 말빼기()->Array[말]:
 	for m in $"말들".get_children():
 		rtn.append(m)
 		$"말들".remove_child(m)
-		m.위치한눈 = null
+		m.지나온눈들.clear()
 	return rtn
 
 func 말보기()->Array[말]:

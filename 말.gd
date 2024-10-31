@@ -3,7 +3,7 @@ class_name 말
 
 var 속한편 :편
 var 말번호 :int
-var 위치한눈 :눈
+var 지나온눈들 :Array[눈]
 
 func init(t :편, r :float, co: Color, 말번호:int) -> 말:
 	속한편 = t

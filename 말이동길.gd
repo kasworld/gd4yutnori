@@ -89,17 +89,17 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 # 도착 말눈번호를 돌려준다.
 # 말을 새로 다는 경우 현재말눈번호를 -1
 # 이동거리가 - 인경우(뒷도개걸)는 말의 이동거리기록을 사용한다.
-# 말이 나는 경우 난말눈번호(100)을 돌려준다.
-# 에러인 경우 -1 들 돌려준다.
-func 말이동위치찾기(현재말눈번호:int, 이동거리:int)->int:
+# 말이 나는 경우 마지막눈까지를 돌려준다.
+# 에러인 경우 [] 들 돌려준다.
+func 말이동과정찾기(현재말눈번호:int, 이동거리:int)->Array[int]:
 	if 이동거리 < 1 or 이동거리 > 5 :
 		print("잘못된 이동거리 ", 이동거리)
-		return -1
+		return []
 	if 현재말눈번호 < -1 or 현재말눈번호 > 28 :
 		print("잘못된 현재말눈번호 ", 현재말눈번호)
-		return -1
+		return []
 	if 현재말눈번호 == -1: # 말을 새로 다는 경우
-		return 바깥길[이동거리-1]
+		return 바깥길.slice(0,이동거리)
 
 	# 갈길 고르기
 	var 갈길 = 바깥길
@@ -113,10 +113,10 @@ func 말이동위치찾기(현재말눈번호:int, 이동거리:int)->int:
 	var i = 갈길.find(현재말눈번호)
 	if i < 0:
 		print("이상한 문제 ", 갈길,현재말눈번호 )
-		return -1
-	if i+이동거리 >= 갈길.size() :
-		return 난말눈번호
-	return 갈길[i+이동거리]
+		return []
+	if i+이동거리 >= 갈길.size(): # 말이 나는 경우
+		return 갈길.slice(i+1)
+	return 갈길.slice(i+1,i+이동거리+1)
 
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var t1 = (p2-p1)*0.8+p1

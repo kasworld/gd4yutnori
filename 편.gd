@@ -34,6 +34,7 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) ->
 		말들.append(m)
 
 func 놓을말되돌려넣기(m :말):
+	m.지나온눈들.clear()
 	놓을말통.add_child(m)
 
 func 난말넣기(m :말):
@@ -42,14 +43,16 @@ func 난말넣기(m :말):
 
 func 새로말달기(이동거리 :int)->눈:
 	var m = 놓을말얻기()
-	if m == null:
+	if m == null or 이동거리<=0:
 		return null
-	var 목적눈번호 = 길.말이동위치찾기(-1,이동거리)
-	var n = 눈들.눈얻기(목적눈번호)
-	var oldms = n.말놓기([m])
-	for om in oldms:
+	var 말이동과정눈번호 = 길.말이동과정찾기(-1,이동거리)
+	for i in 말이동과정눈번호:
+		m.지나온눈들.append(눈들.눈얻기(i))
+	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
+	var 있던말들 = 도착눈.말놓기([m])
+	for om in 있던말들:
 		om.편얻기().놓을말되돌려넣기(om)
-	return n
+	return 도착눈
 
 func 이동할말고르기()->말:
 	for m in 말들:
@@ -65,24 +68,24 @@ func 놓을말얻기()->말:
 	놓을말통.remove_child(m)
 	return m
 
-#func 말이동하기(이동거리 :int)->눈:
-	#var m = 이동할말고르기()
-	#if m == null:
-		#return null
-	#var 목적눈번호 :int
-	#if m.위치한눈 == null:
-		#목적눈번호 = 길.말이동위치찾기(-1,이동거리)
-	#else :
-		#목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
-	#if 목적눈번호 == -1:
-		#return null
-	#if m.위치한눈 == null:
-		#목적눈번호 = 길.말이동위치찾기(-1,이동거리)
-	#else :
-		#목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
-#
-	#var n = 눈들.눈얻기(목적눈번호)
-	#var oldms = n.말놓기([m])
-	#for om in oldms:
-		#om.편얻기().놓을말되돌려넣기(om)
-	#return n
+func 말이동하기(이동거리 :int)->눈:
+	var m = 이동할말고르기()
+	if m == null:
+		return null
+	var 목적눈번호 :int
+	if m.위치한눈 == null:
+		목적눈번호 = 길.말이동위치찾기(-1,이동거리)
+	else :
+		목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
+	if 목적눈번호 == -1:
+		return null
+	if m.위치한눈 == null:
+		목적눈번호 = 길.말이동위치찾기(-1,이동거리)
+	else :
+		목적눈번호 = 길.말이동위치찾기(m.위치한눈.번호,이동거리)
+
+	var n = 눈들.눈얻기(목적눈번호)
+	var oldms = n.말놓기([m])
+	for om in oldms:
+		om.편얻기().놓을말되돌려넣기(om)
+	return n
