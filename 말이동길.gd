@@ -34,6 +34,9 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 		바깥길.reverse()
 		지름길1.reverse()
 		지름길2.reverse()
+		var tmp = 지름길1
+		지름길1 = 지름길2
+		지름길2 = tmp
 
 	match 시작눈:
 		0,1,2,3:
@@ -57,7 +60,9 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 			get_tree().quit()
 
 	세째지름길 = 둘째지름길.slice(3)
-	#print(세째지름길)
+	첫지름길.append_array(바깥길.slice(바깥길.find(첫지름길[-1])+1))
+	둘째지름길.append_array(바깥길.slice(바깥길.find(둘째지름길[-1])+1))
+	세째지름길.append_array(바깥길.slice(바깥길.find(세째지름길[-1])+1))
 
 	for i in range(0,바깥길.size()-1):
 		var p1 = 눈들[바깥길[i]].position
@@ -83,6 +88,8 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 	var 끝점 = 눈들[바깥길[-1]].position
 	var 끝점0 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
 	화살표추가(끝점,끝점0)
+
+
 
 # 도착 말눈번호를 돌려준다.
 # 말을 새로 다는 경우 현재말눈번호를 -1

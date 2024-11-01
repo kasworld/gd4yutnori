@@ -2,9 +2,9 @@ extends Node2D
 
 const 편인자들 = [
 	["빨강색", Color.RED],
-	["초록색", Color.GREEN],
-	["하늘색", Color.SKY_BLUE],
-	["노랑색", Color.YELLOW],
+	#["초록색", Color.GREEN],
+	#["하늘색", Color.SKY_BLUE],
+	#["노랑색", Color.YELLOW],
 ]
 const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
@@ -54,5 +54,7 @@ func 다음말이동길보이기():
 func _on_윷던지기_pressed() -> void:
 	$"윷짝".윷던지기()
 	var 결과 = $"윷짝".결과얻기()
-	편들[이번윷던질편번호].새로말달기(결과)
+	if 편들[이번윷던질편번호].새로말달기(결과) == null:
+		#print("놓을말이 없습니다.", 편이름)
+		편들[이번윷던질편번호].판위의말이동하기(결과)
 	다음말이동길보이기()
