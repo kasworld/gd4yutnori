@@ -63,3 +63,6 @@ func 결과해석(결과 :Array[int])->int:
 	for i in 결과:
 		sum += i
 	return sum
+
+func 한번더던지나(결과 :int)->bool:
+	return 결과==5 or 결과 == 4
