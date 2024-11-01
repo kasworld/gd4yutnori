@@ -29,6 +29,12 @@ func init(t :편, r :float, co: Color, 말번호:int) -> 말:
 func 편얻기()->편:
 	return 속한편
 
+func 놓을말인가()->bool:
+	return 지나온눈들.size() == 0
+
+func 난말인가()->bool:
+	return (not 놓을말인가()) and 지나온눈들[-1].번호 == 속한편.길.종점눈번호()
+
 func new_circle_fill(p :Vector2, r :float, co:Color) -> Polygon2D :
 	var rtn = Polygon2D.new()
 	var pv2a : PackedVector2Array = []
