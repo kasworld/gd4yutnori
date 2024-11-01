@@ -2,9 +2,9 @@ extends Node2D
 
 const 편인자들 = [
 	["빨강색", Color.RED],
-	#["초록색", Color.GREEN],
-	#["하늘색", Color.SKY_BLUE],
-	#["노랑색", Color.YELLOW],
+	["초록색", Color.GREEN],
+	["하늘색", Color.SKY_BLUE],
+	["노랑색", Color.YELLOW],
 ]
 const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
