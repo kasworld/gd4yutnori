@@ -57,6 +57,8 @@ func 판위말고르기()->Array[말]:
 	for m in 말들:
 		if m.지나온눈들.size() != 0 and m.지나온눈들[-1].번호 != 길.종점눈번호():
 			return m.지나온눈들[-1].말보기()
+	for m in 말들:
+		print("판밖말 ",m)
 	return []
 
 func 새로말달기(이동거리 :int)->눈:
@@ -64,7 +66,9 @@ func 새로말달기(이동거리 :int)->눈:
 		return null
 	var m = 놓을말얻기()
 	if m == null:
+		print("놓을말없음")
 		return null
+	print("선택된 놓을말 ",m)
 	var 말이동과정눈번호 = 길.말이동과정찾기(-1,이동거리)
 	for i in 말이동과정눈번호:
 		m.지나온눈들.append(눈들.눈얻기(i))
@@ -77,17 +81,19 @@ func 새로말달기(이동거리 :int)->눈:
 func 판위의말이동하기(이동거리 :int)->눈:
 	var ms = 판위말고르기()
 	if ms.size() == 0: # 말없음
+		print("판위말없음")
 		return null
 	if 이동거리 == 0:
 		print("잘못된이동거리 ", 이동거리)
 		return null
-	print_debug("판위말 ",ms)
+	print_debug("선택된 판위말 ",ms)
 	if 이동거리 < 0: # 뒷도개걸 처리
 		ms = ms[0].지나온눈들[-1].말빼기() # 눈에서 제거한다.
+		print(ms[0].지나온눈들.size() , -이동거리)
 		if ms[0].지나온눈들.size() <= -이동거리: #판에서 빼서 놓을 말로 돌아간다.
 			놓을말로되돌리기(ms)
 			return null
-		for i in range(-이동거리,0): # 업은말의 첫말의 지나온눈들에서 빼면서 뒤로 이동한다.
+		for i in range(이동거리,0): # 업은말의 첫말의 지나온눈들에서 빼면서 뒤로 이동한다.
 			ms[0].지나온눈들.pop_back()
 		var 있던말들 = ms[0].지나온눈들[-1].말놓기(ms)
 		놓을말로되돌리기(있던말들)
