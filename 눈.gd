@@ -3,6 +3,10 @@ class_name 눈
 
 var 번호 :int
 var w :float
+
+func _to_string() -> String:
+	return "눈(%d)" % 번호
+
 func init(r :float, co: Color, 번호:int) -> void:
 	self.번호 = 번호
 	self.w = max(1,r/8)
