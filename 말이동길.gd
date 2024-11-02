@@ -2,9 +2,8 @@ extends Node2D
 class_name 말이동길
 
 const 가능한시작눈목록 = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18]
-var r :float
-var w :float
-var co :Color
+var 화살표색두께 :float
+var 화살표색 :Color
 var 화살표선들 :PackedVector2Array =[]
 var 눈들 :Array[눈]
 
@@ -14,11 +13,10 @@ var 첫지름길 :Array[int]
 var 둘째지름길 :Array[int]
 var 세째지름길 :Array[int]
 
-func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool = false) -> void:
-	self.r = r
-	self.co = co
-	self.w = max(1.0, r/300)
-	self.눈들 = 눈들
+func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = false) -> void:
+	화살표색 = co
+	화살표색두께 = w
+	눈들 = es
 
 	# 말 이동 순서 연결하기
 	바깥길 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
@@ -89,8 +87,6 @@ func init(r: float, co :Color, 눈들 :Array[눈], 시작눈 :int, mirror :bool 
 	var 끝점0 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
 	화살표추가(끝점,끝점0)
 
-
-
 # 도착 말눈번호를 돌려준다.
 # 말을 새로 다는 경우 현재말눈번호를 -1
 # 이동거리가 - 인경우(뒷도개걸)는 말의 이동거리기록을 사용한다.
@@ -138,7 +134,7 @@ func 화살표추가(p1 :Vector2, p2 :Vector2):
 	화살표선들.append_array([p4,p2])
 
 func _draw() -> void:
-	draw_multiline(화살표선들,co, self.w)
+	draw_multiline(화살표선들, 화살표색, 화살표색두께)
 
 func make_pos_by_rad_r(rad:float, r :float)->Vector2:
 	return Vector2(sin(rad)*r, cos(rad)*r)

@@ -6,14 +6,14 @@ var 말번호 :int
 var 지나온눈들 :Array[눈]
 
 func _to_string() -> String:
-	var s :String
+	var s :String = ""
 	for n in 지나온눈들:
 		s += "%d " % n.번호
 	return "말(%s %d 눈[%s])" % [속한편,말번호,s]
 
-func init(t :편, r :float, co: Color, 말번호:int) -> 말:
+func init(t :편, r :float, co: Color, n:int) -> 말:
 	속한편 = t
-	self.말번호 = 말번호
+	말번호 = n
 	custom_minimum_size = Vector2(r*2,r*2)
 	var 원 = new_circle_fill(Vector2(r,r),r,co)
 	add_child(원)

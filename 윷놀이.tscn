@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=7 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8horw"]
+bg_color = Color(0.272655, 0.272655, 0.272655, 1)
 
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 60
@@ -12,6 +15,15 @@ font_size = 24
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8horw")
+follow_focus = true
+
+[node name="진행사항" type="Label" parent="ScrollContainer"]
+layout_mode = 2
 
 [node name="윷던지기" type="Button" parent="."]
 anchors_preset = 8
@@ -67,14 +79,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="판밖말들/VBoxContainer2"]
-layout_mode = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-follow_focus = true
-
-[node name="진행사항" type="Label" parent="ScrollContainer"]
 layout_mode = 2
 
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]

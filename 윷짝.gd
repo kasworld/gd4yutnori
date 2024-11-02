@@ -22,8 +22,9 @@ func _to_string() -> String:
 	return 결과문자변환[결과수치]
 
 func init()->윷짝:
+	var lb :Label
 	for i in ["뒷도","뒷개","뒷걸","도","결과"]:
-		var lb = Label.new()
+		lb = Label.new()
 		lb.label_settings = preload("res://label_settings.tres")
 		lb.text = i
 		$"윷통".add_child(lb)
@@ -33,7 +34,7 @@ func init()->윷짝:
 		$"윷통".add_child(n)
 		윷들.append(n)
 
-	var lb = Label.new()
+	lb = Label.new()
 	lb.label_settings = preload("res://label_settings.tres")
 	lb.text = "모"
 	$"윷통".add_child(lb)

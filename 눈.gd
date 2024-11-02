@@ -2,15 +2,14 @@ extends Control
 class_name 눈
 
 var 번호 :int
-var w :float
 
 func _to_string() -> String:
 	return "눈(%d)" % 번호
 
-func init(r :float, co: Color, 번호:int) -> void:
-	self.번호 = 번호
-	self.w = max(1,r/8)
-	var 원 = new_circle(Vector2(0,0),r,co,self.w)
+func init(r :float, co: Color, n:int) -> void:
+	self.번호 = n
+	var w = max(1,r/8)
+	var 원 = new_circle(Vector2(0,0),r,co,w)
 	add_child(원)
 	var lb = Label.new()
 	lb.label_settings = preload("res://label_settings.tres")

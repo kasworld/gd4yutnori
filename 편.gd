@@ -23,7 +23,7 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들) ->
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
 	var v = 말이동길.가능한시작눈목록.pick_random()
-	길.init(크기, co, es.눈들, v, randi_range(0,1)==0)
+	길.init( max(1,크기/200), co, es.눈들, v, randi_range(0,1)==0)
 
 	var r = 크기/30
 	custom_minimum_size = Vector2(r*2*10,r*2)
