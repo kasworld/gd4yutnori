@@ -69,4 +69,12 @@ vertical_alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="판밖말들/VBoxContainer2"]
 layout_mode = 2
 
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+follow_focus = true
+
+[node name="진행사항" type="Label" parent="ScrollContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]

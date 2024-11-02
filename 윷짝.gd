@@ -18,6 +18,9 @@ var 윷들 :Array[윷]
 var 결과label :Label
 var 결과수치 :int
 
+func _to_string() -> String:
+	return 결과문자변환[결과수치]
+
 func init()->윷짝:
 	for i in ["뒷도","뒷개","뒷걸","도","결과"]:
 		var lb = Label.new()

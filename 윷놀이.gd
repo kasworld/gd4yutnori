@@ -8,6 +8,7 @@ const 편인자들 = [
 ]
 const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
+@onready var 진행사항 = $"ScrollContainer/진행사항"
 var 편_scene = preload("res://편.tscn")
 var 편들 :Array[편]
 
@@ -21,6 +22,8 @@ func _ready() -> void:
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
 	$"판밖말들".position = vp_size/2 + Vector2(-r*0.8,r*0.1)
+	$ScrollContainer.position = vp_size/2 + Vector2(r*0.1,r*0.1)
+	$ScrollContainer.size = Vector2(r*0.8,r*0.8)
 
 	# 편 가르기
 	for ti in 편인자들:
@@ -52,12 +55,11 @@ func 다음말이동길보이기():
 	$"윷던지기".modulate = 편들[이번윷던질편번호].편색
 
 func _on_윷던지기_pressed() -> void:
-	while true:
-		$"윷짝".윷던지기()
-		var 결과 = $"윷짝".결과얻기()
-		if 편들[이번윷던질편번호].새로말달기(결과) == null:
-			#print("놓을말이 없습니다.", 편이름)
-			편들[이번윷던질편번호].판위의말이동하기(결과)
-		if not $윷짝.한번더던지나(결과) :
-			break
-	다음말이동길보이기()
+	$"윷짝".윷던지기()
+	var 결과 = $"윷짝".결과얻기()
+	진행사항.text = "%s 차례 %s\n" % [ 편들[이번윷던질편번호] , $"윷짝" ] + 진행사항.text
+	if 편들[이번윷던질편번호].새로말달기(결과) == null:
+		#print("놓을말이 없습니다.", 편이름)
+		편들[이번윷던질편번호].판위의말이동하기(결과)
+	if not $윷짝.한번더던지나(결과) :
+		다음말이동길보이기()
