@@ -2,9 +2,9 @@ extends Node2D
 
 const 편인자들 = [
 	["빨강색", Color.RED],
-	#["초록색", Color.GREEN],
-	#["하늘색", Color.SKY_BLUE],
-	#["노랑색", Color.YELLOW],
+	["초록색", Color.GREEN],
+	["하늘색", Color.SKY_BLUE],
+	["노랑색", Color.YELLOW],
 ]
 const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
@@ -32,6 +32,7 @@ func _ready() -> void:
 		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
 		var mirror = randi_range(0,1)==0
 		t.init(ti[0], 편당말수, r, ti[1], $"말눈들", 시작눈, mirror)
+		#print(t.길)
 		편들.append(t)
 		t.길.position = vp_size/2
 		add_child(t.길)

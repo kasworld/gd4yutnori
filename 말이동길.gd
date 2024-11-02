@@ -13,6 +13,9 @@ var 첫지름길 :Array[int]
 var 둘째지름길 :Array[int]
 var 세째지름길 :Array[int]
 
+func _to_string() -> String:
+	return "%s\n%s\n%s\n%s\n" %[바깥길,첫지름길,둘째지름길,세째지름길]
+
 func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = false) -> void:
 	화살표색 = co
 	화살표색두께 = w
@@ -30,14 +33,15 @@ func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = fa
 		var v = 바깥길.pop_front()
 		바깥길.push_back(v)
 		바깥길.reverse()
-		지름길1.reverse()
-		지름길2.reverse()
 		var tmp = 지름길1
 		지름길1 = 지름길2
 		지름길2 = tmp
 
 	match 시작눈:
 		0,1,2,3:
+			if mirror:
+				지름길1.reverse()
+				지름길2.reverse()
 			첫지름길 = 지름길1
 			둘째지름길 = 지름길2
 		5,6,7,8:
@@ -45,9 +49,10 @@ func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = fa
 			지름길1.reverse()
 			둘째지름길 = 지름길1
 		10,11,12,13:
-			지름길1.reverse()
+			if not mirror:
+				지름길1.reverse()
+				지름길2.reverse()
 			첫지름길 = 지름길1
-			지름길2.reverse()
 			둘째지름길 = 지름길2
 		15,16,17,18:
 			지름길2.reverse()
