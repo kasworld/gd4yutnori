@@ -20,7 +20,8 @@ func _ready() -> void:
 	$"말눈들".position = vp_size/2
 	$"윷짝".init()
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
-	$"윷던지기".position = vp_size/2 + Vector2(r/8,-r/2)
+	$"윷던지기".position = vp_size/2 + Vector2(r*0.1,-r*0.6)
+	$"자동진행".position = vp_size/2 + Vector2(r*0.1,-r*0.3)
 	$"판밖말들".position = vp_size/2 + Vector2(-r*0.8,r*0.07)
 	$ScrollContainer.position = vp_size/2 + Vector2(r*0.05,r*0.07)
 	$ScrollContainer.size = Vector2(r*0.8,r*0.8)
@@ -59,7 +60,7 @@ func 다음편윷던질준비():
 	$"윷던지기".modulate = 편들[이번윷던질편번호].편색
 	$"윷던지기".text = "%s편\n윷던지기" % 편들[이번윷던질편번호].편이름
 
-func _on_윷던지기_pressed() -> void:
+func 다음윷던지기() -> void:
 	$"윷짝".윷던지기()
 	var 결과 = $"윷짝".결과얻기()
 	진행사항.text = "%s편 차례 %s\n" % [ 편들[이번윷던질편번호].편이름 , $"윷짝" ] + 진행사항.text
@@ -68,3 +69,15 @@ func _on_윷던지기_pressed() -> void:
 		편들[이번윷던질편번호].판위의말이동하기(결과)
 	if not $윷짝.한번더던지나(결과) :
 		다음편윷던질준비()
+
+func _on_윷던지기_pressed() -> void:
+	다음윷던지기()
+
+func _on_timer_timeout() -> void:
+	다음윷던지기()
+
+func _on_자동진행_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$Timer.start()
+	else:
+		$Timer.stop()
