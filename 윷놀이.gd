@@ -2,9 +2,9 @@ extends Node2D
 
 const 편인자들 = [
 	["빨강색", Color.RED],
-	["초록색", Color.GREEN],
-	["하늘색", Color.SKY_BLUE],
-	["노랑색", Color.YELLOW],
+	#["초록색", Color.GREEN],
+	#["하늘색", Color.SKY_BLUE],
+	#["노랑색", Color.YELLOW],
 ]
 const 편당말수 = 4
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
@@ -29,7 +29,9 @@ func _ready() -> void:
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
 		편통.add_child(t)
-		t.init(ti[0], 편당말수, r, ti[1], $"말눈들")
+		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
+		var mirror = randi_range(0,1)==0
+		t.init(ti[0], 편당말수, r, ti[1], $"말눈들", 시작눈, mirror)
 		편들.append(t)
 		t.길.position = vp_size/2
 		add_child(t.길)
@@ -49,7 +51,7 @@ func 말이동길보이기(t:편) ->void:
 	t.길.visible = true
 
 var 이번윷던질편번호 =0
-func 다음말이동길보이기():
+func 다음편윷던질준비():
 	이번윷던질편번호 +=1
 	이번윷던질편번호 %= 편들.size()
 	말이동길보이기(편들[이번윷던질편번호])
@@ -64,4 +66,4 @@ func _on_윷던지기_pressed() -> void:
 		#print("놓을말이 없습니다.", 편이름)
 		편들[이번윷던질편번호].판위의말이동하기(결과)
 	if not $윷짝.한번더던지나(결과) :
-		다음말이동길보이기()
+		다음편윷던질준비()
