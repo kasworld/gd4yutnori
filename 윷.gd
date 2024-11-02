@@ -1,7 +1,7 @@
 extends Control
 class_name 윷
 
-const ANI_SEC = 0.5
+const ANI_SEC = 0.1
 var ani_start :float
 var 결과 :int
 
