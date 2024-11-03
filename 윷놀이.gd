@@ -11,9 +11,9 @@ const 편당말수 = 4
 @onready var 진행사항 = $"ScrollContainer/진행사항"
 var 편_scene = preload("res://편.tscn")
 var 편들 :Array[편]
-
+var vp_size
 func _ready() -> void:
-	var vp_size = get_viewport_rect().size
+	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
 	$"말눈들".init(r,Color.WHITE)
@@ -25,8 +25,11 @@ func _ready() -> void:
 	$"판밖말들".position = vp_size/2 + Vector2(-r*0.8,r*0.07)
 	$ScrollContainer.position = vp_size/2 + Vector2(r*0.05,r*0.07)
 	$ScrollContainer.size = Vector2(r*0.8,r*0.8)
+	$"길보기".position = vp_size/2 + Vector2(-r*0.5,r*0.6)
 
 	# 편 가르기
+	var sh = [Vector2(1,1),Vector2(1.5,-1),Vector2(-1,-1.5),Vector2(-1.5,1.5)]
+	var i =0
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
 		편통.add_child(t)
@@ -48,9 +51,21 @@ func _ready() -> void:
 	$"윷던지기".text = "%s편\n윷던지기" % 편들[0].편이름
 
 func 말이동길보이기(t:편) ->void:
-	for i in 편들:
-		i.길.visible = false
-	t.길.visible = true
+	if 모든길보기:
+		말이동길모두보기()
+	else:
+		for i in 편들:
+			i.길.visible = false
+		t.길.visible = true
+		t.길.position = vp_size/2
+
+func 말이동길모두보기() ->void:
+	var sh = [Vector2(1,1),Vector2(1.5,-1),Vector2(-1,-1.5),Vector2(-1.5,1.5)]
+	var i = 0
+	for t in 편들:
+		t.길.visible = true
+		t.길.position = vp_size/2 + sh[i]*10
+		i+=1
 
 var 이번윷던질편번호 =0
 func 다음편윷던질준비():
@@ -81,3 +96,8 @@ func _on_자동진행_toggled(toggled_on: bool) -> void:
 		$Timer.start()
 	else:
 		$Timer.stop()
+
+var 모든길보기 :bool
+func _on_길보기_toggled(toggled_on: bool) -> void:
+	모든길보기 = toggled_on
+	말이동길보이기(편들[이번윷던질편번호])

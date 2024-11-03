@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=10 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
+[ext_resource type="PackedScene" uid="uid://bf1vkxi8i0lm1" path="res://multi_section_move_animation/multi_section_move_animation.tscn" id="4_co4wg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8horw"]
 bg_color = Color(0.272655, 0.272655, 0.272655, 1)
@@ -15,6 +16,9 @@ default_font_size = 50
 
 [sub_resource type="Theme" id="Theme_6e71o"]
 default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_jwqqu"]
+default_font_size = 30
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
@@ -92,6 +96,15 @@ offset_bottom = 24.0
 theme = SubResource("Theme_6e71o")
 text = "자동진행하기"
 
+[node name="MultiSectionMoveAnimation" parent="." instance=ExtResource("4_co4wg")]
+
+[node name="길보기" type="CheckButton" parent="."]
+offset_right = 44.0
+offset_bottom = 24.0
+theme = SubResource("Theme_jwqqu")
+text = "모든길보기"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]
 [connection signal="toggled" from="자동진행" to="." method="_on_자동진행_toggled"]
+[connection signal="toggled" from="길보기" to="." method="_on_길보기_toggled"]
