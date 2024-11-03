@@ -33,8 +33,6 @@ func _ready() -> void:
 	$"길보기".position = vp_size/2 + Vector2(-r*0.5,r*0.6)
 
 	# 편 가르기
-	var sh = [Vector2(1,1),Vector2(1.5,-1),Vector2(-1,-1.5),Vector2(-1.5,1.5)]
-	var i =0
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
 		t.길이동_animation_started.connect(길이동_animation)
@@ -124,7 +122,6 @@ func 길이동_animation(t :편, 이동과정 :Array[int]):
 
 	msma.animation_ended.connect(길이동_animation_종료)
 	msma.auto_start_with_poslist(ani용말, 이동좌표들,0.5)
-	print("ani시작",이동과정)
 
 func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 	msma.queue_free.call_deferred()

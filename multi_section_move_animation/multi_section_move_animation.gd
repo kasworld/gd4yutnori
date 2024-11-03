@@ -56,8 +56,8 @@ func _on_timer_timeout() -> void:
 
 # v1,v2 : + - , * with float
 # return type of v1,v2
-func calc_inter(v1 , v2 , rate_in_section :float):
-	return (cos(rate_in_section *PI)/2 +0.5) * (v1-v2) + v2
+func calc_inter(v1 , v2 , rate :float):
+	return (cos(rate *PI)/2 +0.5) * (v1-v2) + v2
 
 # o :position , p1,p2 : + - , * with float
 func move_by_ms(o , p1 , p2 , rate:float)->void:
