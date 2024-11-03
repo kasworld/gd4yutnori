@@ -5,16 +5,16 @@ class_name 편
 @onready var 난말통 = $HBoxContainer/HBoxContainer2
 @onready var 길단추 = $HBoxContainer/Button
 
+signal 길이동_animation_started(t :편, 이동과정 :Array[int])
+
 var 말_scene = preload("res://말.tscn")
 var 말이동길_scene = preload("res://말이동길.tscn")
-var msma_scene = preload("res://multi_section_move_animation/multi_section_move_animation.tscn")
 
 var 편이름 :String
 var 편색 :Color
 var 눈들 :말눈들
 var 길 :말이동길
 var 말들 :Array[말]
-var ani용말 :말
 func _to_string() -> String:
 	return "편(%s)" % [편이름]
 
@@ -31,12 +31,9 @@ func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들, �
 	길단추.text = 이름
 	길단추.modulate = co
 	for i in range(0,말수):
-		var m = 말_scene.instantiate().init(self, r, co, i+1)
+		var m = 말_scene.instantiate().init(self, r, i+1)
 		놓을말통.add_child(m)
 		말들.append(m)
-	ani용말 = 말_scene.instantiate().init(self, r, co, 0)
-	add_child(ani용말)
-	ani용말.visible = false
 
 func 놓을말로되돌리기(ms :Array[말]):
 	for m in ms:
@@ -68,7 +65,7 @@ func 새로말달기(이동거리 :int)->눈:
 	if m == null:
 		return null
 	var 말이동과정눈번호 = 길.말이동과정찾기(-1,이동거리)
-	길이동_animation(말이동과정눈번호)
+	길이동_animation_started.emit(self, 말이동과정눈번호)
 	for i in 말이동과정눈번호:
 		m.지나온눈들.append(눈들.눈얻기(i))
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
@@ -99,7 +96,7 @@ func 판위의말이동하기(이동거리 :int)->눈:
 	if 말이동과정눈번호.size() == 0:
 		print("말이동과정찾기 실패 ",ms,말이동과정눈번호)
 		return null
-	길이동_animation(말이동과정눈번호)
+	길이동_animation_started.emit(self, 말이동과정눈번호)
 	ms = ms[0].지나온눈들[-1].말빼기() # 눈에서 제거한다.
 	for i in 말이동과정눈번호: # 말에 지나가는 눈들 추가
 		ms[0].지나온눈들.append(눈들.눈얻기(i))
@@ -110,20 +107,3 @@ func 판위의말이동하기(이동거리 :int)->눈:
 	var 있던말들 = 도착눈.말놓기(ms)
 	놓을말로되돌리기(있던말들)
 	return 도착눈
-
-func 길이동_animation(이동과정 :Array[int]):
-	var 이동좌표들  :Array[Vector2] = []
-	for i in 이동과정:
-		이동좌표들.append(길.눈들[i].position )
-	var msma = msma_scene.instantiate()
-	add_child(msma)
-	ani용말.visible = true
-	msma.animation_ended.connect(길이동_animation_종료)
-	msma.auto_start_with_poslist(ani용말, 이동좌표들,0.5)
-	print("ani시작",이동과정)
-
-func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
-	if msma.move_node != null:
-		msma.move_node.visible = false
-	remove_child(msma)
-	print("애니종료", msma)

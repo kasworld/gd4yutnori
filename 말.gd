@@ -11,11 +11,11 @@ func _to_string() -> String:
 		s += "%d " % n.번호
 	return "말(%s %d 눈[%s])" % [속한편,말번호,s]
 
-func init(t :편, r :float, co: Color, n:int) -> 말:
+func init(t :편, r :float, n:int) -> 말:
 	속한편 = t
 	말번호 = n
 	custom_minimum_size = Vector2(r*2,r*2)
-	var 원 = new_circle_fill(Vector2(r,r),r,co)
+	var 원 = new_circle_fill(Vector2(r,r),r,t.편색)
 	add_child(원)
 	var 테두리 = new_circle(Vector2(r,r),r,Color.BLACK,max(1,r/10))
 	add_child(테두리)

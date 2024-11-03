@@ -7,9 +7,14 @@ const 편인자들 = [
 	["노랑색", Color.YELLOW],
 ]
 const 편당말수 = 4
+
 @onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
 @onready var 진행사항 = $"ScrollContainer/진행사항"
+
 var 편_scene = preload("res://편.tscn")
+var msma_scene = preload("res://multi_section_move_animation/multi_section_move_animation.tscn")
+var 말_scene = preload("res://말.tscn")
+
 var 편들 :Array[편]
 var vp_size
 func _ready() -> void:
@@ -32,6 +37,7 @@ func _ready() -> void:
 	var i =0
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
+		t.길이동_animation_started.connect(길이동_animation)
 		편통.add_child(t)
 		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
 		var mirror = randi_range(0,1)==0
@@ -103,3 +109,22 @@ var 모든길보기 :bool
 func _on_길보기_toggled(toggled_on: bool) -> void:
 	모든길보기 = toggled_on
 	말이동길보이기(편들[이번윷던질편번호])
+
+func 길이동_animation(t :편, 이동과정 :Array[int]):
+	var 이동좌표들  :Array[Vector2] = []
+	for i in 이동과정:
+		이동좌표들.append(t.길.눈들[i].position )
+	var msma = msma_scene.instantiate()
+	add_child(msma)
+	msma.position = vp_size/2
+
+	var r = min(vp_size.x,vp_size.y)/2 *0.9
+	var ani용말 = 말_scene.instantiate().init(t, r/30, 0)
+	msma.add_child(ani용말)
+
+	msma.animation_ended.connect(길이동_animation_종료)
+	msma.auto_start_with_poslist(ani용말, 이동좌표들,0.5)
+	print("ani시작",이동과정)
+
+func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
+	msma.queue_free.call_deferred()
