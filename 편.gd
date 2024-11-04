@@ -58,52 +58,67 @@ func 판위말고르기()->Array[말]:
 			return m.지나온눈들[-1].말보기()
 	return []
 
-func 새로말달기(이동거리 :int)->눈:
+func 새로말달기(이동거리 :int)->Dictionary:
 	if 이동거리<=0:
-		return null
+		return {}
 	var m = 놓을말얻기()
 	if m == null:
-		return null
+		return {}
 	var 말이동과정눈번호 = 길.말이동과정찾기(-1,이동거리)
-	길이동_animation_started.emit(self, 말이동과정눈번호)
+	#길이동_animation_started.emit(self, 말이동과정눈번호)
 	for i in 말이동과정눈번호:
 		m.지나온눈들.append(눈들.눈얻기(i))
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
 	var 있던말들 = 도착눈.말놓기([m])
 	놓을말로되돌리기(있던말들)
-	return 도착눈
+	return {
+		"말이동과정눈번호":말이동과정눈번호,
+		"다른편말을잡았나?":있던말들.size() != 0,
+	}
 
-func 판위의말이동하기(이동거리 :int)->눈:
+func 판위의말이동하기(이동거리 :int)->Dictionary:
 	var ms = 판위말고르기()
 	if ms.size() == 0: # 말없음
-		return null
+		return {}
 	if 이동거리 == 0:
 		print("잘못된이동거리 ", 이동거리)
-		return null
+		return {}
+	var 말이동과정눈번호 :Array[int] = []
 	if 이동거리 < 0: # 뒷도개걸 처리
 		ms = ms[0].지나온눈들[-1].말빼기() # 눈에서 제거한다.
 		if ms[0].지나온눈들.size() <= -이동거리: #판에서 빼서 놓을 말로 돌아간다.
+			말이동과정눈번호 = ms[0].지나온눈들
 			놓을말로되돌리기(ms)
-			return null
+			말이동과정눈번호.reverse()
+			return {
+				"말이동과정눈번호":말이동과정눈번호,
+			}
 		for i in range(이동거리,0): # 업은말의 첫말의 지나온눈들에서 빼면서 뒤로 이동한다.
-			ms[0].지나온눈들.pop_back()
+			말이동과정눈번호.append(ms[0].지나온눈들.pop_back())
 		var 있던말들 = ms[0].지나온눈들[-1].말놓기(ms)
 		놓을말로되돌리기(있던말들)
-		return ms[0].지나온눈들[-1]
+		return {
+			"말이동과정눈번호":말이동과정눈번호,
+		}
 
 	# 앞으로 가기
-	var 말이동과정눈번호 = 길.말이동과정찾기(ms[0].지나온눈들[-1].번호,이동거리)
+	말이동과정눈번호 = 길.말이동과정찾기(ms[0].지나온눈들[-1].번호,이동거리)
 	if 말이동과정눈번호.size() == 0:
 		print("말이동과정찾기 실패 ",ms,말이동과정눈번호)
-		return null
-	길이동_animation_started.emit(self, 말이동과정눈번호)
+		return {}
+	#길이동_animation_started.emit(self, 말이동과정눈번호)
 	ms = ms[0].지나온눈들[-1].말빼기() # 눈에서 제거한다.
 	for i in 말이동과정눈번호: # 말에 지나가는 눈들 추가
 		ms[0].지나온눈들.append(눈들.눈얻기(i))
 	if 말이동과정눈번호[-1] == 길.종점눈번호(): # 말이 났다.
 		난말로넣기(ms)
-		return null
+		return {
+			"말이동과정눈번호":말이동과정눈번호,
+		}
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
 	var 있던말들 = 도착눈.말놓기(ms)
 	놓을말로되돌리기(있던말들)
-	return 도착눈
+	return {
+		"말이동과정눈번호":말이동과정눈번호,
+		"다른편말을잡았나?":있던말들.size() != 0,
+	}

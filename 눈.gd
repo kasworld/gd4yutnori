@@ -19,7 +19,7 @@ func init(r :float, co: Color, n:int) -> void:
 func 말놓기(놓을말들 :Array)->Array[말]:
 	var 있던말들 :Array[말]
 	if 놓을말들.size() == 0 :
-		print("놓을말들이 비어있습니다.", 번호)
+		print("문제:놓을말들이 비어있습니다.", 번호)
 		return 있던말들
 	if $"말들".get_child_count() != 0 and $"말들".get_children()[0].편얻기() != 놓을말들[0].편얻기():
 		있던말들 = 말빼기()
