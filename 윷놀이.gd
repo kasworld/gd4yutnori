@@ -124,9 +124,9 @@ func _on_timer_timeout() -> void:
 
 func _on_자동진행_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		$Timer.start()
+		$Timer자동진행.start()
 	else:
-		$Timer.stop()
+		$Timer자동진행.stop()
 
 var 모든길보기 :bool
 func _on_길보기_toggled(toggled_on: bool) -> void:

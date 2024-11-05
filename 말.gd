@@ -5,11 +5,14 @@ var 속한편 :편
 var 말번호 :int
 var 지나온눈들 :Array[눈]
 
-func _to_string() -> String:
+func string_debug() -> String:
 	var s :String = ""
 	for n in 지나온눈들:
 		s += "%d " % n.번호
 	return "말(%s %d 눈[%s])" % [속한편,말번호,s]
+
+func _to_string() -> String:
+	return "%s말%d" % [속한편,말번호]
 
 func init(t :편, r :float, n:int) -> 말:
 	속한편 = t

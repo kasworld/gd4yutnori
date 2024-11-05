@@ -4,7 +4,7 @@ class_name 눈
 var 번호 :int
 
 func _to_string() -> String:
-	return "눈(%d)" % 번호
+	return "눈%d" % 번호
 
 func init(r :float, co: Color, n:int) -> void:
 	self.번호 = n

@@ -14,7 +14,7 @@ var 눈들 :말눈들
 var 길 :말이동길
 var 말들 :Array[말]
 func _to_string() -> String:
-	return "편(%s)" % [편이름]
+	return "%s편" % [편이름]
 
 func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
 	편이름 = 이름
