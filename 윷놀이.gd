@@ -35,7 +35,6 @@ func _ready() -> void:
 	# 편 가르기
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
-		t.길이동_animation_started.connect(길이동_animation)
 		편통.add_child(t)
 		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
 		var mirror = randi_range(0,1)==0

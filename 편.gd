@@ -5,8 +5,6 @@ class_name 편
 @onready var 난말통 = $HBoxContainer/HBoxContainer2
 @onready var 길단추 = $HBoxContainer/Button
 
-signal 길이동_animation_started(t :편, 이동과정 :Array[int])
-
 var 말_scene = preload("res://말.tscn")
 var 말이동길_scene = preload("res://말이동길.tscn")
 
@@ -65,7 +63,6 @@ func 새로말달기(이동거리 :int)->Dictionary:
 	if m == null:
 		return {}
 	var 말이동과정눈번호 = 길.말이동과정찾기(-1,이동거리)
-	#길이동_animation_started.emit(self, 말이동과정눈번호)
 	for i in 말이동과정눈번호:
 		m.지나온눈들.append(눈들.눈얻기(i))
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
@@ -107,7 +104,6 @@ func 판위의말이동하기(이동거리 :int)->Dictionary:
 	if 말이동과정눈번호.size() == 0:
 		print("말이동과정찾기 실패 ",ms,말이동과정눈번호)
 		return {}
-	#길이동_animation_started.emit(self, 말이동과정눈번호)
 	ms = ms[0].지나온눈들[-1].말빼기() # 눈에서 제거한다.
 	for i in 말이동과정눈번호: # 말에 지나가는 눈들 추가
 		ms[0].지나온눈들.append(눈들.눈얻기(i))
