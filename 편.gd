@@ -42,6 +42,9 @@ func 난말로넣기(ms :Array[말]):
 	for m in ms:
 		m.편얻기().난말통.add_child(m)
 
+func 난말수얻기() -> int:
+	return 난말통.get_child_count()
+
 func 놓을말얻기()->말:
 	if 놓을말통.get_child_count() == 0:
 		return null
@@ -111,6 +114,7 @@ func 판위의말이동하기(이동거리 :int)->Dictionary:
 		난말로넣기(ms)
 		return {
 			"말이동과정눈번호":말이동과정눈번호,
+			"난말들": ms,
 		}
 	var 도착눈 = 눈들.눈얻기(말이동과정눈번호[-1])
 	var 있던말들 = 도착눈.말놓기(ms)
