@@ -17,7 +17,7 @@ var 말_scene = preload("res://말.tscn")
 
 var 편들 :Array[편]
 var vp_size
-func _ready() -> void:
+func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
@@ -52,6 +52,9 @@ func _ready() -> void:
 	말이동길보이기(편들[0])
 	$"윷던지기".modulate = 편들[0].편색
 	$"윷던지기".text = "%s편\n윷던지기" % 편들[0].편이름
+
+func _ready() -> void:
+	init()
 
 func 말이동길보이기(t:편) ->void:
 	if 모든길보기:
@@ -139,7 +142,7 @@ func _on_길보기_toggled(toggled_on: bool) -> void:
 
 func 길이동_animation(t :편, 이동과정 :Array[int]):
 	if 이동과정.size() <= 1:
-		print("이동과정을 생략합니다. ",이동과정)
+		#print("이동과정을 생략합니다. ",이동과정)
 		return
 
 	var 이동좌표들  :Array[Vector2] = []
