@@ -74,6 +74,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Timer자동진행" type="Timer" parent="."]
+wait_time = 0.1
 
 [node name="윷던지기" type="Button" parent="."]
 anchors_preset = 8

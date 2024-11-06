@@ -138,6 +138,10 @@ func _on_길보기_toggled(toggled_on: bool) -> void:
 	말이동길보이기(편들[이번윷던질편번호])
 
 func 길이동_animation(t :편, 이동과정 :Array[int]):
+	if 이동과정.size() <= 1:
+		print("이동과정을 생략합니다. ",이동과정)
+		return
+
 	var 이동좌표들  :Array[Vector2] = []
 	for i in 이동과정:
 		이동좌표들.append(t.길.눈들[i].position )
