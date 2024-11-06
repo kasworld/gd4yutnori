@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=12 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
@@ -17,11 +17,14 @@ font_size = 24
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 50
 
+[sub_resource type="Theme" id="Theme_jwqqu"]
+default_font_size = 30
+
 [sub_resource type="Theme" id="Theme_6e71o"]
 default_font_size = 50
 
-[sub_resource type="Theme" id="Theme_jwqqu"]
-default_font_size = 30
+[sub_resource type="Theme" id="Theme_upo72"]
+default_font_size = 50
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
@@ -96,12 +99,6 @@ grow_vertical = 2
 theme = SubResource("Theme_y2end")
 text = "윷던지기"
 
-[node name="자동진행" type="CheckButton" parent="."]
-offset_right = 44.0
-offset_bottom = 24.0
-theme = SubResource("Theme_6e71o")
-text = "자동진행하기"
-
 [node name="MultiSectionMoveAnimation" parent="." instance=ExtResource("4_co4wg")]
 
 [node name="길보기" type="CheckButton" parent="."]
@@ -110,6 +107,21 @@ offset_bottom = 24.0
 theme = SubResource("Theme_jwqqu")
 text = "모든길보기"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="자동진행" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6e71o")
+text = "자동진행하기"
+
+[node name="놀이재시작" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_upo72")
+text = "놀이재시작"
+
 [connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]
-[connection signal="toggled" from="자동진행" to="." method="_on_자동진행_toggled"]
 [connection signal="toggled" from="길보기" to="." method="_on_길보기_toggled"]
+[connection signal="toggled" from="VBoxContainer/자동진행" to="." method="_on_자동진행_toggled"]
+[connection signal="pressed" from="VBoxContainer/놀이재시작" to="." method="_on_놀이재시작_pressed"]

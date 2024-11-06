@@ -26,7 +26,6 @@ func init() -> void:
 	$"윷짝".init()
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r*0.1,-r*0.6)
-	$"자동진행".position = vp_size/2 + Vector2(r*0.1,-r*0.3)
 	$"편들상태".position = vp_size/2 + Vector2(-r*0.85,r*0.07)
 	$ScrollContainer.position = vp_size/2 + Vector2(r*0.05,r*0.07)
 	$ScrollContainer.size = Vector2(r*0.8,r*0.8)
@@ -99,7 +98,6 @@ func 다음편차례준비하기():
 var 윷던진횟수 = 0
 func 윷던지고말이동하기() -> void:
 	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
-		#get_tree().reload_current_scene()
 		return
 	$"윷짝".윷던지기()
 	윷던진횟수 += 1
@@ -166,3 +164,6 @@ func 길이동_animation(t :편, 이동과정 :Array[int]):
 
 func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 	msma.queue_free.call_deferred()
+
+func _on_놀이재시작_pressed() -> void:
+	get_tree().reload_current_scene()
