@@ -52,6 +52,9 @@ func 놓을말얻기()->말:
 	놓을말통.remove_child(m)
 	return m
 
+func 등수쓰기(n :int):
+	$HBoxContainer/Label.text = "%d등" % n
+
 # 업은경우가 있어 말들을 돌려준다.
 func 판위말고르기()->Array[말]:
 	for m in 말들:

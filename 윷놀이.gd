@@ -8,7 +8,7 @@ const 편인자들 = [
 ]
 const 편당말수 = 4
 
-@onready var 편통 = $"판밖말들/VBoxContainer2/VBoxContainer"
+@onready var 편통 = $"편들상태/VBoxContainer2/VBoxContainer"
 @onready var 진행사항 = $"ScrollContainer/진행사항"
 
 var 편_scene = preload("res://편.tscn")
@@ -27,7 +27,7 @@ func init() -> void:
 	$"윷짝".position = vp_size/2 + Vector2(-r/2.3,-r/3)
 	$"윷던지기".position = vp_size/2 + Vector2(r*0.1,-r*0.6)
 	$"자동진행".position = vp_size/2 + Vector2(r*0.1,-r*0.3)
-	$"판밖말들".position = vp_size/2 + Vector2(-r*0.8,r*0.07)
+	$"편들상태".position = vp_size/2 + Vector2(-r*0.85,r*0.07)
 	$ScrollContainer.position = vp_size/2 + Vector2(r*0.05,r*0.07)
 	$ScrollContainer.size = Vector2(r*0.8,r*0.8)
 	$"길보기".position = vp_size/2 + Vector2(-r*0.5,r*0.6)
@@ -75,7 +75,7 @@ func 말이동길모두보기() ->void:
 
 var 이번윷던질편번호 =0
 var 난편들 :Array[편]
-func 다음편윷던질준비():
+func 다음편차례준비하기():
 	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
 		return
 	while true:
@@ -87,15 +87,19 @@ func 다음편윷던질준비():
 		if 편들[이번윷던질편번호].난말수얻기() == 편당말수:
 			if 난편들.find(편들[이번윷던질편번호]) == -1:
 				난편들.append(편들[이번윷던질편번호])
+				편들[이번윷던질편번호].등수쓰기(난편들.size())
 			continue
 		말이동길보이기(편들[이번윷던질편번호])
 		$"윷던지기".modulate = 편들[이번윷던질편번호].편색
 		$"윷던지기".text = "%s편\n윷던지기" % 편들[이번윷던질편번호].편이름
 		break
+	if 자동진행:
+		윷던지고말이동하기()
 
 var 윷던진횟수 = 0
-func 다음윷던지기() -> void:
+func 윷던지고말이동하기() -> void:
 	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
+		#get_tree().reload_current_scene()
 		return
 	$"윷짝".윷던지기()
 	윷던진횟수 += 1
@@ -104,7 +108,7 @@ func 다음윷던지기() -> void:
 	if 이동결과.is_empty():
 		이동결과 = 편들[이번윷던질편번호].판위의말이동하기(결과)
 	if 이동결과.is_empty():
-		다음편윷던질준비()
+		다음편차례준비하기()
 		return
 	var 말이동과정눈번호 = 이동결과.get("말이동과정눈번호",[])
 	if 말이동과정눈번호.size() != 0:
@@ -116,24 +120,25 @@ func 다음윷던지기() -> void:
 	if 난말들.size() != 0:
 		진행사항.text = "    %s 났습니다.\n" % [난말들 ] + 진행사항.text
 	if (not $윷짝.한번더던지나(결과)) and 잡은말들.size() == 0 :
-		다음편윷던질준비()
+		다음편차례준비하기()
 	else:
 		if 잡은말들.size() != 0 :
 			진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 잡은말들 ] + 진행사항.text
 		else:
 			진행사항.text = "    %s 던저서 한번더 던진다. \n" % [ $"윷짝" ] + 진행사항.text
 
+	if 자동진행:
+		윷던지고말이동하기()
+
+
 func _on_윷던지기_pressed() -> void:
-	다음윷던지기()
+	윷던지고말이동하기()
 
-func _on_timer_timeout() -> void:
-	다음윷던지기()
-
+var 자동진행 :bool
 func _on_자동진행_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		$Timer자동진행.start()
-	else:
-		$Timer자동진행.stop()
+	자동진행 = toggled_on
+	if 자동진행:
+		윷던지고말이동하기()
 
 var 모든길보기 :bool
 func _on_길보기_toggled(toggled_on: bool) -> void:
