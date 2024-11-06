@@ -1,4 +1,4 @@
-extends Node2D
+extends PanelContainer
 class_name 윷짝
 
 var 윷_scene = preload("res://윷.tscn")

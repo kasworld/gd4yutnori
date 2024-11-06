@@ -5,6 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
 [ext_resource type="PackedScene" uid="uid://bf1vkxi8i0lm1" path="res://multi_section_move_animation/multi_section_move_animation.tscn" id="4_co4wg"]
 
+[sub_resource type="Theme" id="Theme_6e71o"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_jwqqu"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_upo72"]
+default_font_size = 50
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8horw"]
 bg_color = Color(0.272655, 0.272655, 0.272655, 1)
 
@@ -17,42 +26,60 @@ font_size = 24
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 50
 
-[sub_resource type="Theme" id="Theme_jwqqu"]
-default_font_size = 30
-
-[sub_resource type="Theme" id="Theme_6e71o"]
-default_font_size = 50
-
-[sub_resource type="Theme" id="Theme_upo72"]
-default_font_size = 50
-
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="말눈들" parent="." instance=ExtResource("3_of73k")]
+
+[node name="MultiSectionMoveAnimation" parent="." instance=ExtResource("4_co4wg")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="자동진행" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_6e71o")
+text = "자동진행하기"
+
+[node name="길보기" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_jwqqu")
+text = "모든길보기"
+
+[node name="놀이재시작" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_upo72")
+text = "놀이재시작"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_8horw")
 follow_focus = true
 
-[node name="진행사항" type="Label" parent="ScrollContainer"]
+[node name="진행사항" type="Label" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
 
-[node name="윷짝" parent="." instance=ExtResource("2_lq234")]
-
-[node name="말눈들" parent="." instance=ExtResource("3_of73k")]
-
-[node name="편들상태" type="PanelContainer" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="편들상태"]
+[node name="윷짝" parent="VBoxContainer2" instance=ExtResource("2_lq234")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="편들상태/VBoxContainer2"]
+[node name="편들상태" type="PanelContainer" parent="VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="편들상태/VBoxContainer2/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2/편들상태"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/편들상태/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/편들상태/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "달말들"
@@ -60,7 +87,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="편들상태/VBoxContainer2/HBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer2/편들상태/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "길보기"
@@ -68,7 +95,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="편들상태/VBoxContainer2/HBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer2/편들상태/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "난말들"
@@ -76,52 +103,20 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="편들상태/VBoxContainer2/HBoxContainer"]
+[node name="Label4" type="Label" parent="VBoxContainer2/편들상태/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 text = "등수"
 label_settings = SubResource("LabelSettings_f60j2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="편들상태/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2/편들상태/VBoxContainer2"]
 layout_mode = 2
 
-[node name="윷던지기" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -45.5
-offset_right = 124.0
-offset_bottom = 45.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="윷던지기" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
 theme = SubResource("Theme_y2end")
 text = "윷던지기"
 
-[node name="MultiSectionMoveAnimation" parent="." instance=ExtResource("4_co4wg")]
-
-[node name="길보기" type="CheckButton" parent="."]
-offset_right = 44.0
-offset_bottom = 24.0
-theme = SubResource("Theme_jwqqu")
-text = "모든길보기"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="자동진행" type="CheckButton" parent="VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_6e71o")
-text = "자동진행하기"
-
-[node name="놀이재시작" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme = SubResource("Theme_upo72")
-text = "놀이재시작"
-
-[connection signal="pressed" from="윷던지기" to="." method="_on_윷던지기_pressed"]
-[connection signal="toggled" from="길보기" to="." method="_on_길보기_toggled"]
 [connection signal="toggled" from="VBoxContainer/자동진행" to="." method="_on_자동진행_toggled"]
+[connection signal="toggled" from="VBoxContainer/길보기" to="." method="_on_길보기_toggled"]
 [connection signal="pressed" from="VBoxContainer/놀이재시작" to="." method="_on_놀이재시작_pressed"]
+[connection signal="pressed" from="VBoxContainer2/윷던지기" to="." method="_on_윷던지기_pressed"]
