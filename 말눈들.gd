@@ -9,7 +9,7 @@ func init(반지름: float, co :Color) -> void:
 	var 눈반지름 = 반지름/30
 
 	# 눈 추가하기
-	var 눈각도 = 360/20
+	var 눈각도 = 360.0/20.0
 	for i in range(눈각도,360+눈각도,눈각도):
 		var rd = deg_to_rad(i)
 		var pos = make_pos_by_rad_r(rd,반지름)
