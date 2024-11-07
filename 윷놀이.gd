@@ -11,7 +11,7 @@ const 편당말수 = 4
 @onready var 편통 = $"VBoxContainer2/편들상태/VBoxContainer2/VBoxContainer"
 @onready var 진행사항 = $"VBoxContainer/ScrollContainer/진행사항"
 @onready var 윷던지기 = $"VBoxContainer2/윷던지기"
-@onready var 윷짝 = $"VBoxContainer2/윷짝"
+@onready var 윷짝1 = $"VBoxContainer2/윷짝"
 
 var 편_scene = preload("res://편.tscn")
 var msma_scene = preload("res://multi_section_move_animation/multi_section_move_animation.tscn")
@@ -25,9 +25,10 @@ func init() -> void:
 
 	$"말눈들".init(r,Color.WHITE)
 	$"말눈들".position = vp_size/2
-	윷짝.init()
-	$VBoxContainer.size.y = vp_size.y
-	$VBoxContainer2.position.x = vp_size.x - r*0.9
+	윷짝1.init()
+	$VBoxContainer.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
+	$VBoxContainer2.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
+	$VBoxContainer2.position = Vector2(vp_size.x/2 + r*1.1, 0)
 
 	# 편 가르기
 	for ti in 편인자들:
@@ -63,12 +64,18 @@ func 말이동길보이기(t:편) ->void:
 		t.길.position = vp_size/2
 
 func 말이동길모두보기() ->void:
-	var sh = [Vector2(1,1),Vector2(1.5,-1),Vector2(-1,-1.5),Vector2(-1.5,1.5)]
+	var deg_start = 30.0
+	var deg_inc = 360.0 / 편들.size()
+	var r = min(vp_size.x,vp_size.y)/2 * 0.03
 	var i = 0
 	for t in 편들:
 		t.길.visible = true
-		t.길.position = vp_size/2 + sh[i]*10
+		var ra = deg_to_rad( deg_start + i*deg_inc)
+		t.길.position = vp_size/2 + make_pos_by_rad_r(ra,r)
 		i+=1
+
+func make_pos_by_rad_r(rad:float, r :float)->Vector2:
+	return Vector2(sin(rad)*r, cos(rad)*r)
 
 var 이번윷던질편번호 =0
 var 난편들 :Array[편]
@@ -97,9 +104,9 @@ var 윷던진횟수 = 0
 func 윷던지고말이동하기() -> void:
 	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
 		return
-	윷짝.윷던지기()
+	윷짝1.윷던지기()
 	윷던진횟수 += 1
-	var 결과 = 윷짝.결과얻기()
+	var 결과 = 윷짝1.결과얻기()
 	var 이동결과 = 편들[이번윷던질편번호].새로말달기(결과)
 	if 이동결과.is_empty():
 		이동결과 = 편들[이번윷던질편번호].판위의말이동하기(결과)
@@ -112,16 +119,16 @@ func 윷던지고말이동하기() -> void:
 
 	var 잡은말들 = 이동결과.get("잡은말들",[])
 	var 난말들 = 이동결과.get("난말들",[])
-	진행사항.text = "%d %s편 %s\n" % [윷던진횟수, 편들[이번윷던질편번호].편이름 , 윷짝 ] + 진행사항.text
+	진행사항.text = "%d %s편 %s\n" % [윷던진횟수, 편들[이번윷던질편번호].편이름 , 윷짝1 ] + 진행사항.text
 	if 난말들.size() != 0:
 		진행사항.text = "    %s 났습니다.\n" % [난말들 ] + 진행사항.text
-	if (not 윷짝.한번더던지나(결과)) and 잡은말들.size() == 0 :
+	if (not 윷짝1.한번더던지나(결과)) and 잡은말들.size() == 0 :
 		다음편차례준비하기()
 	else:
 		if 잡은말들.size() != 0 :
 			진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 잡은말들 ] + 진행사항.text
 		else:
-			진행사항.text = "    %s 던저서 한번더 던진다. \n" % [ 윷짝 ] + 진행사항.text
+			진행사항.text = "    %s 던저서 한번더 던진다. \n" % [ 윷짝1 ] + 진행사항.text
 
 	if 자동진행:
 		윷던지고말이동하기.call_deferred()
