@@ -12,7 +12,7 @@ func init(반지름: float, co :Color) -> void:
 	var 눈각도 = 360.0/20.0
 	for i in range(눈각도,360+눈각도,눈각도):
 		var rd = deg_to_rad(i)
-		var pos = make_pos_by_rad_r(rd,반지름)
+		var pos = PolygonNode.make_pos_by_rad_r(rd,반지름)
 		눈추가(눈반지름, pos,co)
 
 	for i in [0.66,0.33,0,-0.33,-0.66]:
@@ -31,5 +31,6 @@ func 눈추가(눈반지름: float, pos:Vector2, co:Color):
 func 눈얻기(눈번호 :int)->눈:
 	return 눈들[눈번호]
 
-func make_pos_by_rad_r(rad:float, r :float)->Vector2:
-	return Vector2(sin(rad)*r, cos(rad)*r)
+func 눈수자보기(b :bool):
+	for n in 눈들:
+		n.눈수자보기(b)

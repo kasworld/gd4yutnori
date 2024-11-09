@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5pheg86xy3d8"]
+[gd_scene load_steps=3 format=3 uid="uid://c5pheg86xy3d8"]
 
 [ext_resource type="Script" path="res://눈.gd" id="1_ayhlg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yt13m"]
+font_size = 24
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
 
 [node name="눈" type="Control"]
 layout_mode = 3
@@ -17,3 +22,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+
+[node name="눈수자" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_yt13m")

@@ -11,10 +11,7 @@ func init(r :float, co: Color, n:int) -> void:
 	var w = max(1,r/8)
 	var 원 = PolygonNode.new_circle(Vector2(0,0),r,co,w)
 	add_child(원)
-	var lb = Label.new()
-	lb.label_settings = preload("res://label_settings.tres")
-	lb.text = "%d" % 번호
-	add_child(lb)
+	$"눈수자".text = "%d" % 번호
 
 func 말놓기(놓을말들 :Array)->Array[말]:
 	var 있던말들 :Array[말]
@@ -40,3 +37,6 @@ func 말보기()->Array[말]:
 	for m in $"말들".get_children():
 		rtn.append(m)
 	return rtn
+
+func 눈수자보기(b :bool):
+	$"눈수자".visible = b

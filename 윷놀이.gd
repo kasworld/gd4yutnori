@@ -71,11 +71,8 @@ func 말이동길모두보기() ->void:
 	for t in 편들:
 		t.길.visible = true
 		var ra = deg_to_rad( deg_start + i*deg_inc)
-		t.길.position = vp_size/2 + make_pos_by_rad_r(ra,r)
+		t.길.position = vp_size/2 + PolygonNode.make_pos_by_rad_r(ra,r)
 		i+=1
-
-func make_pos_by_rad_r(rad:float, r :float)->Vector2:
-	return Vector2(sin(rad)*r, cos(rad)*r)
 
 var 이번윷던질편번호 =0
 var 난편들 :Array[편]
@@ -171,3 +168,6 @@ func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 
 func _on_놀이재시작_pressed() -> void:
 	get_tree().reload_current_scene()
+
+func _on_눈수자보기_toggled(toggled_on: bool) -> void:
+	$"말눈들".눈수자보기(toggled_on)

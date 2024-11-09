@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=13 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
@@ -9,6 +9,9 @@
 default_font_size = 50
 
 [sub_resource type="Theme" id="Theme_jwqqu"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_1556g"]
 default_font_size = 50
 
 [sub_resource type="Theme" id="Theme_upo72"]
@@ -48,6 +51,11 @@ text = "자동진행하기"
 layout_mode = 2
 theme = SubResource("Theme_jwqqu")
 text = "모든길보기"
+
+[node name="눈수자보기" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1556g")
+text = "눈수자보기"
 
 [node name="놀이재시작" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -118,5 +126,6 @@ text = "윷던지기"
 
 [connection signal="toggled" from="VBoxContainer/자동진행" to="." method="_on_자동진행_toggled"]
 [connection signal="toggled" from="VBoxContainer/길보기" to="." method="_on_길보기_toggled"]
+[connection signal="toggled" from="VBoxContainer/눈수자보기" to="." method="_on_눈수자보기_toggled"]
 [connection signal="pressed" from="VBoxContainer/놀이재시작" to="." method="_on_놀이재시작_pressed"]
 [connection signal="pressed" from="VBoxContainer2/윷던지기" to="." method="_on_윷던지기_pressed"]

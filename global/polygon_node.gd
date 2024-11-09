@@ -1,5 +1,8 @@
 extends Node
 
+func make_pos_by_rad_r(rad:float, r :float)->Vector2:
+	return Vector2(sin(rad)*r, cos(rad)*r)
+
 func new_circle_fill(p :Vector2, r :float, co:Color) -> Polygon2D :
 	var rtn = Polygon2D.new()
 	var pv2a : PackedVector2Array = []

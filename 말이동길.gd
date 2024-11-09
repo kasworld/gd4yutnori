@@ -140,6 +140,3 @@ func 화살표추가(p1 :Vector2, p2 :Vector2):
 
 func _draw() -> void:
 	draw_multiline(화살표선들, 화살표색, 화살표색두께)
-
-func make_pos_by_rad_r(rad:float, r :float)->Vector2:
-	return Vector2(sin(rad)*r, cos(rad)*r)
