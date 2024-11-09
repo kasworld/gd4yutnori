@@ -8,9 +8,7 @@ func _to_string() -> String:
 
 func init(r :float, co: Color, n:int) -> void:
 	self.번호 = n
-	var w = max(1,r/8)
 	var 원 = PolygonNode.new_circle_fill(Vector2(0,0),r,co)
-	#var 원 = PolygonNode.new_circle(Vector2(0,0),r,co,w)
 	add_child(원)
 	원.z_index = -1
 	$"눈번호".text = "%d" % 번호
