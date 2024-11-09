@@ -12,7 +12,6 @@ func init(r :float, co: Color, n:int) -> void:
 	var 원 = PolygonNode.new_circle(Vector2(0,0),r,co,w)
 	add_child(원)
 	$"눈번호".text = "%d" % 번호
-	move_child(원,-1)
 
 func 말놓기(놓을말들 :Array)->Array[말]:
 	var 있던말들 :Array[말]

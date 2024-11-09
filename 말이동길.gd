@@ -12,6 +12,8 @@ var 바깥길 :Array[int]
 var 첫지름길 :Array[int]
 var 둘째지름길 :Array[int]
 var 세째지름길 :Array[int]
+var 놓을길시작 : Vector2
+var 나는길끝 : Vector2
 
 func _to_string() -> String:
 	return "%s\n%s\n%s\n%s\n" %[바깥길,첫지름길,둘째지름길,세째지름길]
@@ -85,12 +87,12 @@ func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = fa
 	var 중점 = 눈들[22].position
 
 	var 시작점 = 눈들[바깥길[0]].position
-	var 시작점0 = ((중점-시작점)*0.3).rotated(-PI/6) + 시작점
-	화살표추가(시작점0,시작점)
+	놓을길시작 = ((중점-시작점)*0.3).rotated(-PI/6) + 시작점
+	화살표추가(놓을길시작,시작점)
 
 	var 끝점 = 눈들[바깥길[-1]].position
-	var 끝점0 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
-	화살표추가(끝점,끝점0)
+	나는길끝 = ((중점-끝점)*0.3).rotated(-PI/6) + 끝점
+	화살표추가(끝점,나는길끝)
 
 # 도착 말눈번호를 돌려준다.
 # 말을 새로 다는 경우 현재말눈번호를 -1
