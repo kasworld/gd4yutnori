@@ -16,20 +16,21 @@ var 말들 :Array[말]
 func _to_string() -> String:
 	return "%s편" % [편이름]
 
-func init(이름 :String, 말수 :int, 크기:float, co:Color, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
-	편이름 = 이름
-	편색 = co
+func init(편정보 :Array, 말수 :int, 크기:float, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
+	편이름 = 편정보[0]
+	편색 = 편정보[1]
+	var 모양 = 편정보[2]
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
-	길.init( max(1,크기/200), co, es.눈들, 시작눈, mirror)
+	길.init( max(1,크기/200), 편색, es.눈들, 시작눈, mirror)
 	var r = 크기/30
 	custom_minimum_size = Vector2(r*2*10,r*2)
 	놓을말통.custom_minimum_size = Vector2(r*2*4,r*2)
 	난말통.custom_minimum_size = Vector2(r*2*4,r*2)
-	길단추.text = 이름
-	길단추.modulate = co
+	길단추.text = 편이름
+	길단추.modulate = 편색
 	for i in range(0,말수):
-		var m = 말_scene.instantiate().init(self, r, i+1)
+		var m = 말_scene.instantiate().init(self, r, i+1, 모양)
 		놓을말통.add_child(m)
 		말들.append(m)
 

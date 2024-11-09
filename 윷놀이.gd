@@ -1,10 +1,10 @@
 extends Node2D
 
 const 편인자들 = [
-	["빨강색", Color.RED],
-	["초록색", Color.GREEN],
-	["하늘색", Color.SKY_BLUE],
-	["노랑색", Color.YELLOW],
+	["빨강색", Color.RED, 3],
+	["초록색", Color.GREEN, 4],
+	["하늘색", Color.SKY_BLUE, 5],
+	["노랑색", Color.YELLOW, 6],
 ]
 const 편당말수 = 4
 
@@ -36,7 +36,7 @@ func init() -> void:
 		편통.add_child(t)
 		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
 		var mirror = randi_range(0,1)==0
-		t.init(ti[0], 편당말수, r, ti[1], $"말눈들", 시작눈, mirror)
+		t.init(ti, 편당말수, r, $"말눈들", 시작눈, mirror)
 		#print(t.길)
 		편들.append(t)
 		t.길.position = vp_size/2
@@ -160,7 +160,7 @@ func 길이동_animation(t :편, 이동과정 :Array[int]):
 	msma.position = vp_size/2
 
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	var ani용말 = 말_scene.instantiate().init(t, r/30, 0)
+	var ani용말 = 말_scene.instantiate().init(t, r/30, 0, 8 )
 	msma.add_child(ani용말)
 
 	msma.animation_ended.connect(길이동_animation_종료)
