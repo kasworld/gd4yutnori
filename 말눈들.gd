@@ -1,16 +1,15 @@
 extends Node2D
 class_name 말눈들
 
+const 눈사이각도 = 360.0/20.0
 var 눈_scene = preload("res://눈.tscn")
-
 var 눈들 :Array[눈]
 
 func init(반지름: float, co :Color) -> void:
 	var 눈반지름 = 반지름/30
 
 	# 눈 추가하기
-	var 눈각도 = 360.0/20.0
-	for i in range(눈각도,360+눈각도,눈각도):
+	for i in range(눈사이각도,360+눈사이각도,눈사이각도):
 		var rd = deg_to_rad(i)
 		var pos = PolygonNode.make_pos_by_rad_r(rd,반지름)
 		눈추가(눈반지름, pos,co)

@@ -81,7 +81,6 @@ func 다음편차례준비하기():
 		return
 	while true:
 		if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
-			print(난편들)
 			return
 		이번윷던질편번호 +=1
 		이번윷던질편번호 %= 편들.size()
@@ -155,10 +154,16 @@ func _on_길보기_toggled(toggled_on: bool) -> void:
 	말이동길보이기(편들[이번윷던질편번호])
 
 func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
-	var 좌표들  :Array[Vector2] = []
+	var 좌표들 :Array[Vector2] = []
 	for i in 눈번호들:
 		좌표들.append($"말눈들".눈들[i].position )
 	return 좌표들
+
+func _on_놀이재시작_pressed() -> void:
+	get_tree().reload_current_scene()
+
+func _on_눈번호보기_toggled(toggled_on: bool) -> void:
+	$"말눈들".눈번호보기(toggled_on)
 
 func 길이동_animation(t :편, 이동좌표들 :Array[Vector2]):
 	if 이동좌표들.size() <= 1:
@@ -178,9 +183,3 @@ func 길이동_animation(t :편, 이동좌표들 :Array[Vector2]):
 
 func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 	msma.queue_free.call_deferred()
-
-func _on_놀이재시작_pressed() -> void:
-	get_tree().reload_current_scene()
-
-func _on_눈번호보기_toggled(toggled_on: bool) -> void:
-	$"말눈들".눈번호보기(toggled_on)

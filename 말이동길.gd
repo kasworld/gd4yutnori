@@ -6,7 +6,6 @@ var 화살표색두께 :float
 var 화살표색 :Color
 var 화살표선들 :PackedVector2Array =[]
 var 눈들 :Array[눈]
-
 # 눈번호
 var 바깥길 :Array[int]
 var 첫지름길 :Array[int]
