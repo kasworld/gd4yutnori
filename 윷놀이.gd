@@ -169,5 +169,5 @@ func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 func _on_놀이재시작_pressed() -> void:
 	get_tree().reload_current_scene()
 
-func _on_눈수자보기_toggled(toggled_on: bool) -> void:
-	$"말눈들".눈수자보기(toggled_on)
+func _on_눈번호보기_toggled(toggled_on: bool) -> void:
+	$"말눈들".눈번호보기(toggled_on)

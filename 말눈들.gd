@@ -31,6 +31,6 @@ func 눈추가(눈반지름: float, pos:Vector2, co:Color):
 func 눈얻기(눈번호 :int)->눈:
 	return 눈들[눈번호]
 
-func 눈수자보기(b :bool):
+func 눈번호보기(b :bool):
 	for n in 눈들:
-		n.눈수자보기(b)
+		n.눈번호보기(b)
