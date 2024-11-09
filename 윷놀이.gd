@@ -23,7 +23,7 @@ func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 
-	$"말눈들".init(r,Color.WHITE)
+	$"말눈들".init(r,Color.GRAY)
 	$"말눈들".position = vp_size/2
 	윷짝1.init()
 	$VBoxContainer.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
