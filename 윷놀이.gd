@@ -110,14 +110,21 @@ func 윷던지고말이동하기() -> void:
 	if 이동결과.is_empty():
 		다음편차례준비하기()
 		return
-	var 말이동과정눈번호 = 이동결과.get("말이동과정눈번호",[])
-	if 말이동과정눈번호.size() != 0:
-		길이동_animation(편들[이번윷던질편번호],말이동과정눈번호 )
-
 	var 잡힌말들 = 이동결과.get("잡힌말들",[])
 	var 난말들 = 이동결과.get("난말들",[])
 	var 놓을말로돌아간말들 = 이동결과.get("놓을말로돌아간말들",[])
-	var 새로단말 = 이동결과.get("새로단말",[])
+	var 새로단말 = 이동결과.get("새로단말",null)
+	var 말이동과정눈번호 = 이동결과.get("말이동과정눈번호",[])
+
+	if 말이동과정눈번호.size() != 0:
+		var 좌표들 = 눈번호들을좌표로(말이동과정눈번호)
+		if 새로단말 != null:
+			좌표들.push_front(편들[이번윷던질편번호].길.놓을길시작 )
+		if 놓을말로돌아간말들.size() != 0:
+			좌표들.push_back(편들[이번윷던질편번호].길.놓을길시작 )
+		if 난말들.size() != 0:
+			좌표들.push_back(편들[이번윷던질편번호].길.나는길끝 )
+		길이동_animation(편들[이번윷던질편번호],좌표들 )
 
 	진행사항.text = "%d %s편 %s\n" % [윷던진횟수, 편들[이번윷던질편번호].편이름 , 윷짝1 ] + 진행사항.text
 	if 난말들.size() != 0:
@@ -147,14 +154,17 @@ func _on_길보기_toggled(toggled_on: bool) -> void:
 	모든길보기 = toggled_on
 	말이동길보이기(편들[이번윷던질편번호])
 
-func 길이동_animation(t :편, 이동과정 :Array[int]):
-	if 이동과정.size() <= 1:
+func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
+	var 좌표들  :Array[Vector2] = []
+	for i in 눈번호들:
+		좌표들.append($"말눈들".눈들[i].position )
+	return 좌표들
+
+func 길이동_animation(t :편, 이동좌표들 :Array[Vector2]):
+	if 이동좌표들.size() <= 1:
 		#print("이동과정을 생략합니다. ",이동과정)
 		return
 
-	var 이동좌표들  :Array[Vector2] = []
-	for i in 이동과정:
-		이동좌표들.append(t.길.눈들[i].position )
 	var msma = msma_scene.instantiate()
 	add_child(msma)
 	msma.position = vp_size/2
@@ -164,7 +174,7 @@ func 길이동_animation(t :편, 이동과정 :Array[int]):
 	msma.add_child(ani용말)
 
 	msma.animation_ended.connect(길이동_animation_종료)
-	msma.auto_start_with_poslist(ani용말, 이동좌표들,0.5)
+	msma.auto_start_with_poslist(ani용말, 이동좌표들, 0.5)
 
 func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
 	msma.queue_free.call_deferred()
