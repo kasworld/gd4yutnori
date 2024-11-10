@@ -17,6 +17,7 @@ const 결과문자변환 = {
 var 윷들 :Array[윷]
 var 결과label :Label
 var 결과수치 :int
+var 던진횟수 :int = 0
 
 func _to_string() -> String:
 	return 결과문자변환[결과수치]
@@ -48,9 +49,13 @@ func 윷던지기():
 		결과.append( n.던지기() )
 	결과수치 = 결과해석(결과)
 	결과label.text = 결과문자변환[결과수치]
+	던진횟수 += 1
 
 func 결과얻기()->int:
 	return 결과수치
+
+func 던진횟수얻기()->int:
+	return 던진횟수
 
 func 결과해석(결과 :Array[int])->int:
 	if 결과 == [1,0,0,0]:
