@@ -91,8 +91,6 @@ func 다음편차례준비하기():
 		윷던지기.modulate = 편들[이번윷던질편번호].편색
 		윷던지기.text = "%s편\n윷던지기" % 편들[이번윷던질편번호].편이름
 		break
-	if 자동진행:
-		윷던지고말이동하기.call_deferred()
 
 func 윷던지고말이동하기() -> void:
 	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
@@ -106,10 +104,12 @@ func 윷던지고말이동하기() -> void:
 	if 이동결과.is_empty():
 		진행사항.text = "%d %s편 %s 이동할 말이 없습니다.\n" % [윷짝1.던진횟수얻기(), 윷던진편.편이름 , 윷짝1 ] + 진행사항.text
 		다음편차례준비하기()
+		윷던지고말이동하기.call_deferred()
 		return
 	var 말이동과정눈번호 = 이동결과.get("말이동과정눈번호",[])
 	if 말이동과정눈번호.size() == 0:
 		다음편차례준비하기()
+		윷던지고말이동하기.call_deferred()
 		return
 	var 잡힌말들 = 이동결과.get("잡힌말들",[])
 	var 난말들 = 이동결과.get("난말들",[])
@@ -129,12 +129,14 @@ func 윷던지고말이동하기() -> void:
 		좌표들.push_back(윷던진편.길.나는길끝 )
 	if 잡힌말들.size() != 0 :
 		진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 잡힌말들 ] + 진행사항.text
-	길이동_animation_시작(윷던진편,좌표들 )
+	길이동_animation_시작(윷던진편,좌표들,
+		func():
+			if (not 윷짝1.한번더던지나(결과)) and 잡힌말들.size() == 0:
+				다음편차례준비하기()
+			if 자동진행:
+				윷던지고말이동하기.call_deferred()
+			)
 
-	if (not 윷짝1.한번더던지나(결과)) and 잡힌말들.size() == 0 :
-		다음편차례준비하기()
-	if 자동진행:
-		윷던지고말이동하기.call_deferred()
 
 func _on_윷던지기_pressed() -> void:
 	윷던지고말이동하기()
@@ -162,22 +164,19 @@ func _on_놀이재시작_pressed() -> void:
 func _on_눈번호보기_toggled(toggled_on: bool) -> void:
 	$"말눈들".눈번호보기(toggled_on)
 
-func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2]):
+func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Callable):
 	if 이동좌표들.size() <= 1:
-		길이동_animation_종료(null)
+		fn.call()
 		return
-
 	var msma = msma_scene.instantiate()
 	add_child(msma)
 	msma.position = vp_size/2
-
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	var ani용node = 말_scene.instantiate().init(t, r/30, 0, 8 )
 	msma.add_child(ani용node)
-
-	msma.animation_ended.connect(길이동_animation_종료)
+	msma.animation_ended.connect(
+		func():
+			msma.queue_free.call_deferred()
+			fn.call()
+			)
 	msma.auto_start_with_poslist(ani용node, 이동좌표들, 0.5)
-
-func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
-	if msma != null:
-		msma.queue_free.call_deferred()

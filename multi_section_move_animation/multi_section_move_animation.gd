@@ -1,7 +1,7 @@
 extends Node2D
 class_name MultiSectionMoveAnimation
 
-signal animation_ended(o :MultiSectionMoveAnimation)
+signal animation_ended()
 
 var enabled = false
 var current_animation_section = 0
@@ -44,7 +44,7 @@ func start_with_limit_animation_section(limit_animation_section :int, section_du
 func stop()->void:
 	enabled = false
 	$Timer.stop()
-	animation_ended.emit(self)
+	animation_ended.emit()
 
 func _on_timer_timeout() -> void:
 	current_animation_section += 1
