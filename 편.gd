@@ -19,7 +19,6 @@ func _to_string() -> String:
 func init(편정보 :Array, 말수 :int, 크기:float, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
 	편이름 = 편정보[0]
 	편색 = 편정보[1]
-	var 모양 = 편정보[2]
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
 	길.init( max(1,크기/200), 편색, es.눈들, 시작눈, mirror)
@@ -30,7 +29,7 @@ func init(편정보 :Array, 말수 :int, 크기:float, es :말눈들, 시작눈 
 	길단추.text = 편이름
 	길단추.modulate = 편색
 	for i in range(0,말수):
-		var m = 말_scene.instantiate().init(self, r, i+1, 모양)
+		var m = 말_scene.instantiate().init(self, r, i+1, 편정보)
 		놓을말통.add_child(m)
 		말들.append(m)
 
