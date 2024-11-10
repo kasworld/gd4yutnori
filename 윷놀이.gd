@@ -77,8 +77,6 @@ func 말이동길모두보기() ->void:
 var 이번윷던질편번호 =0
 var 난편들 :Array[편]
 func 다음편차례준비하기():
-	if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
-		return
 	while true:
 		if 난편들.size() == 편인자들.size(): # 모든 편이 다 났다.
 			return
@@ -124,7 +122,7 @@ func 윷던지고말이동하기() -> void:
 			좌표들.push_back(윷던진편.길.놓을길시작 )
 		if 난말들.size() != 0:
 			좌표들.push_back(윷던진편.길.나는길끝 )
-		길이동_animation(윷던진편,좌표들 )
+		길이동_animation_시작(윷던진편,좌표들 )
 
 	진행사항.text = "%d %s편 %s\n" % [윷던진횟수, 윷던진편.편이름 , 윷짝1 ] + 진행사항.text
 	if 난말들.size() != 0:
@@ -166,9 +164,9 @@ func _on_놀이재시작_pressed() -> void:
 func _on_눈번호보기_toggled(toggled_on: bool) -> void:
 	$"말눈들".눈번호보기(toggled_on)
 
-func 길이동_animation(t :편, 이동좌표들 :Array[Vector2]):
+func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2]):
 	if 이동좌표들.size() <= 1:
-		#print("이동과정을 생략합니다. ",이동과정)
+		길이동_animation_종료(null)
 		return
 
 	var msma = msma_scene.instantiate()
@@ -176,11 +174,12 @@ func 길이동_animation(t :편, 이동좌표들 :Array[Vector2]):
 	msma.position = vp_size/2
 
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	var ani용말 = 말_scene.instantiate().init(t, r/30, 0, 8 )
-	msma.add_child(ani용말)
+	var ani용node = 말_scene.instantiate().init(t, r/30, 0, 8 )
+	msma.add_child(ani용node)
 
 	msma.animation_ended.connect(길이동_animation_종료)
-	msma.auto_start_with_poslist(ani용말, 이동좌표들, 0.5)
+	msma.auto_start_with_poslist(ani용node, 이동좌표들, 0.5)
 
 func 길이동_animation_종료(msma: MultiSectionMoveAnimation):
-	msma.queue_free.call_deferred()
+	if msma != null:
+		msma.queue_free.call_deferred()
