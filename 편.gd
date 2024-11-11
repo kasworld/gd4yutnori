@@ -1,6 +1,18 @@
 extends PanelContainer
 class_name 편
 
+class 인자틀:
+	var 이름 :String
+	var 색 :Color
+	var 모양 :int
+	var 크기보정 :float
+	func _init(a,b,c,d) -> void:
+		이름 = a
+		색 = b
+		모양 = c
+		크기보정 = d
+
+
 @onready var 놓을말통 = $HBoxContainer/HBoxContainer
 @onready var 난말통 = $HBoxContainer/HBoxContainer2
 @onready var 길단추 = $HBoxContainer/Button
@@ -8,28 +20,24 @@ class_name 편
 var 말_scene = preload("res://말.tscn")
 var 말이동길_scene = preload("res://말이동길.tscn")
 
-var 편이름 :String
-var 편색 :Color
-var 편인자 :Array
+var 인자 :인자틀
 var 눈들 :말눈들
 var 길 :말이동길
 var 말들 :Array[말]
 func _to_string() -> String:
-	return "%s편" % [편이름]
+	return "%s편" % [인자.이름]
 
-func init(편정보 :Array, 말수 :int, 크기:float, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
-	편이름 = 편정보[0]
-	편색 = 편정보[1]
-	편인자 = 편정보
+func init(편정보 :인자틀, 말수 :int, 크기:float, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
+	인자 = 편정보
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
-	길.init( max(1,크기/200), 편색, es.눈들, 시작눈, mirror)
+	길.init( max(1,크기/200), 인자.색, es.눈들, 시작눈, mirror)
 	var r = 크기/30
 	custom_minimum_size = Vector2(r*2*10,r*2)
 	놓을말통.custom_minimum_size = Vector2(r*2*4,r*2)
 	난말통.custom_minimum_size = Vector2(r*2*4,r*2)
-	길단추.text = 편이름
-	길단추.modulate = 편색
+	길단추.text = 인자.이름
+	길단추.modulate = 인자.색
 	for i in range(0,말수):
 		var m = 말_scene.instantiate().init(self, r, i+1)
 		놓을말통.add_child(m)
