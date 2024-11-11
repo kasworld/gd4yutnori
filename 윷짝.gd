@@ -73,5 +73,5 @@ func 결과해석(결과 :Array[int])->int:
 		sum += i
 	return sum
 
-func 한번더던지나(결과 :int)->bool:
-	return 결과==5 or 결과 == 4
+func 한번더던지나()->bool:
+	return 결과수치==5 or 결과수치 == 4
