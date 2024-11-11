@@ -14,11 +14,11 @@ func string_debug() -> String:
 func _to_string() -> String:
 	return "%s말%d" % [속한편,말번호]
 
-func init(t :편, r :float, n:int, 편정보 :Array) -> 말:
+func init(t :편, r :float, n:int) -> 말:
 	속한편 = t
 	말번호 = n
-	var 모양 = 편정보[2]
-	var 크기보정 = 편정보[3]
+	var 모양 = t.편인자[2]
+	var 크기보정 = t.편인자[3]
 	custom_minimum_size = Vector2(r*2,r*2)
 	r = r*1.0 * 크기보정
 	var 내부 = PolygonNode.new_polygon_fill(Vector2(r,r),r,t.편색,모양,360)

@@ -172,7 +172,7 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Cal
 	add_child(msma)
 	msma.position = vp_size/2
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	var ani용node = 말_scene.instantiate().init(t, r/30, 0, 8 )
+	var ani용node = 말_scene.instantiate().init(t, r/30, 0 )
 	msma.add_child(ani용node)
 	msma.animation_ended.connect(
 		func():
