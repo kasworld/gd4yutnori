@@ -24,22 +24,22 @@ func _to_string() -> String:
 
 func init()->윷짝:
 	var lb :Label
-	for i in ["뒷도","뒷개","뒷걸","도","결과"]:
+	for i in ["결과","뒷도","뒷개","뒷걸","도"]:
 		lb = Label.new()
 		lb.label_settings = preload("res://label_settings.tres")
 		lb.text = i
 		$"윷통".add_child(lb)
+
+	결과label = Label.new()
+	결과label.label_settings = preload("res://윷결과labelsettings.tres")
+	결과label.text = "모"
+	$"윷통".add_child(결과label)
 
 	for i in range(0,4):
 		var n = 윷_scene.instantiate().init()
 		$"윷통".add_child(n)
 		윷들.append(n)
 
-	lb = Label.new()
-	lb.label_settings = preload("res://label_settings.tres")
-	lb.text = "모"
-	$"윷통".add_child(lb)
-	결과label = lb
 
 	return self
 
