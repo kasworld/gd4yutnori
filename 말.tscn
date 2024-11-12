@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://mf024os55tl3"]
+[gd_scene load_steps=3 format=3 uid="uid://mf024os55tl3"]
 
 [ext_resource type="Script" path="res://말.gd" id="1_edvhi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xk3gm"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+outline_size = 2
 
 [node name="말" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_edvhi")
+
+[node name="내부" type="Polygon2D" parent="."]
+
+[node name="테두리" type="Line2D" parent="."]
+
+[node name="번호" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_xk3gm")
+horizontal_alignment = 1

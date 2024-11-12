@@ -19,15 +19,9 @@ func init(t :편, r :float, n:int) -> 말:
 	말번호 = n
 	custom_minimum_size = Vector2(r*2,r*2)
 	r = r*1.0 * t.인자.크기보정
-	var 내부 = PolygonNode.new_polygon_fill(Vector2(r,r),r,t.인자.색,t.인자.모양,360)
-	add_child(내부)
-	var 테두리 = PolygonNode.new_polygon(Vector2(r,r),r*1.1,Color.BLACK,max(1,r/10),t.인자.모양,360)
-	add_child(테두리)
-	var lb = Label.new()
-	lb.label_settings = preload("res://label_settings.tres")
-	lb.text = "%d" % 말번호
-	lb.position = Vector2(r/2,0)
-	add_child(lb)
+	PolygonNode.alter_polygon_fill($"내부", Vector2(r,r),r,t.인자.색,t.인자.모양,360)
+	PolygonNode.alter_polygon($"테두리", Vector2(r,r),r*1.1,Color.BLACK,max(1,r/10),t.인자.모양,360)
+	$"번호".text = "%d" % 말번호
 	return self
 
 func 편얻기()->편:
