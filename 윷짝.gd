@@ -39,8 +39,6 @@ func init()->윷짝:
 		var n = 윷_scene.instantiate().init()
 		$"윷통".add_child(n)
 		윷들.append(n)
-
-
 	return self
 
 func 윷던지기():

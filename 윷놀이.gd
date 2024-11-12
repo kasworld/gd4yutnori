@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var 편인자들 = [
 	편.인자틀.new("빨강색", Color.RED, 3, 1.45),
 	편.인자틀.new("초록색", Color.GREEN, 4, 1.4),
@@ -42,7 +41,6 @@ func init() -> void:
 		편들.append(t)
 		t.길.position = vp_size/2
 		add_child(t.길)
-
 		t.길단추.pressed.connect(
 			func():
 				self.말이동길보이기(t)
@@ -131,7 +129,6 @@ func 윷던지고말이동하기() -> void:
 			if 자동진행:
 				윷던지고말이동하기.call_deferred()
 			)
-
 
 func _on_윷던지기_pressed() -> void:
 	윷던지고말이동하기()
