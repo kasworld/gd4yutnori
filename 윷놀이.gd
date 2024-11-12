@@ -30,6 +30,7 @@ func init() -> void:
 	$VBoxContainer2.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
 	$VBoxContainer2.position = Vector2(vp_size.x/2 + r*1.1, 0)
 
+	편인자들.shuffle()
 	# 편 가르기
 	for ti in 편인자들:
 		var t = 편_scene.instantiate()
