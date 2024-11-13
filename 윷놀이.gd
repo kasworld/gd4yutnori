@@ -47,6 +47,8 @@ func init() -> void:
 	$"VBoxContainer/자동진행".button_pressed = Settings.자동진행
 	$"VBoxContainer/길보기".button_pressed = Settings.모든길보기
 	$"VBoxContainer/눈번호보기".button_pressed = Settings.눈번호보기
+	if Settings.자동진행:
+		윷던지고말이동하기()
 
 
 func _ready() -> void:
