@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 NamedColorList="*res://global/named_color_list.gd"
 PolygonNode="*res://global/polygon_node.gd"
+Settings="*res://global/settings.gd"
 
 [display]
 
