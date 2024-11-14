@@ -15,7 +15,7 @@ var vp_size
 func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-
+	$"배경".size = vp_size
 	$"말눈들".init(r,Color.GRAY)
 	$"말눈들".position = vp_size/2
 	윷짝1.init()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=14 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
+[ext_resource type="Texture2D" uid="uid://7i7hfof4q6w7" path="res://image/bg.png" id="2_kpgi6"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
 [ext_resource type="PackedScene" uid="uid://bf1vkxi8i0lm1" path="res://multi_section_move_animation/multi_section_move_animation.tscn" id="4_co4wg"]
@@ -31,6 +32,14 @@ default_font_size = 50
 
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
+
+[node name="배경" type="TextureRect" parent="."]
+offset_right = 512.0
+offset_bottom = 512.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_kpgi6")
+stretch_mode = 1
 
 [node name="말눈들" parent="." instance=ExtResource("3_of73k")]
 
