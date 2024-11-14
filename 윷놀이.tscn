@@ -34,10 +34,9 @@ default_font_size = 50
 script = ExtResource("1_4ga8h")
 
 [node name="배경" type="TextureRect" parent="."]
+modulate = Color(0.385001, 0.526014, 0.281826, 1)
 offset_right = 512.0
 offset_bottom = 512.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("2_kpgi6")
 stretch_mode = 1
 
@@ -72,6 +71,7 @@ theme = SubResource("Theme_upo72")
 text = "놀이재시작"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0.709804)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_8horw")
