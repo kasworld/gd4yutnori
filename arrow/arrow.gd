@@ -17,12 +17,12 @@ func init_2_point(p1 :Vector2, p2 :Vector2, co :Color, w :float)->Arrow:
 func set_points(p1 :Vector2, p2 :Vector2):
 	$CenterLine.add_point(p1)
 	$CenterLine.add_point(p2)
-	var p3 = ((p1-p2)*0.2).rotated(PI/6) + p2
+	var p3 = ((p2-p1)*0.2).rotated(PI/6) + p1
 	$LeftLine.add_point(p3)
-	$LeftLine.add_point(p2)
-	var p4 = ((p1-p2)*0.2).rotated(-PI/6) + p2
+	$LeftLine.add_point(p1)
+	var p4 = ((p2-p1)*0.2).rotated(-PI/6) + p1
 	$RightLine.add_point(p4)
-	$RightLine.add_point(p2)
+	$RightLine.add_point(p1)
 
 func set_color(co :Color):
 	$CenterLine.default_color = co
