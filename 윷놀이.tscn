@@ -41,6 +41,7 @@ texture = ExtResource("2_kpgi6")
 stretch_mode = 1
 
 [node name="말눈들" parent="." instance=ExtResource("3_of73k")]
+z_index = 2
 
 [node name="MultiSectionMoveAnimation" parent="." instance=ExtResource("4_co4wg")]
 

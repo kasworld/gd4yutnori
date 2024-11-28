@@ -1,10 +1,11 @@
 extends Node2D
 class_name 말이동길
 
+var 화살표_scene = preload("res://arrow/arrow.tscn")
+
 const 가능한시작눈목록 = [0,1,2,3,5,6,7,8,10,11,12,13,15,16,17,18]
-var 화살표색두께 :float
+var 화살표두께 :float
 var 화살표색 :Color
-var 화살표선들 :PackedVector2Array =[]
 var 눈들 :Array[눈]
 # 눈번호
 var 바깥길 :Array[int]
@@ -19,7 +20,7 @@ func _to_string() -> String:
 
 func init(w: float, co :Color, es :Array[눈], 시작눈 :int, mirror :bool = false) -> void:
 	화살표색 = co
-	화살표색두께 = w
+	화살표두께 = w
 	눈들 = es
 
 	# 말 이동 순서 연결하기
@@ -129,15 +130,9 @@ func 종점눈번호()->int:
 	return 바깥길[-1]
 
 func 화살표추가(p1 :Vector2, p2 :Vector2):
+	var 화살표 = 화살표_scene.instantiate()
 	var t1 = (p2-p1)*0.8+p1
 	var t2 = (p1-p2)*0.8+p2
-	p1 = t2
-	p2 = t1
-	화살표선들.append_array([p1,p2])
-	var p3 = ((p1-p2)*0.2).rotated(PI/6) + p2
-	var p4 = ((p1-p2)*0.2).rotated(-PI/6) + p2
-	화살표선들.append_array([p3,p2])
-	화살표선들.append_array([p4,p2])
-
-func _draw() -> void:
-	draw_multiline(화살표선들, 화살표색, 화살표색두께)
+	화살표.init_2_point_center(t1,t2,화살표색,화살표두께)
+	$"화살표통".add_child(화살표)
+	화살표.position = (t1+t2)/2
