@@ -91,10 +91,10 @@ layout_mode = 2
 [node name="편들상태" type="VBoxContainer" parent="오른쪽패널"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="오른쪽패널/편들상태"]
+[node name="제목" type="HBoxContainer" parent="오른쪽패널/편들상태"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="오른쪽패널/편들상태/HBoxContainer"]
+[node name="달말들" type="Label" parent="오른쪽패널/편들상태/제목"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "달말들"
@@ -102,7 +102,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="오른쪽패널/편들상태/HBoxContainer"]
+[node name="길보기단추" type="Label" parent="오른쪽패널/편들상태/제목"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "길보기"
@@ -110,7 +110,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="오른쪽패널/편들상태/HBoxContainer"]
+[node name="난말들" type="Label" parent="오른쪽패널/편들상태/제목"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "난말들"
@@ -118,12 +118,12 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="오른쪽패널/편들상태/HBoxContainer"]
+[node name="등수" type="Label" parent="오른쪽패널/편들상태/제목"]
 layout_mode = 2
 text = "등수"
 label_settings = SubResource("LabelSettings_f60j2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="오른쪽패널/편들상태"]
+[node name="내용" type="VBoxContainer" parent="오른쪽패널/편들상태"]
 layout_mode = 2
 
 [node name="윷던지기" type="Button" parent="오른쪽패널"]

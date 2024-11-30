@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var 편통 = $"오른쪽패널/편들상태/VBoxContainer"
+@onready var 편통 = $"오른쪽패널/편들상태/내용"
 @onready var 진행사항 = $"왼쪽패널/ScrollContainer/진행사항"
 @onready var 윷던지기 = $"오른쪽패널/윷던지기"
 @onready var 윷짝1 = $"오른쪽패널/윷짝"
