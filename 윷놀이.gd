@@ -1,10 +1,9 @@
 extends Node2D
 
-
-@onready var 편통 = $"VBoxContainer2/편들상태/VBoxContainer2/VBoxContainer"
-@onready var 진행사항 = $"VBoxContainer/ScrollContainer/진행사항"
-@onready var 윷던지기 = $"VBoxContainer2/윷던지기"
-@onready var 윷짝1 = $"VBoxContainer2/윷짝"
+@onready var 편통 = $"오른쪽패널/편들상태/VBoxContainer2/VBoxContainer"
+@onready var 진행사항 = $"왼쪽패널/ScrollContainer/진행사항"
+@onready var 윷던지기 = $"오른쪽패널/윷던지기"
+@onready var 윷짝1 = $"오른쪽패널/윷짝"
 
 var 편_scene = preload("res://편.tscn")
 var msma_scene = preload("res://multi_section_move_animation/multi_section_move_animation.tscn")
@@ -19,9 +18,9 @@ func init() -> void:
 	$"말눈들".init(r,Color.GRAY)
 	$"말눈들".position = vp_size/2
 	윷짝1.init()
-	$VBoxContainer.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
-	$VBoxContainer2.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
-	$VBoxContainer2.position = Vector2(vp_size.x/2 + r*1.1, 0)
+	$왼쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
+	$오른쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
+	$오른쪽패널.position = Vector2(vp_size.x/2 + r*1.1, 0)
 
 	Settings.편인자들.shuffle()
 	# 편 가르기
@@ -44,12 +43,11 @@ func init() -> void:
 	윷던지기.modulate = 편들[0].인자.색
 	윷던지기.text = "%s편\n윷던지기" % 편들[0].인자.이름
 
-	$"VBoxContainer/자동진행".button_pressed = Settings.자동진행
-	$"VBoxContainer/길보기".button_pressed = Settings.모든길보기
-	$"VBoxContainer/눈번호보기".button_pressed = Settings.눈번호보기
+	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
+	$"왼쪽패널/길보기".button_pressed = Settings.모든길보기
+	$"왼쪽패널/눈번호보기".button_pressed = Settings.눈번호보기
 	if Settings.자동진행:
 		윷던지고말이동하기()
-
 
 func _ready() -> void:
 	init()
@@ -155,7 +153,6 @@ func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 
 func _on_놀이재시작_pressed() -> void:
 	get_tree().reload_current_scene()
-
 
 func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Callable):
 	if 이동좌표들.size() <= 1:
