@@ -15,8 +15,8 @@ func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	$"배경".size = vp_size
-	$"말눈들".init(r,Color.GRAY)
-	$"말눈들".position = vp_size/2
+	$"말판/말눈들".init(r,Color.GRAY)
+	$"말판/말눈들".position = vp_size/2
 	윷짝1.init()
 	$왼쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
 	$오른쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
@@ -29,11 +29,10 @@ func init() -> void:
 		편통.add_child(t)
 		var 시작눈 = 말이동길.가능한시작눈목록.pick_random()
 		var mirror = randi_range(0,1)==0
-		t.init(ti,Settings.편당말수, r, $"말눈들", 시작눈, mirror)
-		#print(t.길)
+		t.init(ti,Settings.편당말수, r, $"말판/말눈들", 시작눈, mirror)
 		편들.append(t)
 		t.길.position = vp_size/2
-		add_child(t.길)
+		$"말판".add_child(t.길)
 		t.길단추.pressed.connect(
 			func():
 				self.말이동길보이기(t)
@@ -143,12 +142,12 @@ func _on_길보기_toggled(toggled_on: bool) -> void:
 
 func _on_눈번호보기_toggled(toggled_on: bool) -> void:
 	Settings.눈번호보기 = toggled_on
-	$"말눈들".눈번호보기(Settings.눈번호보기)
+	$"말판/말눈들".눈번호보기(Settings.눈번호보기)
 
 func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 	var 좌표들 :Array[Vector2] = []
 	for i in 눈번호들:
-		좌표들.append($"말눈들".눈들[i].position )
+		좌표들.append($"말판/말눈들".눈들[i].position )
 	return 좌표들
 
 func _on_놀이재시작_pressed() -> void:
