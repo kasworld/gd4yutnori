@@ -15,8 +15,9 @@ func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	$"배경".size = vp_size
-	$"말판/말눈들".init(r,Color.GRAY)
-	$"말판/말눈들".position = vp_size/2
+	$"말판".position = vp_size/2
+	$"말판/말눈들".init(r, Color.GRAY)
+	#$"말판/말눈들".position = vp_size/2
 	윷짝1.init()
 	$왼쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
 	$오른쪽패널.size = Vector2(vp_size.x/2 -r*1.1, vp_size.y)
@@ -31,7 +32,6 @@ func init() -> void:
 		var mirror = randi_range(0,1)==0
 		t.init(ti,Settings.편당말수, r, $"말판/말눈들", 시작눈, mirror)
 		편들.append(t)
-		t.길.position = vp_size/2
 		$"말판".add_child(t.길)
 		t.길단추.pressed.connect(
 			func():
@@ -51,6 +51,27 @@ func init() -> void:
 func _ready() -> void:
 	init()
 
+func _process(_delta: float) -> void:
+	rot_by_accel()
+
+var oldvt = Vector2(0,-100)
+func rot_by_accel()->void:
+	var vt = Input.get_accelerometer()
+	if  vt != Vector3.ZERO :
+		oldvt = (Vector2(vt.x,vt.y) + oldvt).normalized() *100
+		var rad = oldvt.angle_to(Vector2(0,-1))
+		rotate_all(rad)
+	else :
+		vt = Input.get_last_mouse_velocity()/100
+		if vt == Vector2.ZERO :
+			vt = Vector2(0,-5)
+		oldvt = (Vector2(vt.x,vt.y) + oldvt).normalized() *100
+		var rad = oldvt.angle_to(Vector2(0,-1))
+		rotate_all(rad)
+
+func rotate_all(rad :float):
+	$"말판".rotation = rad
+
 func 말이동길보이기(t:편) ->void:
 	if Settings.모든길보기:
 		말이동길모두보기()
@@ -58,7 +79,7 @@ func 말이동길보이기(t:편) ->void:
 		for i in 편들:
 			i.길.visible = false
 		t.길.visible = true
-		t.길.position = vp_size/2
+		t.길.position = Vector2.ZERO
 
 func 말이동길모두보기() ->void:
 	var deg_start = 30.0
@@ -68,7 +89,7 @@ func 말이동길모두보기() ->void:
 	for t in 편들:
 		t.길.visible = true
 		var ra = deg_to_rad( deg_start + i*deg_inc)
-		t.길.position = vp_size/2 + PolygonNode.make_pos_by_rad_r(ra,r)
+		t.길.position = PolygonNode.make_pos_by_rad_r(ra,r)
 		i+=1
 
 var 이번윷던질편번호 =0
@@ -158,8 +179,8 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Cal
 		fn.call()
 		return
 	var msma = msma_scene.instantiate()
-	add_child(msma)
-	msma.position = vp_size/2
+	$"말판".add_child(msma)
+	#msma.position = vp_size/2
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	var ani용node = 말_scene.instantiate().init(t, r/30, 0 )
 	ani용node.z_index = 4

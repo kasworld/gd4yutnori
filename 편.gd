@@ -12,7 +12,6 @@ class 인자틀:
 		모양 = c
 		크기보정 = d
 
-
 @onready var 놓을말통 = $HBoxContainer/HBoxContainer
 @onready var 난말통 = $HBoxContainer/HBoxContainer2
 @onready var 길단추 = $HBoxContainer/Button
