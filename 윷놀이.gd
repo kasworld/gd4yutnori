@@ -193,9 +193,9 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Cal
 		return
 	var msma = msma_scene.instantiate()
 	$"말판".add_child(msma)
-	#msma.position = vp_size/2
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	var ani용node = 말_scene.instantiate().init(t, r/30, 0 )
+	ani용node.position = 이동좌표들[0]
 	ani용node.z_index = 4
 	msma.add_child(ani용node)
 	msma.animation_ended.connect(
