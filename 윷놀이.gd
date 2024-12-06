@@ -184,7 +184,8 @@ func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 	return 좌표들
 
 func _on_놀이재시작_pressed() -> void:
-	msma.stop()
+	if msma != null:
+		msma.stop()
 	get_tree().reload_current_scene()
 
 var msma :MultiSectionMoveAnimation
