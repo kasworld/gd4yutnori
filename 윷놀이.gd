@@ -55,13 +55,11 @@ func _process(_delta: float) -> void:
 	rot_by_accel()
 	scroll_bg()
 
-var bg_scroll_vt := Vector2.ZERO
-const scroll_speed = 1.0
+var bg_scroll_vt := Vector2(1,0).rotated(randfn(0,PI))
 const scroll_wrap = Vector2(512,512)
 func scroll_bg():
-	if randf() < 0.01 :
-		bg_scroll_vt += Vector2(randf_range(-scroll_speed,scroll_speed),randf_range(-scroll_speed,scroll_speed))
-		bg_scroll_vt = bg_scroll_vt.normalized()
+	if randf() < 0.05 :
+		bg_scroll_vt = bg_scroll_vt.rotated(randfn(0,PI/16))
 	$"배경".position += bg_scroll_vt
 	$"배경".position -= scroll_wrap
 	$"배경".position.x = fmod($"배경".position.x, scroll_wrap.x)
