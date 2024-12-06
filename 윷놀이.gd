@@ -167,6 +167,7 @@ func _on_윷던지기_pressed() -> void:
 
 func _on_자동진행_toggled(toggled_on: bool) -> void:
 	Settings.자동진행 = toggled_on
+	윷던지기.disabled = toggled_on
 	if Settings.자동진행:
 		윷던지고말이동하기()
 
@@ -185,13 +186,15 @@ func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 	return 좌표들
 
 func _on_놀이재시작_pressed() -> void:
+	msma.stop()
 	get_tree().reload_current_scene()
 
-func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Callable):
+var msma :MultiSectionMoveAnimation
+func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], call_at_end_animation :Callable):
 	if 이동좌표들.size() <= 1:
-		fn.call()
+		call_at_end_animation.call()
 		return
-	var msma = msma_scene.instantiate()
+	msma = msma_scene.instantiate()
 	$"말판".add_child(msma)
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
 	var ani용node = 말_scene.instantiate().init(t, r/30, 0 )
@@ -201,6 +204,6 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], fn :Cal
 	msma.animation_ended.connect(
 		func():
 			msma.queue_free.call_deferred()
-			fn.call()
+			call_at_end_animation.call()
 			)
 	msma.auto_start_with_poslist(ani용node, 이동좌표들, 0.5)
