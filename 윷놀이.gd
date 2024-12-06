@@ -14,7 +14,7 @@ var vp_size
 func init() -> void:
 	vp_size = get_viewport_rect().size
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	$"배경".size = vp_size
+	$"배경".size = vp_size*2
 	$"말판".position = vp_size/2
 	$"말판/말눈들".init(r, Color.GRAY)
 	#$"말판/말눈들".position = vp_size/2
@@ -53,20 +53,33 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	rot_by_accel()
+	scroll_bg()
 
-var oldvt = Vector2(0,-100)
+var bg_scroll_vt := Vector2.ZERO
+const scroll_speed = 1.0
+const scroll_wrap = Vector2(512,512)
+func scroll_bg():
+	if randf() < 0.01 :
+		bg_scroll_vt += Vector2(randf_range(-scroll_speed,scroll_speed),randf_range(-scroll_speed,scroll_speed))
+		bg_scroll_vt = bg_scroll_vt.normalized()
+	$"배경".position += bg_scroll_vt
+	$"배경".position -= scroll_wrap
+	$"배경".position.x = fmod($"배경".position.x, scroll_wrap.x)
+	$"배경".position.y = fmod($"배경".position.y, scroll_wrap.y)
+
+var old_rotation_vector := Vector2(0,-100)
 func rot_by_accel()->void:
 	var vt = Input.get_accelerometer()
 	if  vt != Vector3.ZERO :
-		oldvt = (Vector2(vt.x,vt.y) + oldvt).normalized() *100
-		var rad = oldvt.angle_to(Vector2(0,-1))
+		old_rotation_vector = (Vector2(vt.x,vt.y) + old_rotation_vector).normalized() *100
+		var rad = old_rotation_vector.angle_to(Vector2(0,-1))
 		rotate_all(rad)
 	else :
 		vt = Input.get_last_mouse_velocity()/100
 		if vt == Vector2.ZERO :
 			vt = Vector2(0,-5)
-		oldvt = (Vector2(vt.x,vt.y) + oldvt).normalized() *100
-		var rad = oldvt.angle_to(Vector2(0,-1))
+		old_rotation_vector = (Vector2(vt.x,vt.y) + old_rotation_vector).normalized() *100
+		var rad = old_rotation_vector.angle_to(Vector2(0,-1))
 		rotate_all(rad)
 
 func rotate_all(rad :float):
