@@ -131,8 +131,8 @@ func 종점눈번호()->int:
 
 func 화살표추가(p1 :Vector2, p2 :Vector2):
 	var 화살표 = 화살표_scene.instantiate()
-	var t1 = (p2-p1)*0.8+p1
-	var t2 = (p1-p2)*0.8+p2
+	var t1 = (p1-p2)*0.8+p2
+	var t2 = (p2-p1)*0.8+p1
 	화살표.init_2_point_center(t1,t2,화살표색,화살표두께)
 	$"화살표통".add_child(화살표)
 	화살표.position = (t1+t2)/2

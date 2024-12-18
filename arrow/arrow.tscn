@@ -7,6 +7,14 @@ script = ExtResource("1_pcjik")
 
 [node name="CenterLine" type="Line2D" parent="."]
 
-[node name="LeftLine" type="Line2D" parent="."]
+[node name="P2_W1" type="Line2D" parent="."]
+visible = false
 
-[node name="RightLine" type="Line2D" parent="."]
+[node name="P2_W2" type="Line2D" parent="."]
+visible = false
+
+[node name="P1_W1" type="Line2D" parent="."]
+visible = false
+
+[node name="P1_W2" type="Line2D" parent="."]
+visible = false
