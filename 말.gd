@@ -3,13 +3,13 @@ class_name 말
 
 var 속한편 :편
 var 말번호 :int
-var 지나온눈들 :Array[눈]
+var 지나온눈번호들 :Array[int]
 var 났다 :bool
 
 func string_debug() -> String:
 	var s :String = ""
-	for n in 지나온눈들:
-		s += "%d " % n.번호
+	for n in 지나온눈번호들:
+		s += "%d " % n
 	return "말(%s %d 눈[%s])" % [속한편,말번호,s]
 
 func _to_string() -> String:
@@ -28,8 +28,11 @@ func init(t :편, r :float, n:int) -> 말:
 func 편얻기()->편:
 	return 속한편
 
+func 마지막눈번호()->int:
+	return 지나온눈번호들[-1]
+
 func 놓을말인가() -> bool:
-	return 지나온눈들.size() == 0
+	return 지나온눈번호들.size() == 0
 
 func 난말인가() -> bool:
 	return 났다
