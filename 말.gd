@@ -4,6 +4,7 @@ class_name 말
 var 속한편 :편
 var 말번호 :int
 var 지나온눈들 :Array[눈]
+var 났다 :bool
 
 func string_debug() -> String:
 	var s :String = ""
@@ -27,8 +28,11 @@ func init(t :편, r :float, n:int) -> 말:
 func 편얻기()->편:
 	return 속한편
 
-func 놓을말인가()->bool:
+func 놓을말인가() -> bool:
 	return 지나온눈들.size() == 0
 
-func 난말인가()->bool:
-	return (not 놓을말인가()) and 지나온눈들[-1].번호 == 속한편.길.종점눈번호()
+func 난말인가() -> bool:
+	return 났다
+
+func 판위말인가() -> bool:
+	return not 놓을말인가() and not 난말인가()
