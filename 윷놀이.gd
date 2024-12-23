@@ -203,4 +203,4 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], call_at
 			msma.queue_free.call_deferred()
 			call_at_end_animation.call()
 			)
-	msma.auto_start_with_poslist(ani용node, 이동좌표들, 0.5)
+	msma.auto_start_with_poslist(ani용node, 이동좌표들, $"왼쪽패널/HBoxContainer/HSlider".value)

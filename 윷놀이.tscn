@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=15 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="Texture2D" uid="uid://7i7hfof4q6w7" path="res://image/bg.png" id="2_kpgi6"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bf1vkxi8i0lm1" path="res://multi_section_move_animation/multi_section_move_animation.tscn" id="4_co4wg"]
 
 [sub_resource type="Theme" id="Theme_6e71o"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_xyhcb"]
 default_font_size = 50
 
 [sub_resource type="Theme" id="Theme_jwqqu"]
@@ -57,6 +60,24 @@ size_flags_vertical = 3
 layout_mode = 2
 theme = SubResource("Theme_6e71o")
 text = "자동진행하기"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="왼쪽패널"]
+layout_mode = 2
+theme = SubResource("Theme_xyhcb")
+
+[node name="Label" type="Label" parent="왼쪽패널/HBoxContainer"]
+layout_mode = 2
+text = "말속도 "
+
+[node name="HSlider" type="HSlider" parent="왼쪽패널/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 0.6
+ticks_on_borders = true
 
 [node name="길보기" type="CheckButton" parent="왼쪽패널"]
 layout_mode = 2
