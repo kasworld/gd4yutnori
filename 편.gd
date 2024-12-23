@@ -30,7 +30,7 @@ func init(편정보 :인자틀, 말수 :int, 크기:float, es :말눈들, 시작
 	인자 = 편정보
 	눈들 = es
 	길 = 말이동길_scene.instantiate()
-	길.init( max(1,크기/100), 인자.색, es.눈들, 시작눈, mirror)
+	길.init( max(1,크기/200), 인자.색, es.눈들, 시작눈, mirror)
 	var r = 크기/30
 	custom_minimum_size = Vector2(r*2*10,r*2)
 	놓을말통.custom_minimum_size = Vector2(r*2*4,r*2)
