@@ -23,6 +23,8 @@ func 말놓기(놓을말들 :Array)->Array[말]:
 
 	for m in 놓을말들:
 		$"말들".add_child(m)
+		if $"말들".get_child_count() != 0:
+			m.지나온눈번호들 = $"말들".get_children()[0].지나온눈번호들
 	return 있던말들
 
 func 말빼기()->Array[말]:
