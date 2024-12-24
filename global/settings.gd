@@ -12,3 +12,4 @@ var 편인자들 = [
 var 자동진행 :bool
 var 모든길보기 :bool
 var 눈번호보기 :bool
+var 말빠르기 :float = 0.5

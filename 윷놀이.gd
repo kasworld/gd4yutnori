@@ -45,6 +45,7 @@ func init() -> void:
 	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
 	$"왼쪽패널/길보기".button_pressed = Settings.모든길보기
 	$"왼쪽패널/눈번호보기".button_pressed = Settings.눈번호보기
+	$"왼쪽패널/HBoxContainer/HSlider".value = Settings.말빠르기
 	if Settings.자동진행:
 		윷던지고말이동하기()
 
@@ -180,13 +181,11 @@ func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 func _on_놀이재시작_pressed() -> void:
 	if msma != null:
 		msma.stop()
+	Settings.말빠르기 = $"왼쪽패널/HBoxContainer/HSlider".value
 	get_tree().reload_current_scene()
 
 var msma :MultiSectionMoveAnimation
 func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], call_at_end_animation :Callable):
-	if 이동좌표들.size() <= 1:
-		call_at_end_animation.call()
-		return
 	msma = msma_scene.instantiate()
 	$"말판".add_child(msma)
 	var r = min(vp_size.x,vp_size.y)/2 *0.9
@@ -196,7 +195,8 @@ func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], call_at
 	msma.add_child(ani용node)
 	msma.animation_ended.connect(
 		func():
-			msma.queue_free.call_deferred()
+			if msma != null:
+				msma.queue_free()
 			call_at_end_animation.call()
 			)
 	msma.auto_start_with_poslist(ani용node, 이동좌표들, $"왼쪽패널/HBoxContainer/HSlider".value)
