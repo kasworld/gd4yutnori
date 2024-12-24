@@ -30,3 +30,6 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_yt13m")
+
+[node name="원" type="Polygon2D" parent="."]
+z_index = -1

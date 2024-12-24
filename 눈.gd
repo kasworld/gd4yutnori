@@ -8,9 +8,7 @@ func _to_string() -> String:
 
 func init(r :float, co: Color, n:int) -> void:
 	self.번호 = n
-	var 원 = PolygonNode.new_circle_fill(Vector2(0,0),r,co)
-	add_child(원)
-	원.z_index = -1
+	PolygonNode.alter_polygon_fill($"원", Vector2(0,0),r,co, 360,360)
 	$"눈번호".text = "%d" % 번호
 
 func 말놓기(놓을말들 :Array)->Array[말]:
@@ -42,3 +40,6 @@ func 말보기()->Array[말]:
 
 func 눈번호보기(b :bool):
 	$"눈번호".visible = b
+
+func set_color(co :Color) -> void:
+	$"원".color = co
