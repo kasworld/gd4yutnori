@@ -27,6 +27,7 @@ func new_polygon(p :Vector2, r :float, co :Color, w :float, n:int, deg:float) ->
 	return alter_polygon(Line2D.new(),p,r,co,w,n,deg)
 
 func alter_polygon(o :Line2D, p :Vector2, r :float, co :Color, w :float, n:int, deg:float) -> Line2D :
+	o.points = []
 	var step = deg/n
 	for i in range(0+step/2,deg+step/2,step) :
 		var v2 = Vector2(sin(i*2*PI/360)*r, cos(i*2*PI/360)*r) + p

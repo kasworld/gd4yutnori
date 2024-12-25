@@ -147,13 +147,8 @@ func 윷던지고말이동하기() -> void:
 		좌표들.push_back(윷던진편.길.나는길끝 )
 	if 이동결과.잡힌말들.size() != 0 :
 		진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 이동결과.잡힌말들 ] + 진행사항.text
-	길이동_animation_시작(윷던진편,좌표들,
-		func():
-			if (not 윷짝1.한번더던지나()) and 이동결과.잡힌말들.size() == 0:
-				다음편차례준비하기()
-			if Settings.자동진행:
-				윷던지고말이동하기.call_deferred()
-			)
+	이동후다음차례준비하나 = (not 윷짝1.한번더던지나()) and 이동결과.잡힌말들.size() == 0
+	이동애니메니션하기(윷던진편,좌표들)
 
 func _on_윷던지기_pressed() -> void:
 	윷던지고말이동하기()
@@ -179,24 +174,30 @@ func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
 	return 좌표들
 
 func _on_놀이재시작_pressed() -> void:
-	if msma != null:
-		msma.stop()
+	$"말판/말이동AnimationPlayer".stop()
 	Settings.말빠르기 = $"왼쪽패널/HBoxContainer/HSlider".value
 	get_tree().reload_current_scene()
 
-var msma :MultiSectionMoveAnimation
-func 길이동_animation_시작(t :편, 이동좌표들 :Array[Vector2], call_at_end_animation :Callable):
-	msma = msma_scene.instantiate()
-	$"말판".add_child(msma)
-	var r = min(vp_size.x,vp_size.y)/2 *0.9
-	var ani용node = 말_scene.instantiate().init(t, r/30, 0, true )
-	ani용node.position = 이동좌표들[0]
-	ani용node.z_index = 4
-	msma.add_child(ani용node)
-	msma.animation_ended.connect(
-		func():
-			if msma != null:
-				msma.queue_free()
-			call_at_end_animation.call()
-			)
-	msma.auto_start_with_poslist(ani용node, 이동좌표들, $"왼쪽패널/HBoxContainer/HSlider".value)
+var 이동후다음차례준비하나 :bool
+func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
+	$"말판/말이동AnimationPlayer".stop()
+	var 말이동 = $"말판/말이동AnimationPlayer".get_animation("말이동")
+	말이동.length = $"왼쪽패널/HBoxContainer/HSlider".value * 이동좌표들.size()
+	for i in 말이동.track_get_key_count(0) :
+		말이동.track_remove_key(0,0)
+	for i in 이동좌표들.size():
+		말이동.track_insert_key(0, $"왼쪽패널/HBoxContainer/HSlider".value * i, 이동좌표들[i])
+		#말이동.track_set_key_value(0,i, 이동좌표들[i])
+		#말이동.track_set_key_time(0,i, $"왼쪽패널/HBoxContainer/HSlider".value * i)
+	var r = min(vp_size.x,vp_size.y)/2 *0.9 / 30
+	$"말판/이동용말".init(t, r, 0, true )
+	$"말판/이동용말".visible = true
+	$"말판/말이동AnimationPlayer".play("말이동")
+
+func _on_말이동animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "말이동":
+		$"말판/이동용말".visible = false
+		if 이동후다음차례준비하나:
+			다음편차례준비하기()
+		if Settings.자동진행:
+			윷던지고말이동하기.call_deferred()

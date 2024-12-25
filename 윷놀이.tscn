@@ -1,9 +1,82 @@
-[gd_scene load_steps=14 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene load_steps=21 format=3 uid="uid://badvyttjvm46q"]
 
 [ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="Texture2D" uid="uid://7i7hfof4q6w7" path="res://image/bg.png" id="2_kpgi6"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
+[ext_resource type="PackedScene" uid="uid://mf024os55tl3" path="res://말.tscn" id="4_sy70a"]
+
+[sub_resource type="Animation" id="Animation_xp0rs"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_141jw"]
+resource_name = "rotate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0666666, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.01, 0.01), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5p2q7"]
+_data = {
+"RESET": SubResource("Animation_xp0rs"),
+"rotate": SubResource("Animation_141jw")
+}
+
+[sub_resource type="Animation" id="Animation_4pe0f"]
+resource_name = "말이동"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("이동용말:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667, 1.96667, 3.03333, 4.06667, 5.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fu0i4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("이동용말:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gpajh"]
+_data = {
+"RESET": SubResource("Animation_fu0i4"),
+"말이동": SubResource("Animation_4pe0f")
+}
 
 [sub_resource type="Theme" id="Theme_6e71o"]
 default_font_size = 50
@@ -35,6 +108,13 @@ default_font_size = 50
 [node name="윷놀이" type="Node2D"]
 script = ExtResource("1_4ga8h")
 
+[node name="시작AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../말판")
+libraries = {
+"": SubResource("AnimationLibrary_5p2q7")
+}
+autoplay = "rotate"
+
 [node name="배경" type="TextureRect" parent="."]
 modulate = Color(0.385001, 0.526014, 0.281826, 1)
 offset_right = 512.0
@@ -43,9 +123,20 @@ texture = ExtResource("2_kpgi6")
 stretch_mode = 1
 
 [node name="말판" type="Node2D" parent="."]
+rotation = 0.392699
+scale = Vector2(0.01, 0.01)
 
 [node name="말눈들" parent="말판" instance=ExtResource("3_of73k")]
 z_index = 2
+
+[node name="말이동AnimationPlayer" type="AnimationPlayer" parent="말판"]
+libraries = {
+"": SubResource("AnimationLibrary_gpajh")
+}
+playback_auto_capture = false
+
+[node name="이동용말" parent="말판" instance=ExtResource("4_sy70a")]
+visible = false
 
 [node name="왼쪽패널" type="VBoxContainer" parent="."]
 offset_right = 40.0
@@ -151,6 +242,7 @@ layout_mode = 2
 theme = SubResource("Theme_y2end")
 text = "윷던지기"
 
+[connection signal="animation_finished" from="말판/말이동AnimationPlayer" to="." method="_on_말이동animation_player_animation_finished"]
 [connection signal="toggled" from="왼쪽패널/자동진행" to="." method="_on_자동진행_toggled"]
 [connection signal="toggled" from="왼쪽패널/길보기" to="." method="_on_길보기_toggled"]
 [connection signal="toggled" from="왼쪽패널/눈번호보기" to="." method="_on_눈번호보기_toggled"]
