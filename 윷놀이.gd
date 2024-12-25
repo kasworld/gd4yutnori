@@ -6,7 +6,6 @@ extends Node2D
 @onready var 윷짝1 = $"오른쪽패널/윷짝"
 
 var 편_scene = preload("res://편.tscn")
-var msma_scene = preload("res://multi_section_move_animation/multi_section_move_animation.tscn")
 var 말_scene = preload("res://말.tscn")
 
 var 편들 :Array[편]
