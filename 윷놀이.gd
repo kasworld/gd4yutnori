@@ -52,7 +52,6 @@ func _ready() -> void:
 	init()
 
 func _process(_delta: float) -> void:
-	rot_by_accel()
 	scroll_bg()
 
 var bg_scroll_vt := Vector2(1,0).rotated(randfn(0,PI))
@@ -64,24 +63,6 @@ func scroll_bg():
 	$"배경".position -= scroll_wrap
 	$"배경".position.x = fmod($"배경".position.x, scroll_wrap.x)
 	$"배경".position.y = fmod($"배경".position.y, scroll_wrap.y)
-
-var old_rotation_vector := Vector2(0,-100)
-func rot_by_accel()->void:
-	var vt = Input.get_accelerometer()
-	if  vt != Vector3.ZERO :
-		old_rotation_vector = (Vector2(vt.x,vt.y) + old_rotation_vector).normalized() *100
-		var rad = old_rotation_vector.angle_to(Vector2(0,-1))
-		rotate_all(rad)
-	else :
-		vt = Input.get_last_mouse_velocity()/100
-		if vt == Vector2.ZERO :
-			vt = Vector2(0,-5)
-		old_rotation_vector = (Vector2(vt.x,vt.y) + old_rotation_vector).normalized() *100
-		var rad = old_rotation_vector.angle_to(Vector2(0,-1))
-		rotate_all(rad)
-
-func rotate_all(rad :float):
-	$"말판".rotation = rad
 
 func 말이동길보이기(t:편) ->void:
 	if Settings.모든길보기:
