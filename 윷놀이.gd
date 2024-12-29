@@ -54,11 +54,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	scroll_bg()
 
-var bg_scroll_vt := Vector2(1,0).rotated(randfn(0,PI))
+var bg_scroll_vt := Vector2.ZERO
 const scroll_wrap = Vector2(512,512)
 func scroll_bg():
-	if randf() < 0.05 :
-		bg_scroll_vt = bg_scroll_vt.rotated(randfn(0,PI/16))
+	var m_pos = Vector2( get_global_mouse_position()) - vp_size/2
+	bg_scroll_vt = m_pos * 10 / vp_size.length()
 	$"배경".position += bg_scroll_vt
 	$"배경".position -= scroll_wrap
 	$"배경".position.x = fmod($"배경".position.x, scroll_wrap.x)
