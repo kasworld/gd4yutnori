@@ -37,9 +37,7 @@ func init() -> void:
 				self.말이동길보이기(t)
 				)
 
-	말이동길보이기(편들[0])
-	윷던지기.modulate = 편들[0].인자.색
-	윷던지기.text = "%s편\n윷던지기" % 편들[0].인자.이름
+	차례준비하기(0)
 
 	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
 	$"왼쪽패널/길보기".button_pressed = Settings.모든길보기
@@ -97,10 +95,13 @@ func 다음편차례준비하기():
 				난편들.append(편들[이번윷던질편번호])
 				편들[이번윷던질편번호].등수쓰기(난편들.size())
 			continue
-		말이동길보이기(편들[이번윷던질편번호])
-		윷던지기.modulate = 편들[이번윷던질편번호].인자.색
-		윷던지기.text = "%s\n윷던지기" % 편들[이번윷던질편번호]
+		차례준비하기(이번윷던질편번호)
 		break
+
+func 차례준비하기(편번호 :int):
+	말이동길보이기(편들[편번호])
+	윷던지기.modulate = 편들[편번호].인자.색
+	윷던지기.text = "%s\n윷던지기" % 편들[편번호]
 
 func 윷던지고말이동하기() -> void:
 	if 난편들.size() == Settings.편인자들.size(): # 모든 편이 다 났다.
@@ -167,8 +168,6 @@ func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
 		말이동.track_remove_key(0,0)
 	for i in 이동좌표들.size():
 		말이동.track_insert_key(0, $"왼쪽패널/HBoxContainer/HSlider".value * i, 이동좌표들[i])
-		#말이동.track_set_key_value(0,i, 이동좌표들[i])
-		#말이동.track_set_key_time(0,i, $"왼쪽패널/HBoxContainer/HSlider".value * i)
 	var r = min(vp_size.x,vp_size.y)/2 *0.9 / 30
 	$"말판/이동용말".init(t, r, 0, true )
 	$"말판/이동용말".visible = true
