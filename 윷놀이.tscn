@@ -196,9 +196,6 @@ layout_mode = 2
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="윷짝" parent="오른쪽패널" instance=ExtResource("2_lq234")]
-layout_mode = 2
-
 [node name="편들상태" type="VBoxContainer" parent="오른쪽패널"]
 layout_mode = 2
 
@@ -235,6 +232,9 @@ text = "등수"
 label_settings = SubResource("LabelSettings_f60j2")
 
 [node name="내용" type="VBoxContainer" parent="오른쪽패널/편들상태"]
+layout_mode = 2
+
+[node name="윷짝" parent="오른쪽패널" instance=ExtResource("2_lq234")]
 layout_mode = 2
 
 [node name="윷던지기" type="Button" parent="오른쪽패널"]
