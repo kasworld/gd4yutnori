@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var 편통 = $"오른쪽패널/편들상태/내용"
 @onready var 진행사항 = $"왼쪽패널/ScrollContainer/진행사항"
-@onready var 윷던지기 = $"오른쪽패널/윷던지기"
 @onready var 윷짝1 = $"오른쪽패널/윷짝"
 
 var 편_scene = preload("res://편.tscn")
@@ -37,14 +36,13 @@ func init() -> void:
 				self.말이동길보이기(t)
 				)
 
-	차례준비하기(0)
-
 	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
 	$"왼쪽패널/길보기".button_pressed = Settings.모든길보기
 	$"왼쪽패널/눈번호보기".button_pressed = Settings.눈번호보기
 	$"왼쪽패널/HBoxContainer/HSlider".value = Settings.말빠르기
+	차례준비하기(0)
 	if Settings.자동진행:
-		윷던지고말이동하기()
+		윷던지기()
 
 func _ready() -> void:
 	init()
@@ -100,23 +98,27 @@ func 다음편차례준비하기():
 
 func 차례준비하기(편번호 :int):
 	말이동길보이기(편들[편번호])
-	윷던지기.modulate = 편들[편번호].인자.색
-	윷던지기.text = "%s\n윷던지기" % 편들[편번호]
+	$"오른쪽패널/윷던지기".modulate = 편들[편번호].인자.색
+	$"오른쪽패널/윷던지기".text = "%s\n윷던지기" % 편들[편번호]
 
-func 윷던지고말이동하기() -> void:
+func 윷던지기() -> void:
 	if 난편들.size() == Settings.편인자들.size(): # 모든 편이 다 났다.
 		return
 	윷짝1.윷던지기()
+	var 윷던진편 = 편들[이번윷던질편번호]
+	진행사항.text = "%d %s %s\n" % [윷짝1.던진횟수얻기(), 윷던진편 , 윷짝1 ] + 진행사항.text
+	if 윷짝1.한번더던지나():
+		진행사항.text = "    %s 던저서 한번더 던진다. \n" % [ 윷짝1 ] + 진행사항.text
+	말이동하기()
+
+func 말이동하기() -> void:
 	var 윷던진편 = 편들[이번윷던질편번호]
 	var 이동결과 = 윷던진편.편순서말진행하기(윷짝1.결과얻기())
 	if not 이동결과.성공:
 		진행사항.text = "%d %s %s 이동할 말이 없습니다.\n" % [윷짝1.던진횟수얻기(), 윷던진편 , 윷짝1 ] + 진행사항.text
 		다음편차례준비하기()
-		윷던지고말이동하기.call_deferred()
+		윷던지기.call_deferred()
 		return
-	진행사항.text = "%d %s %s\n" % [윷짝1.던진횟수얻기(), 윷던진편 , 윷짝1 ] + 진행사항.text
-	if 윷짝1.한번더던지나():
-		진행사항.text = "    %s 던저서 한번더 던진다. \n" % [ 윷짝1 ] + 진행사항.text
 	var 좌표들 = 눈번호들을좌표로(이동결과.말이동과정눈번호)
 	if 이동결과.새로단말 != null:
 		좌표들.push_front(윷던진편.길.놓을길시작 )
@@ -132,13 +134,13 @@ func 윷던지고말이동하기() -> void:
 	이동애니메니션하기(윷던진편,좌표들)
 
 func _on_윷던지기_pressed() -> void:
-	윷던지고말이동하기()
+	윷던지기()
 
 func _on_자동진행_toggled(toggled_on: bool) -> void:
 	Settings.자동진행 = toggled_on
-	윷던지기.disabled = toggled_on
+	$"오른쪽패널/윷던지기".disabled = toggled_on
 	if Settings.자동진행:
-		윷던지고말이동하기()
+		윷던지기()
 
 func _on_길보기_toggled(toggled_on: bool) -> void:
 	Settings.모든길보기 = toggled_on
@@ -179,4 +181,4 @@ func _on_말이동animation_player_animation_finished(anim_name: StringName) -> 
 		if 이동후다음차례준비하나:
 			다음편차례준비하기()
 		if Settings.자동진행:
-			윷던지고말이동하기.call_deferred()
+			윷던지기.call_deferred()
