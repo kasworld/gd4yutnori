@@ -131,6 +131,7 @@ func 말이동하기() -> void:
 	if 이동결과.잡힌말들.size() != 0 :
 		진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 이동결과.잡힌말들 ] + 진행사항.text
 	이동후다음차례준비하나 = (not 윷짝1.한번더던지나()) and 이동결과.잡힌말들.size() == 0
+	$"오른쪽패널/윷던지기".disabled = true
 	이동애니메니션하기(윷던진편,좌표들)
 
 func _on_윷던지기_pressed() -> void:
@@ -138,7 +139,7 @@ func _on_윷던지기_pressed() -> void:
 
 func _on_자동진행_toggled(toggled_on: bool) -> void:
 	Settings.자동진행 = toggled_on
-	$"오른쪽패널/윷던지기".disabled = toggled_on
+	#$"오른쪽패널/윷던지기".disabled = toggled_on
 	if Settings.자동진행:
 		윷던지기()
 
@@ -182,3 +183,5 @@ func _on_말이동animation_player_animation_finished(anim_name: StringName) -> 
 			다음편차례준비하기()
 		if Settings.자동진행:
 			윷던지기.call_deferred()
+		else:
+			$"오른쪽패널/윷던지기".disabled = false
