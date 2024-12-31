@@ -139,7 +139,6 @@ func _on_윷던지기_pressed() -> void:
 
 func _on_자동진행_toggled(toggled_on: bool) -> void:
 	Settings.자동진행 = toggled_on
-	#$"오른쪽패널/윷던지기".disabled = toggled_on
 	if Settings.자동진행:
 		윷던지기()
 
@@ -162,7 +161,6 @@ func _on_놀이재시작_pressed() -> void:
 	Settings.말빠르기 = $"왼쪽패널/HBoxContainer/HSlider".value
 	get_tree().reload_current_scene()
 
-var 이동후다음차례준비하나 :bool
 func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
 	$"말판/말이동AnimationPlayer".stop()
 	var 말이동 = $"말판/말이동AnimationPlayer".get_animation("말이동")
@@ -176,6 +174,7 @@ func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
 	$"말판/이동용말".visible = true
 	$"말판/말이동AnimationPlayer".play("말이동")
 
+var 이동후다음차례준비하나 :bool
 func _on_말이동animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "말이동":
 		$"말판/이동용말".visible = false
