@@ -77,7 +77,7 @@ class 이동결과틀:
 	var 난말들 :Array[말]
 	var 성공 :bool
 
-func 편순서말진행하기(이동거리 :int)->이동결과틀:
+func 쓸말고르기(이동거리 :int)->말:
 	var 섞은말 = 말들.duplicate()
 	섞은말.shuffle()
 	for m in 섞은말:
@@ -86,13 +86,23 @@ func 편순서말진행하기(이동거리 :int)->이동결과틀:
 		if m.놓을말인가():
 			if 이동거리 < 0:
 				continue
-			return 새로말달기(m, 이동거리)
+			return m
 		if 업힌말인가(m):
 			continue
-		return 판위의말이동하기(m, 이동거리)
-
+		return m
 	# 모두 났다.
-	return 이동결과틀.new()
+	return null
+
+func 말쓰기(이동거리 :int, m :말)->이동결과틀:
+	if m == null :
+		return 이동결과틀.new()
+	if m.난말인가():
+		return 이동결과틀.new()
+	if m.놓을말인가() and 이동거리 > 0:
+		return 새로말달기(m, 이동거리)
+	if 업힌말인가(m):
+		return 이동결과틀.new()
+	return 판위의말이동하기(m, 이동거리)
 
 func 새로말달기(m :말, 이동거리 :int)->이동결과틀:
 	var 결과 = 이동결과틀.new()
