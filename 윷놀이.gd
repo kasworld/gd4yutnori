@@ -85,16 +85,20 @@ var 난편들 :Array[편]
 func 다음편차례준비하기():
 	while true:
 		if 난편들.size() == Settings.편인자들.size(): # 모든 편이 다 났다.
+			놀이가끝났다()
 			return
 		이번윷던질편번호 +=1
 		이번윷던질편번호 %= 편들.size()
-		if 편들[이번윷던질편번호].난말수얻기() == Settings.편당말수:
+		if 편들[이번윷던질편번호].모든말이났나():
 			if 난편들.find(편들[이번윷던질편번호]) == -1:
 				난편들.append(편들[이번윷던질편번호])
 				편들[이번윷던질편번호].등수쓰기(난편들.size())
 			continue
 		차례준비하기(이번윷던질편번호)
 		break
+
+func 놀이가끝났다() -> void:
+	진행사항.text = "놀이가 끝났습니다.\n" + 진행사항.text
 
 func 차례준비하기(편번호 :int):
 	말이동길보이기(편들[편번호])
@@ -103,6 +107,7 @@ func 차례준비하기(편번호 :int):
 
 func 윷던지기() -> void:
 	if 난편들.size() == Settings.편인자들.size(): # 모든 편이 다 났다.
+		놀이가끝났다()
 		return
 	윷짝1.윷던지기()
 	var 윷던진편 = 편들[이번윷던질편번호]
@@ -115,9 +120,10 @@ func 말이동하기() -> void:
 	var 윷던진편 = 편들[이번윷던질편번호]
 	var m = 윷던진편.쓸말고르기(윷짝1.결과얻기())
 	var 이동결과 = 윷던진편.말쓰기(윷짝1.결과얻기(), m)
+	이동후다음차례준비하나 = (not 윷짝1.한번더던지나()) and 이동결과.잡힌말들.size() == 0
 	if not 이동결과.성공:
 		진행사항.text = "%d %s %s 이동할 말이 없습니다.\n" % [윷짝1.던진횟수얻기(), 윷던진편 , 윷짝1 ] + 진행사항.text
-		다음편차례준비하기()
+		이동애니메이션후처리하기()
 		return
 	var 좌표들 = 눈번호들을좌표로(이동결과.말이동과정눈번호)
 	if 이동결과.새로단말 != null:
@@ -130,7 +136,6 @@ func 말이동하기() -> void:
 		좌표들.push_back(윷던진편.길.나는길끝 )
 	if 이동결과.잡힌말들.size() != 0 :
 		진행사항.text = "    %s 을 잡아 한번더 던진다. \n" % [ 이동결과.잡힌말들 ] + 진행사항.text
-	이동후다음차례준비하나 = (not 윷짝1.한번더던지나()) and 이동결과.잡힌말들.size() == 0
 	$"오른쪽패널/윷던지기".disabled = true
 	이동애니메니션하기(윷던진편,좌표들)
 
@@ -175,12 +180,15 @@ func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
 	$"말판/말이동AnimationPlayer".play("말이동")
 
 var 이동후다음차례준비하나 :bool
+func 이동애니메이션후처리하기() -> void:
+	$"말판/이동용말".visible = false
+	if 이동후다음차례준비하나:
+		다음편차례준비하기()
+	if Settings.자동진행:
+		윷던지기.call_deferred()
+	else:
+		$"오른쪽패널/윷던지기".disabled = false
+
 func _on_말이동animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "말이동":
-		$"말판/이동용말".visible = false
-		if 이동후다음차례준비하나:
-			다음편차례준비하기()
-		if Settings.자동진행:
-			윷던지기.call_deferred()
-		else:
-			$"오른쪽패널/윷던지기".disabled = false
+		이동애니메이션후처리하기()

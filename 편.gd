@@ -23,11 +23,16 @@ var 인자 :인자틀
 var 눈들 :말눈들
 var 길 :말이동길
 var 말들 :Array[말]
+var 등수 :int
 func _to_string() -> String:
 	return "%s편" % [인자.이름]
 
 func 등수쓰기(n :int):
+	등수 = n
 	$HBoxContainer/Label.text = "%d등" % n
+
+func 등수얻기() -> int:
+	return 등수
 
 func init(편정보 :인자틀, 말수 :int, 크기:float, es :말눈들, 시작눈 :int, mirror :bool = false) -> void:
 	인자 = 편정보
@@ -60,6 +65,9 @@ func 난말로넣기(ms :Array[말]):
 
 func 난말수얻기() -> int:
 	return 난말통.get_child_count()
+
+func 모든말이났나() -> bool:
+	return 난말통.get_child_count() == 말들.size()
 
 # 이동 주체로 사용 불가
 func 업힌말인가(m :말)->bool:
