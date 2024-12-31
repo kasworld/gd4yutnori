@@ -44,11 +44,6 @@ func init() -> void:
 	if Settings.자동진행:
 		윷던지기()
 
-func _ready() -> void:
-	init()
-
-func _process(_delta: float) -> void:
-	scroll_bg()
 
 var bg_scroll_vt := Vector2.ZERO
 const scroll_wrap = Vector2(512,512)
@@ -79,6 +74,12 @@ func 말이동길모두보기() ->void:
 		var ra = deg_to_rad( deg_start + i*deg_inc)
 		t.길.position = PolygonNode.make_pos_by_rad_r(ra,r)
 		i+=1
+
+func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
+	var 좌표들 :Array[Vector2] = []
+	for i in 눈번호들:
+		좌표들.append($"말판/말눈들".눈들[i].position )
+	return 좌표들
 
 var 이번윷던질편번호 =0
 var 난편들 :Array[편]
@@ -139,33 +140,6 @@ func 말이동하기() -> void:
 	$"오른쪽패널/윷던지기".disabled = true
 	이동애니메니션하기(윷던진편,좌표들)
 
-func _on_윷던지기_pressed() -> void:
-	윷던지기()
-
-func _on_자동진행_toggled(toggled_on: bool) -> void:
-	Settings.자동진행 = toggled_on
-	if Settings.자동진행:
-		윷던지기()
-
-func _on_길보기_toggled(toggled_on: bool) -> void:
-	Settings.모든길보기 = toggled_on
-	말이동길보이기(편들[이번윷던질편번호])
-
-func _on_눈번호보기_toggled(toggled_on: bool) -> void:
-	Settings.눈번호보기 = toggled_on
-	$"말판/말눈들".눈번호보기(Settings.눈번호보기)
-
-func 눈번호들을좌표로(눈번호들 :Array[int])->Array[Vector2]:
-	var 좌표들 :Array[Vector2] = []
-	for i in 눈번호들:
-		좌표들.append($"말판/말눈들".눈들[i].position )
-	return 좌표들
-
-func _on_놀이재시작_pressed() -> void:
-	$"말판/말이동AnimationPlayer".stop()
-	Settings.말빠르기 = $"왼쪽패널/HBoxContainer/HSlider".value
-	get_tree().reload_current_scene()
-
 func 이동애니메니션하기(t :편, 이동좌표들 :Array[Vector2]):
 	$"말판/말이동AnimationPlayer".stop()
 	var 말이동 = $"말판/말이동AnimationPlayer".get_animation("말이동")
@@ -192,3 +166,30 @@ func 이동애니메이션후처리하기() -> void:
 func _on_말이동animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "말이동":
 		이동애니메이션후처리하기()
+
+func _on_윷던지기_pressed() -> void:
+	윷던지기()
+
+func _on_자동진행_toggled(toggled_on: bool) -> void:
+	Settings.자동진행 = toggled_on
+	if Settings.자동진행:
+		윷던지기()
+
+func _on_길보기_toggled(toggled_on: bool) -> void:
+	Settings.모든길보기 = toggled_on
+	말이동길보이기(편들[이번윷던질편번호])
+
+func _on_눈번호보기_toggled(toggled_on: bool) -> void:
+	Settings.눈번호보기 = toggled_on
+	$"말판/말눈들".눈번호보기(Settings.눈번호보기)
+
+func _on_놀이재시작_pressed() -> void:
+	$"말판/말이동AnimationPlayer".stop()
+	Settings.말빠르기 = $"왼쪽패널/HBoxContainer/HSlider".value
+	get_tree().reload_current_scene()
+
+func _ready() -> void:
+	init()
+
+func _process(_delta: float) -> void:
+	scroll_bg()
