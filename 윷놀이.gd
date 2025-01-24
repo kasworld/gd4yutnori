@@ -36,14 +36,12 @@ func init() -> void:
 				self.말이동길보이기(t)
 				)
 
-	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
 	$"왼쪽패널/길보기".button_pressed = Settings.모든길보기
 	$"왼쪽패널/눈번호보기".button_pressed = Settings.눈번호보기
 	$"왼쪽패널/HBoxContainer/HSlider".value = Settings.말빠르기
 	차례준비하기(0)
-	if Settings.자동진행:
-		윷던지기()
-
+	# _on_자동진행_toggled 가 불린다.
+	$"왼쪽패널/자동진행".button_pressed = Settings.자동진행
 
 var bg_scroll_vt := Vector2.ZERO
 const scroll_wrap = Vector2(512,512)
