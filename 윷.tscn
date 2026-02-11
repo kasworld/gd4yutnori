@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://iyiufihtt1ke"]
+[gd_scene format=3 uid="uid://iyiufihtt1ke"]
 
-[ext_resource type="Script" path="res://윷.gd" id="1_vbil8"]
+[ext_resource type="Script" uid="uid://vqp75j5tvgm3" path="res://윷.gd" id="1_vbil8"]
 [ext_resource type="Texture2D" uid="uid://b1xwmqabadudc" path="res://image/윷배면.png" id="2_nwg8k"]
 [ext_resource type="Texture2D" uid="uid://dmbe2f65ildp1" path="res://image/윷등면.png" id="3_lxkps"]
 
@@ -18,16 +18,16 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="윷" type="Control"]
+[node name="윷" type="Control" unique_id=213480986]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_vbil8")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1870743584]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1355m")
 animation = &"new_animation"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=245027578]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

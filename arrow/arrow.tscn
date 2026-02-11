@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://moaww8kftt47"]
+[gd_scene format=3 uid="uid://moaww8kftt47"]
 
-[ext_resource type="Script" path="res://arrow/arrow.gd" id="1_pcjik"]
+[ext_resource type="Script" uid="uid://dr3wdwhwen6n7" path="res://arrow/arrow.gd" id="1_pcjik"]
 
-[node name="Arrow" type="Node2D"]
+[node name="Arrow" type="Node2D" unique_id=1155357004]
 script = ExtResource("1_pcjik")
 
-[node name="CenterLine" type="Line2D" parent="."]
+[node name="CenterLine" type="Line2D" parent="." unique_id=1781012659]
 
-[node name="Wing1" type="Line2D" parent="."]
+[node name="Wing1" type="Line2D" parent="." unique_id=322043796]
 visible = false
 
-[node name="Wing2" type="Line2D" parent="."]
+[node name="Wing2" type="Line2D" parent="." unique_id=756582835]
 visible = false

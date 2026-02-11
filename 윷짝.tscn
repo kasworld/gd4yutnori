@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkvgmbeaudovv"]
+[gd_scene format=3 uid="uid://bkvgmbeaudovv"]
 
-[ext_resource type="Script" path="res://윷짝.gd" id="1_j08vt"]
+[ext_resource type="Script" uid="uid://dlg535bnbk3wg" path="res://윷짝.gd" id="1_j08vt"]
 
-[node name="윷짝" type="PanelContainer"]
+[node name="윷짝" type="PanelContainer" unique_id=610196802]
 script = ExtResource("1_j08vt")
 
-[node name="윷통" type="GridContainer" parent="."]
+[node name="윷통" type="GridContainer" parent="." unique_id=565376552]
 layout_mode = 2
 columns = 5

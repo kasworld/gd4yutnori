@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://fjwbrd2wj0kq"]
+[gd_scene format=3 uid="uid://fjwbrd2wj0kq"]
 
-[ext_resource type="Script" path="res://말이동길.gd" id="1_n3ypu"]
+[ext_resource type="Script" uid="uid://blesfg2qoxh2f" path="res://말이동길.gd" id="1_n3ypu"]
 
-[node name="말이동길" type="Node2D"]
+[node name="말이동길" type="Node2D" unique_id=977696032]
 script = ExtResource("1_n3ypu")
 
-[node name="화살표통" type="Node2D" parent="."]
+[node name="화살표통" type="Node2D" parent="." unique_id=174691761]

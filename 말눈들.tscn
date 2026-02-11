@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlbiocll5ans6"]
+[gd_scene format=3 uid="uid://dlbiocll5ans6"]
 
-[ext_resource type="Script" path="res://말눈들.gd" id="1_m2ey8"]
+[ext_resource type="Script" uid="uid://bmyrrijvj03ov" path="res://말눈들.gd" id="1_m2ey8"]
 
-[node name="말눈들" type="Node2D"]
+[node name="말눈들" type="Node2D" unique_id=1645011097]
 script = ExtResource("1_m2ey8")

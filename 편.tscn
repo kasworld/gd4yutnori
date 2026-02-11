@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://demui2phc3ik1"]
+[gd_scene format=3 uid="uid://demui2phc3ik1"]
 
-[ext_resource type="Script" path="res://편.gd" id="1_5j0h1"]
+[ext_resource type="Script" uid="uid://dxgx7yxij1eer" path="res://편.gd" id="1_5j0h1"]
 
 [sub_resource type="Theme" id="Theme_msews"]
 default_font_size = 24
@@ -8,26 +8,26 @@ default_font_size = 24
 [sub_resource type="LabelSettings" id="LabelSettings_ialxp"]
 font_size = 24
 
-[node name="편" type="PanelContainer"]
+[node name="편" type="PanelContainer" unique_id=148638054]
 offset_right = 16.0
 offset_bottom = 8.0
 script = ExtResource("1_5j0h1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1239018084]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer" unique_id=1531454756]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=359813753]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_msews")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer" unique_id=1663852480]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=256173590]
 layout_mode = 2
 text = "?등"
 label_settings = SubResource("LabelSettings_ialxp")

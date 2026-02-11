@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://badvyttjvm46q"]
+[gd_scene format=3 uid="uid://badvyttjvm46q"]
 
-[ext_resource type="Script" path="res://윷놀이.gd" id="1_4ga8h"]
+[ext_resource type="Script" uid="uid://dcjqebq45t33x" path="res://윷놀이.gd" id="1_4ga8h"]
 [ext_resource type="Texture2D" uid="uid://7i7hfof4q6w7" path="res://image/bg.png" id="2_kpgi6"]
 [ext_resource type="PackedScene" uid="uid://bkvgmbeaudovv" path="res://윷짝.tscn" id="2_lq234"]
 [ext_resource type="PackedScene" uid="uid://dlbiocll5ans6" path="res://말눈들.tscn" id="3_of73k"]
@@ -38,8 +38,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5p2q7"]
 _data = {
-"RESET": SubResource("Animation_xp0rs"),
-"rotate": SubResource("Animation_141jw")
+&"RESET": SubResource("Animation_xp0rs"),
+&"rotate": SubResource("Animation_141jw")
 }
 
 [sub_resource type="Animation" id="Animation_fu0i4"]
@@ -74,8 +74,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gpajh"]
 _data = {
-"RESET": SubResource("Animation_fu0i4"),
-"말이동": SubResource("Animation_4pe0f")
+&"RESET": SubResource("Animation_fu0i4"),
+&"말이동": SubResource("Animation_4pe0f")
 }
 
 [sub_resource type="Theme" id="Theme_6e71o"]
@@ -105,59 +105,55 @@ font_size = 24
 [sub_resource type="Theme" id="Theme_y2end"]
 default_font_size = 50
 
-[node name="윷놀이" type="Node2D"]
+[node name="윷놀이" type="Node2D" unique_id=647517754]
 script = ExtResource("1_4ga8h")
 
-[node name="시작AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="시작AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1680693782]
 root_node = NodePath("../말판")
-libraries = {
-"": SubResource("AnimationLibrary_5p2q7")
-}
-autoplay = "rotate"
+libraries/ = SubResource("AnimationLibrary_5p2q7")
+autoplay = &"rotate"
 
-[node name="배경" type="TextureRect" parent="."]
+[node name="배경" type="TextureRect" parent="." unique_id=528210535]
 modulate = Color(0.385001, 0.526014, 0.281826, 1)
 offset_right = 512.0
 offset_bottom = 512.0
 texture = ExtResource("2_kpgi6")
 stretch_mode = 1
 
-[node name="말판" type="Node2D" parent="."]
+[node name="말판" type="Node2D" parent="." unique_id=1755503747]
 rotation = 0.392699
 scale = Vector2(0.01, 0.01)
 
-[node name="말눈들" parent="말판" instance=ExtResource("3_of73k")]
+[node name="말눈들" parent="말판" unique_id=1491650595 instance=ExtResource("3_of73k")]
 z_index = 2
 
-[node name="말이동AnimationPlayer" type="AnimationPlayer" parent="말판"]
-libraries = {
-"": SubResource("AnimationLibrary_gpajh")
-}
+[node name="말이동AnimationPlayer" type="AnimationPlayer" parent="말판" unique_id=653890736]
+libraries/ = SubResource("AnimationLibrary_gpajh")
 playback_auto_capture = false
 
-[node name="이동용말" parent="말판" instance=ExtResource("4_sy70a")]
+[node name="이동용말" parent="말판" unique_id=1221842597 instance=ExtResource("4_sy70a")]
 visible = false
 
-[node name="왼쪽패널" type="VBoxContainer" parent="."]
+[node name="왼쪽패널" type="VBoxContainer" parent="." unique_id=1595120404]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="자동진행" type="CheckButton" parent="왼쪽패널"]
+[node name="자동진행" type="CheckButton" parent="왼쪽패널" unique_id=660724991]
 layout_mode = 2
 theme = SubResource("Theme_6e71o")
 text = "자동진행하기"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="왼쪽패널"]
+[node name="HBoxContainer" type="HBoxContainer" parent="왼쪽패널" unique_id=1575597054]
 layout_mode = 2
 theme = SubResource("Theme_xyhcb")
 
-[node name="Label" type="Label" parent="왼쪽패널/HBoxContainer"]
+[node name="Label" type="Label" parent="왼쪽패널/HBoxContainer" unique_id=728660814]
 layout_mode = 2
 text = "말속도 "
 
-[node name="HSlider" type="HSlider" parent="왼쪽패널/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="왼쪽패널/HBoxContainer" unique_id=725779034]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -167,42 +163,42 @@ step = 0.1
 value = 0.6
 ticks_on_borders = true
 
-[node name="길보기" type="CheckButton" parent="왼쪽패널"]
+[node name="길보기" type="CheckButton" parent="왼쪽패널" unique_id=1481671457]
 layout_mode = 2
 theme = SubResource("Theme_jwqqu")
 text = "모든길보기"
 
-[node name="눈번호보기" type="CheckButton" parent="왼쪽패널"]
+[node name="눈번호보기" type="CheckButton" parent="왼쪽패널" unique_id=1473791200]
 layout_mode = 2
 theme = SubResource("Theme_1556g")
 text = "눈번호보기"
 
-[node name="놀이재시작" type="Button" parent="왼쪽패널"]
+[node name="놀이재시작" type="Button" parent="왼쪽패널" unique_id=825666845]
 layout_mode = 2
 theme = SubResource("Theme_upo72")
 text = "놀이재시작"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="왼쪽패널"]
+[node name="ScrollContainer" type="ScrollContainer" parent="왼쪽패널" unique_id=18511152]
 modulate = Color(1, 1, 1, 0.709804)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_8horw")
 follow_focus = true
 
-[node name="진행사항" type="Label" parent="왼쪽패널/ScrollContainer"]
+[node name="진행사항" type="Label" parent="왼쪽패널/ScrollContainer" unique_id=2356561]
 layout_mode = 2
 
-[node name="오른쪽패널" type="VBoxContainer" parent="."]
+[node name="오른쪽패널" type="VBoxContainer" parent="." unique_id=409107827]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="편들상태" type="VBoxContainer" parent="오른쪽패널"]
+[node name="편들상태" type="VBoxContainer" parent="오른쪽패널" unique_id=117443437]
 layout_mode = 2
 
-[node name="제목" type="HBoxContainer" parent="오른쪽패널/편들상태"]
+[node name="제목" type="HBoxContainer" parent="오른쪽패널/편들상태" unique_id=529515702]
 layout_mode = 2
 
-[node name="달말들" type="Label" parent="오른쪽패널/편들상태/제목"]
+[node name="달말들" type="Label" parent="오른쪽패널/편들상태/제목" unique_id=2066014181]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "달말들"
@@ -210,7 +206,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="길보기단추" type="Label" parent="오른쪽패널/편들상태/제목"]
+[node name="길보기단추" type="Label" parent="오른쪽패널/편들상태/제목" unique_id=1132195821]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "길보기"
@@ -218,7 +214,7 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="난말들" type="Label" parent="오른쪽패널/편들상태/제목"]
+[node name="난말들" type="Label" parent="오른쪽패널/편들상태/제목" unique_id=1939084964]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "난말들"
@@ -226,18 +222,18 @@ label_settings = SubResource("LabelSettings_gvy41")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="등수" type="Label" parent="오른쪽패널/편들상태/제목"]
+[node name="등수" type="Label" parent="오른쪽패널/편들상태/제목" unique_id=281716150]
 layout_mode = 2
 text = "등수"
 label_settings = SubResource("LabelSettings_f60j2")
 
-[node name="내용" type="VBoxContainer" parent="오른쪽패널/편들상태"]
+[node name="내용" type="VBoxContainer" parent="오른쪽패널/편들상태" unique_id=898735594]
 layout_mode = 2
 
-[node name="윷짝" parent="오른쪽패널" instance=ExtResource("2_lq234")]
+[node name="윷짝" parent="오른쪽패널" unique_id=1239342048 instance=ExtResource("2_lq234")]
 layout_mode = 2
 
-[node name="윷던지기" type="Button" parent="오른쪽패널"]
+[node name="윷던지기" type="Button" parent="오른쪽패널" unique_id=538337425]
 layout_mode = 2
 theme = SubResource("Theme_y2end")
 text = "윷던지기"

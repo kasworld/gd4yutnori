@@ -1,19 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5pheg86xy3d8"]
+[gd_scene format=3 uid="uid://c5pheg86xy3d8"]
 
-[ext_resource type="Script" path="res://눈.gd" id="1_ayhlg"]
+[ext_resource type="Script" uid="uid://qrski7jiok16" path="res://눈.gd" id="1_ayhlg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yt13m"]
 font_size = 24
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="눈" type="Control"]
+[node name="눈" type="Control" unique_id=490537590]
 z_index = -1
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ayhlg")
 
-[node name="말들" type="HBoxContainer" parent="."]
+[node name="말들" type="HBoxContainer" parent="." unique_id=417952387]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -24,12 +24,12 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="눈번호" type="Label" parent="."]
+[node name="눈번호" type="Label" parent="." unique_id=1922690615]
 visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_yt13m")
 
-[node name="원" type="Polygon2D" parent="."]
+[node name="원" type="Polygon2D" parent="." unique_id=42179662]
 z_index = -1
